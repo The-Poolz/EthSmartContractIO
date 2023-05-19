@@ -9,14 +9,12 @@ namespace RPC.Core.Services;
 public class WriteService
 {
     private readonly ContractManager contractManager;
-    private readonly TransactionCreatorManager transactionCreatorManager;
     private readonly TransactionManager transactionManager;
 
     public WriteService(Web3 web3, string contractABI, string contractAddress)
     {
-        this.contractManager = new ContractManager(web3, contractABI, contractAddress);
-        this.transactionCreatorManager = new TransactionCreatorManager();
-        this.transactionManager = new TransactionManager(web3);
+        contractManager = new ContractManager(web3, contractABI, contractAddress);
+        transactionManager = new TransactionManager(web3);
     }
 
     public string WriteToNetwork(
@@ -30,7 +28,7 @@ public class WriteService
     )
     {
         var function = contractManager.GetMethod(methodName);
-        var transaction = transactionCreatorManager.CreateTransactionInput(chainId, accountAddress, contractAddress, gasLimit, gasPriceGwei, function, functionInput);
+        var transaction = TransactionCreatorManager.CreateTransactionInput(chainId, accountAddress, contractAddress, gasLimit, gasPriceGwei, function, functionInput);
         var signedTransaction = transactionManager.SignTransaction(transaction);
         return transactionManager.SendTransaction(signedTransaction);
     }

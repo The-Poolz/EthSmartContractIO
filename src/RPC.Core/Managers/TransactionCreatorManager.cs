@@ -4,9 +4,9 @@ using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Managers;
 
-public class TransactionCreatorManager
+public static class TransactionCreatorManager
 {
-    public virtual TransactionInput CreateTransactionInput(
+    public static TransactionInput CreateTransactionInput(
         HexBigInteger chainId,
         string accountAddress,
         string contractAddress,
@@ -17,6 +17,7 @@ public class TransactionCreatorManager
     )
     {
         var transaction = function.CreateTransactionInput(accountAddress, functionInput);
+
         transaction.GasPrice = gasPriceGwei;
         transaction.Gas = gasLimit;
         transaction.ChainId = chainId;

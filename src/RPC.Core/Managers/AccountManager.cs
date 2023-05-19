@@ -14,5 +14,6 @@ public class AccountManager
         wallet = WalletManager.GetWallet(secretManager);
     }
 
-    public Account GetAccount(int id, HexBigInteger chainId) => wallet.GetAccount(id, chainId);
+    public Account GetAccount(int id, HexBigInteger chainId) =>
+        wallet.GetAccount(id, chainId);
 }
