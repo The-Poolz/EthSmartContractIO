@@ -4,12 +4,12 @@ using Nethereum.Web3;
 using Newtonsoft.Json.Linq;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
+using Nethereum.JsonRpc.Client;
 
 namespace RPC.Core;
 
 public class RPCToolkit
 {
-    private readonly Web3 web3;
     private readonly string rpcConnection;
     private readonly HexBigInteger chainId;
 
@@ -17,8 +17,6 @@ public class RPCToolkit
     {
         this.rpcConnection = rpcConnection;
         this.chainId = chainId;
-
-        web3 = new Web3(rpcConnection);
     }
 
     public string WriteToNetwork(
@@ -31,6 +29,9 @@ public class RPCToolkit
         params object[] functionInput
     )
     {
+        var client = new RpcClient(new Uri(rpcConnection));
+        var web3 = new Web3(account, client);
+
         var contract = web3.Eth.GetContract(contractABI, contractAddress);
         var method = contract.GetFunction(methodName);
 
@@ -40,7 +41,7 @@ public class RPCToolkit
         transaction.ChainId = chainId;
         transaction.To = contractAddress;
 
-        var signedTransaction = account.TransactionManager.SignTransactionAsync(transaction)
+        var signedTransaction = web3.TransactionManager.Account.TransactionManager.SignTransactionAsync(transaction)
             .GetAwaiter()
             .GetResult();
 
@@ -51,9 +52,9 @@ public class RPCToolkit
         return transactionHash;
     }
 
-    public JToken ReadFromNetwork(string json)
+    public JToken ReadFromNetwork(JToken json)
     {
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
 
         var response = rpcConnection.PostAsync(content)
             .GetAwaiter()
