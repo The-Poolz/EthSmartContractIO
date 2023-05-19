@@ -1,15 +1,15 @@
 ﻿using Flurl.Http;
+using System.Text;
 using Nethereum.Web3;
 using Newtonsoft.Json.Linq;
-using System.Text;
-using Nethereum.Web3.Accounts;
-using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
+using Nethereum.Web3.Accounts;
 
 namespace RPC.Core;
 
 public class RPCToolkit
 {
+    private readonly Web3 web3;
     private readonly string rpcConnection;
     private readonly HexBigInteger chainId;
 
@@ -17,6 +17,8 @@ public class RPCToolkit
     {
         this.rpcConnection = rpcConnection;
         this.chainId = chainId;
+
+        web3 = new Web3(rpcConnection);
     }
 
     public string WriteToNetwork(
@@ -29,23 +31,16 @@ public class RPCToolkit
         params object[] functionInput
     )
     {
-        var web3 = new Web3(rpcConnection);
-
         var contract = web3.Eth.GetContract(contractABI, contractAddress);
         var method = contract.GetFunction(methodName);
-        var txInput = method.CreateTransactionInput(account.Address, functionInput);
 
-        var transactionInput = new TransactionInput()
-        {
-            To = contractAddress,
-            Data = txInput.Data,
-            GasPrice = gasPriceGwei,
-            Gas = gasLimit,
-            ChainId = chainId
-        };
+        var transaction = method.CreateTransactionInput(account.Address, functionInput);
+        transaction.GasPrice = gasPriceGwei;
+        transaction.Gas = gasLimit;
+        transaction.ChainId = chainId;
+        transaction.To = contractAddress;
 
-
-        var signedTransaction = account.TransactionManager.SignTransactionAsync(transactionInput)
+        var signedTransaction = account.TransactionManager.SignTransactionAsync(transaction)
             .GetAwaiter()
             .GetResult();
 
