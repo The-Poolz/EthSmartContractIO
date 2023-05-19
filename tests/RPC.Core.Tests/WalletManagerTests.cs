@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using RPC.Core.Managers;
-using RPC.Core.Tests.Data;
+using RPC.Core.Tests.Mocks;
 
 namespace RPC.Core.Tests;
 

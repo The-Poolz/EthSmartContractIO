@@ -1,6 +1,6 @@
 ﻿using Nethereum.Hex.HexTypes;
 using RPC.Core.Managers;
-using RPC.Core.Tests.Data;
+using RPC.Core.Tests.Mocks;
 using Xunit;
 
 namespace RPC.Core.Tests;

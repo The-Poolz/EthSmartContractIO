@@ -1,7 +1,7 @@
 ﻿using Moq;
 using SecretsManager;
 
-namespace RPC.Core.Tests.Data;
+namespace RPC.Core.Tests.Mocks;
 
 internal static class MockSecretManager
 {

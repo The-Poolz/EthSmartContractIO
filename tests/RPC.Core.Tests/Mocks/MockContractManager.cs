@@ -1,7 +1,7 @@
 ﻿using Nethereum.Web3;
 using RPC.Core.Managers;
 
-namespace RPC.Core.Tests.Data;
+namespace RPC.Core.Tests.Mocks;
 
 internal class MockContractManager
 {
