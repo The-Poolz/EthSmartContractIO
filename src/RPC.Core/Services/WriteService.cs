@@ -11,7 +11,7 @@ public class WriteService
     private readonly ContractManager contractManager;
     private readonly TransactionManager transactionManager;
 
-    public WriteService(Web3 web3, string contractABI, string contractAddress)
+    public WriteService(IWeb3 web3, string contractABI, string contractAddress)
     {
         contractManager = new ContractManager(web3, contractABI, contractAddress);
         transactionManager = new TransactionManager(web3);
@@ -33,7 +33,7 @@ public class WriteService
         return transactionManager.SendTransaction(signedTransaction);
     }
 
-    public static Web3 CreateWeb3(string rpcConnection, Account account)
+    public static IWeb3 CreateWeb3(string rpcConnection, Account account)
     {
         var client = new RpcClient(new Uri(rpcConnection));
         return new Web3(account, client);

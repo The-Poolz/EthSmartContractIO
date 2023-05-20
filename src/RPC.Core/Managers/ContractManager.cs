@@ -5,10 +5,10 @@ namespace RPC.Core.Managers;
 
 public class ContractManager
 {
-    private readonly Web3 web3;
+    private readonly IWeb3 web3;
     public Contract Contract { get; private set; }
 
-    public ContractManager(Web3 web3, string contractABI, string contractAddress)
+    public ContractManager(IWeb3 web3, string contractABI, string contractAddress)
     {
         this.web3 = web3;
         Contract = GetContract(contractABI, contractAddress);

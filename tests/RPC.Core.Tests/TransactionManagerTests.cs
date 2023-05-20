@@ -4,9 +4,9 @@ using Nethereum.Web3;
 using RPC.Core.Managers;
 using RPC.Core.Tests.Mocks;
 using Nethereum.RPC.Eth.DTOs;
-using Nethereum.RPC.Eth.Services;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
+using Nethereum.RPC.Eth.Services;
 
 namespace RPC.Core.Tests;
 
@@ -47,7 +47,7 @@ public class TransactionManagerTests
     }
 
     [Fact]
-    internal void SignTransaction()
+    internal void SignTransaction_ExpectedTransaction()
     {
         var manager = new TransactionManager(web3);
 
