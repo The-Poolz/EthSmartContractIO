@@ -1,9 +1,8 @@
 ﻿using Xunit;
-using RPC.Core.Services;
 using RPC.Core.Tests.Mocks;
 using Nethereum.Web3.Accounts;
 
-namespace RPC.Core.Tests.Services;
+namespace RPC.Core.Services.Tests;
 
 public class WriteServiceTests
 {

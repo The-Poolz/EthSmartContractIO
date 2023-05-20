@@ -1,8 +1,7 @@
 ﻿using Xunit;
-using RPC.Core.Managers;
 using RPC.Core.Tests.Mocks;
 
-namespace RPC.Core.Tests;
+namespace RPC.Core.Managers.Tests;
 
 public class WalletManagerTests
 {

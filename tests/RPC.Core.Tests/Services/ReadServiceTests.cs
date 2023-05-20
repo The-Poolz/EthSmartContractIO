@@ -1,9 +1,8 @@
 ﻿using Xunit;
-using RPC.Core.Services;
 using Flurl.Http.Testing;
 using Newtonsoft.Json.Linq;
 
-namespace RPC.Core.Tests.Services;
+namespace RPC.Core.Services.Tests;
 
 public class ReadServiceTests
 {

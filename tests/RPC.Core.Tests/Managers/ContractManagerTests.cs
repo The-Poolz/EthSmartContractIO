@@ -1,12 +1,12 @@
 ﻿using Xunit;
 using RPC.Core.Tests.Mocks;
 
-namespace RPC.Core.Tests;
+namespace RPC.Core.Managers.Tests;
 
 public class ContractManagerTests
 {
     [Fact]
-    public void GetContract_ExpectedContract()
+    internal void GetContract_ExpectedContract()
     {
         var contract = MockContractManager.ContractManager.Contract;
 
@@ -15,7 +15,7 @@ public class ContractManagerTests
     }
 
     [Fact]
-    public void GetMethod_ExpectedMethod()
+    internal void GetMethod_ExpectedMethod()
     {
         var method = MockContractManager.ContractManager.GetMethod("ActivatePool");
 
@@ -24,7 +24,7 @@ public class ContractManagerTests
     }
 
     [Fact]
-    public void GetMethod_MethodNotFound_ThrowException()
+    internal void GetMethod_MethodNotFound_ThrowException()
     {
         Action testcode = () => MockContractManager.ContractManager.GetMethod("InvalidMethodName");
 

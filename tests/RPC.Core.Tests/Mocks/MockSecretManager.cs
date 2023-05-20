@@ -5,7 +5,7 @@ namespace RPC.Core.Tests.Mocks;
 
 internal static class MockSecretManager
 {
-    public static string[] MnemonicWords =>
+    internal static string[] MnemonicWords =>
         new string[]
         {
             "vibrant",
@@ -22,7 +22,7 @@ internal static class MockSecretManager
             "curious"
         };
 
-    public static SecretManager GetMock
+    internal static SecretManager GetMock
     {
         get
         {

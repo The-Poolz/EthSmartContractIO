@@ -1,10 +1,7 @@
 ﻿using Xunit;
-using RPC.Core.Managers;
-using Nethereum.Contracts;
 using RPC.Core.Tests.Mocks;
-using Nethereum.Hex.HexTypes;
 
-namespace RPC.Core.Tests;
+namespace RPC.Core.Managers.Tests;
 
 public class TransactionCreatorManagerTests
 {

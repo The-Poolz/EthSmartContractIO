@@ -1,9 +1,8 @@
-﻿using Nethereum.Hex.HexTypes;
-using RPC.Core.Managers;
+﻿using Xunit;
 using RPC.Core.Tests.Mocks;
-using Xunit;
+using Nethereum.Hex.HexTypes;
 
-namespace RPC.Core.Tests;
+namespace RPC.Core.Managers.Tests;
 
 public class AccountManagerTests
 {
