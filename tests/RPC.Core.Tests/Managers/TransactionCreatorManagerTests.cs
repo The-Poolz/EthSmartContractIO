@@ -12,6 +12,7 @@ public class TransactionCreatorManagerTests
             MockTransactionInput.MockTx.ChainId,
             MockTransactionInput.MockTx.From,
             MockContractManager.ContractAddress,
+            MockTransactionInput.MockTx.Value,
             MockTransactionInput.MockTx.Gas,
             MockTransactionInput.MockTx.GasPrice,
             MockContractManager.ContractManager.GetMethod("SignUp"),

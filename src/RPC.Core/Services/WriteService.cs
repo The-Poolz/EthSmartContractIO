@@ -21,6 +21,7 @@ public class WriteService
         HexBigInteger chainId,
         string accountAddress,
         string contractAddress,
+        HexBigInteger value,
         HexBigInteger gasLimit,
         HexBigInteger gasPriceGwei,
         string methodName,
@@ -28,7 +29,7 @@ public class WriteService
     )
     {
         var function = contractManager.GetMethod(methodName);
-        var transaction = TransactionCreatorManager.CreateTransactionInput(chainId, accountAddress, contractAddress, gasLimit, gasPriceGwei, function, functionInput);
+        var transaction = TransactionCreatorManager.CreateTransactionInput(chainId, accountAddress, contractAddress, value, gasLimit, gasPriceGwei, function, functionInput);
         var signedTransaction = transactionManager.SignTransaction(transaction);
         return transactionManager.SendTransaction(signedTransaction);
     }

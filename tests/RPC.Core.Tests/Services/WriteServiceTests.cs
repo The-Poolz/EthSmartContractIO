@@ -26,6 +26,7 @@ public class WriteServiceTests
             MockTransactionInput.MockTx.ChainId,
             MockTransactionInput.MockTx.From,
             MockContractManager.ContractAddress,
+            MockTransactionInput.MockTx.Value,
             MockTransactionInput.MockTx.Gas,
             MockTransactionInput.MockTx.GasPrice,
             "SignUp",

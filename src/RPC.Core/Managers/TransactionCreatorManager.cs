@@ -10,6 +10,7 @@ public static class TransactionCreatorManager
         HexBigInteger chainId,
         string accountAddress,
         string contractAddress,
+        HexBigInteger Value,
         HexBigInteger gasLimit,
         HexBigInteger gasPriceGwei,
         Function function,
@@ -22,6 +23,7 @@ public static class TransactionCreatorManager
         transaction.Gas = gasLimit;
         transaction.ChainId = chainId;
         transaction.To = contractAddress;
+        transaction.Value = Value;
 
         return transaction;
     }
