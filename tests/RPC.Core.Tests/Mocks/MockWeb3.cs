@@ -30,8 +30,6 @@ internal static class MockWeb3
             var web3Mock = new Mock<IWeb3>(MockBehavior.Loose);
             web3Mock.SetupGet(w => w.TransactionManager.Account.TransactionManager).Returns(transactionManagerMock.Object);
             web3Mock.SetupGet(w => w.Eth.Transactions).Returns(ethApiTransactionsServiceMock.Object);
-            web3Mock.Setup(x => x.Eth.GetContract(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(MockContractManager.ContractManager.Contract);
             web3Mock.Setup(x => x.Eth.GasPrice.SendRequestAsync(null))
                 .ReturnsAsync(new HexBigInteger(5000000000));
             web3Mock.Setup(x => x.Eth.TransactionManager.EstimateGasAsync(It.IsAny<TransactionInput>()))
