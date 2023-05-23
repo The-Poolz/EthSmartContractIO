@@ -17,6 +17,6 @@ internal static class MockTransactionInput
         Nonce = null,
         To = MockContractManager.ContractAddress,
         Type = null,
-        Value = null
+        Value = new HexBigInteger(10000000000000000)
     };
 }

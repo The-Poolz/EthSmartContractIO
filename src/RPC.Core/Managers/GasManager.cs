@@ -6,8 +6,8 @@ namespace RPC.Core.Managers;
 
 public class GasManager
 {
-    private const int GasBufferFactor = 10;
     private readonly IWeb3 web3;
+    public const int GasBufferFactor = 10;
 
     public GasManager(IWeb3 web3)
     {
