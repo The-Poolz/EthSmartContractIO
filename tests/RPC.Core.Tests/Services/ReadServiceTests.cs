@@ -10,18 +10,10 @@ public class ReadServiceTests
     internal void ReadFromNetwork_ExpectedJson()
     {
         var rpcConnection = "http://localhost:8545/";
-        var request = new JObject()
-        {
-            { "jsonrpc", "2.0" },
-            { "method", "eth_blockNumber" },
-            { "params", new JArray() },
-            { "id", 0 }
-        };
         var response = new JObject()
         {
             { "jsonrpc", "2.0" },
-            { "method", "eth_blockNumber" },
-            { "result", "0x1c93124" },
+            { "result", "0x000000000000000000000000000000000000000000000000002386f26fc10000" },
             { "id", 0 }
         };
         var httpTest = new HttpTest();
@@ -29,7 +21,7 @@ public class ReadServiceTests
             .ForCallsTo(rpcConnection)
             .RespondWithJson(response);
 
-        var result = new ReadService(rpcConnection).ReadFromNetwork(request);
+        var result = new ReadService(rpcConnection).ReadFromNetwork("0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
 
         Assert.NotNull(result);
         Assert.Equal(response, result);
