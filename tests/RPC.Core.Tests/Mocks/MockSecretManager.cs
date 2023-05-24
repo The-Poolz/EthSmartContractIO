@@ -27,7 +27,7 @@ internal static class MockSecretManager
         get
         {
             var secretManager = new Mock<SecretManager>();
-            secretManager.Setup(x => x.GetSecretValue("Mnemonic", "string"))
+            secretManager.Setup(x => x.GetSecretValue("Mnemonic", "words"))
                 .Returns(string.Join(' ', MnemonicWords));
 
             return secretManager.Object;
