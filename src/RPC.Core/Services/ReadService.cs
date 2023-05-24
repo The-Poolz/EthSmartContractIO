@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using RPC.Core.Models;
 using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.Services;
@@ -12,9 +13,9 @@ public class ReadService
         this.rpcConnection = rpcConnection;
     }
 
-    public JToken ReadFromNetwork(JToken json)
+    public JToken ReadFromNetwork(string to, string data)
     {
-        var response = rpcConnection.PostJsonAsync(json)
+        var response = rpcConnection.PostJsonAsync(new JsonRpcRequest(to, data))
             .GetAwaiter()
             .GetResult();
 
