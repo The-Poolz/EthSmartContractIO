@@ -20,6 +20,7 @@ public class JsonRpcRequest
         };
         Id = 0;
     }
+
     [JsonProperty("jsonrpc")]
     public string JsonRpc { get; set; }
 
