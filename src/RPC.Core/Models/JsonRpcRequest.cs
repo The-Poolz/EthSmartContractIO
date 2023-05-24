@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.Models;
 
@@ -19,8 +20,15 @@ public class JsonRpcRequest
         };
         Id = 0;
     }
+    [JsonProperty("jsonrpc")]
     public string JsonRpc { get; set; }
+
+    [JsonProperty("method")]
     public string Method { get; set; }
+
+    [JsonProperty("params")]
     public JArray Params { get; set; }
+
+    [JsonProperty("id")]
     public int Id { get; set; }
 }
