@@ -13,9 +13,9 @@ public class ReadService
         this.rpcConnection = rpcConnection;
     }
 
-    public JToken ReadFromNetwork(string to, string data)
+    public JToken ReadFromNetwork(JsonRpcRequest request)
     {
-        var response = rpcConnection.PostJsonAsync(new JsonRpcRequest(to, data))
+        var response = rpcConnection.PostJsonAsync(request)
             .GetAwaiter()
             .GetResult();
 
