@@ -1,9 +1,9 @@
 ﻿using Nethereum.Web3;
 using RPC.Core.Managers;
+using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
-using RPC.Core.Transaction;
 
 namespace RPC.Core.Services;
 
