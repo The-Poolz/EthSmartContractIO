@@ -3,18 +3,21 @@ using RPC.Core.Managers;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
+using RPC.Core.Transaction;
 
 namespace RPC.Core.Services;
 
 public class WriteService
 {
     private readonly GasManager gasManager;
-    private readonly TransactionManager transactionManager;
+    private readonly TransactionSigner transactionSigner;
+    private readonly TransactionSender transactionSender;
 
     public WriteService(IWeb3 web3)
     {
-        gasManager = new GasManager(web3);
-        transactionManager = new TransactionManager(web3);
+        gasManager = new(web3);
+        transactionSigner = new(web3);
+        transactionSender = new(web3);
     }
 
     public string WriteToNetwork(TransactionInput transactionInput)
@@ -22,8 +25,8 @@ public class WriteService
         var transaction = gasManager.EstimateGas(transactionInput);
         transaction.GasPrice = gasManager.GetCurrentWeiGasPrice();
 
-        var signedTransaction = transactionManager.SignTransaction(transaction);
-        return transactionManager.SendTransaction(signedTransaction);
+        var signedTransaction = transactionSigner.SignTransaction(transaction);
+        return transactionSender.SendTransaction(signedTransaction);
     }
 
     public static IWeb3 CreateWeb3(string rpcConnection, Account account)
