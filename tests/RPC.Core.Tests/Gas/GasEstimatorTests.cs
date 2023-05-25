@@ -1,20 +1,20 @@
 ﻿using Xunit;
 using RPC.Core.Tests.Mocks;
-using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.JsonRpc.Client;
 
-namespace RPC.Core.Managers.Tests;
+namespace RPC.Core.Gas.Tests;
 
-public class GasManagerTests
+public class GasEstimatorTests
 {
-    private readonly GasManager gasManager = new(MockWeb3.GetMock);
+    private readonly GasEstimator gasEstimator = new(MockWeb3.GetMock);
 
     [Fact]
     internal void EstimateGas_WithoutGasInTx_ExpectedGas()
     {
         var estimatedGas = new HexBigInteger(27109);
-        var bufferOfGasLimit = new HexBigInteger(estimatedGas.Value / GasManager.GasBufferFactor);
+        var bufferOfGasLimit = new HexBigInteger(estimatedGas.Value / GasEstimator.GasBufferFactor);
         var expectedGas = new HexBigInteger(estimatedGas.Value + bufferOfGasLimit.Value);
         var transaction = new TransactionInput()
         {
@@ -24,7 +24,7 @@ public class GasManagerTests
             Data = MockTransactionInput.MockTx.Data,
         };
 
-        var updatedTransaction = gasManager.EstimateGas(transaction);
+        var updatedTransaction = gasEstimator.EstimateGas(transaction);
 
         Assert.Equal(expectedGas, updatedTransaction.Gas);
     }
@@ -41,17 +41,26 @@ public class GasManagerTests
             Gas = new HexBigInteger(21000)
         };
 
-        Action testCode = () => gasManager.EstimateGas(transaction);
+        Action testCode = () => gasEstimator.EstimateGas(transaction);
 
         var exception = Assert.Throws<RpcResponseException>(testCode);
         Assert.Equal($"gas required exceeds allowance ({transaction.Gas.Value}): eth_estimateGas", exception.Message);
     }
 
     [Fact]
-    internal void GetCurrentWeiGasPrice_ExpectedGasPrice()
+    internal void EstimateGas_RejectedByContract_ThrowException()
     {
-        var gasPrice = gasManager.GetCurrentWeiGasPrice();
+        var transaction = new TransactionInput()
+        {
+            From = MockTransactionInput.MockTx.From,
+            To = MockTransactionInput.MockTx.To,
+            Value = new HexBigInteger(1000000000000000),
+            Data = MockTransactionInput.MockTx.Data
+        };
 
-        Assert.Equal(new HexBigInteger(5000000000), gasPrice);
+        Action testCode = () => gasEstimator.EstimateGas(transaction);
+
+        var exception = Assert.Throws<RpcResponseException>(testCode);
+        Assert.Equal($"execution reverted: Not Enough Fee Provided: eth_estimateGas", exception.Message);
     }
 }
