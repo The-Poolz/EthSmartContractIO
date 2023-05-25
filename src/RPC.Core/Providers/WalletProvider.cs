@@ -1,10 +1,10 @@
 ﻿using SecretsManager;
-using Nethereum.HdWallet;
 using EnvironmentManager;
+using Nethereum.HdWallet;
 
-namespace RPC.Core.Managers;
+namespace RPC.Core.Providers;
 
-public static class WalletManager
+public static class WalletProvider
 {
     private static string SecretId =>
         EnvManager.GetEnvironmentValue<string>("SECRET_MNEMONIC_ID", raiseException: true);

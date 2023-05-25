@@ -1,10 +1,10 @@
 ﻿using Xunit;
 using RPC.Core.Tests.Mocks;
 
-namespace RPC.Core.Managers.Tests;
+namespace RPC.Core.Providers.Tests;
 
 [Collection("RESET_ENVIRONMENT")]
-public class WalletManagerTests
+public class WalletProviderTests
 {
     private const string MnemonicIdEnvName = "SECRET_MNEMONIC_ID";
     private const string MnemonicKeyEnvName = "SECRET_MNEMONIC_KEY";
@@ -17,7 +17,7 @@ public class WalletManagerTests
         Environment.SetEnvironmentVariable(MnemonicIdEnvName, "Mnemonic");
         Environment.SetEnvironmentVariable(MnemonicKeyEnvName, "words");
 
-        var wallet = WalletManager.GetWallet(MockSecretManager.GetMock);
+        var wallet = WalletProvider.GetWallet(MockSecretManager.GetMock);
 
         Assert.NotNull(wallet);
         Assert.Equal(MockSecretManager.MnemonicWords, wallet.Words);
@@ -29,7 +29,7 @@ public class WalletManagerTests
         Environment.SetEnvironmentVariable(MnemonicIdEnvName, "");
         Environment.SetEnvironmentVariable(MnemonicKeyEnvName, "words");
 
-        Action testCode = () => WalletManager.GetWallet(MockSecretManager.GetMock);
+        Action testCode = () => WalletProvider.GetWallet(MockSecretManager.GetMock);
 
         var exception = Assert.Throws<InvalidOperationException>(testCode);
         Assert.Equal(GetExceptionMessage(MnemonicIdEnvName), exception.Message);
@@ -41,7 +41,7 @@ public class WalletManagerTests
         Environment.SetEnvironmentVariable(MnemonicIdEnvName, "Mnemonic");
         Environment.SetEnvironmentVariable(MnemonicKeyEnvName, "");
 
-        Action testCode = () => WalletManager.GetWallet(MockSecretManager.GetMock);
+        Action testCode = () => WalletProvider.GetWallet(MockSecretManager.GetMock);
 
         var exception = Assert.Throws<InvalidOperationException>(testCode);
         Assert.Equal(GetExceptionMessage(MnemonicKeyEnvName), exception.Message);
