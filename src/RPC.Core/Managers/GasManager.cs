@@ -2,13 +2,17 @@
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 
-namespace RPC.Core.Gas;
+namespace RPC.Core.Managers;
 
-public class GasEstimator : GasBase
+public class GasManager
 {
+    private readonly IWeb3 web3;
     public const int GasBufferFactor = 10;
 
-    public GasEstimator(IWeb3 web3) : base(web3) { }
+    public GasManager(IWeb3 web3)
+    {
+        this.web3 = web3;
+    }
 
     public TransactionInput EstimateGas(TransactionInput transaction)
     {
@@ -22,4 +26,9 @@ public class GasEstimator : GasBase
 
         return transaction;
     }
+
+    public HexBigInteger GetCurrentWeiGasPrice() =>
+        web3.Eth.GasPrice.SendRequestAsync()
+            .GetAwaiter()
+            .GetResult();
 }
