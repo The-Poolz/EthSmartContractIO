@@ -17,8 +17,7 @@ public class ReadService
 
     public JToken ReadFromNetwork(RpcRequest request)
     {
-        var validator = new RpcRequestValidator();
-        validator.ValidateAndThrow(request);
+        new RpcRequestValidator().ValidateAndThrow(request);
 
         var response = rpcConnection.PostJsonAsync(request)
             .GetAwaiter()
