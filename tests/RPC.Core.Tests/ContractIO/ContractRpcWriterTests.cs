@@ -2,9 +2,9 @@
 using RPC.Core.Tests.Mocks;
 using Nethereum.Web3.Accounts;
 
-namespace RPC.Core.Services.Tests;
+namespace RPC.Core.ContractIO.Tests;
 
-public class WriteServiceTests
+public class ContractRpcWriterTests
 {
     [Fact]
     internal void CreateWeb3()
@@ -12,7 +12,7 @@ public class WriteServiceTests
         string rpcConnection = "http://localhost:8545/";
         Account account = new("0x1");
 
-        var web3 = WriteService.CreateWeb3(rpcConnection, account);
+        var web3 = ContractRpcWriter.CreateWeb3(rpcConnection, account);
 
         Assert.NotNull(web3);
     }
@@ -20,7 +20,7 @@ public class WriteServiceTests
     [Fact]
     internal void WriteToNetwork()
     {
-        var writeService = new WriteService(MockWeb3.GetMock);
+        var writeService = new ContractRpcWriter(MockWeb3.GetMock);
 
         var txHash = writeService.WriteToNetwork(MockTransactionInput.MockTx);
 

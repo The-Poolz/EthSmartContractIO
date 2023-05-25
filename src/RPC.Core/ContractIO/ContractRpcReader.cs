@@ -4,13 +4,13 @@ using FluentValidation;
 using RPC.Core.Validation;
 using Newtonsoft.Json.Linq;
 
-namespace RPC.Core.Services;
+namespace RPC.Core.ContractIO;
 
-public class ReadService
+public class ContractRpcReader
 {
     private readonly string rpcConnection;
 
-    public ReadService(string rpcConnection)
+    public ContractRpcReader(string rpcConnection)
     {
         this.rpcConnection = rpcConnection;
     }

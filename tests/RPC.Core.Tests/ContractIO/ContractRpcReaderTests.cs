@@ -4,9 +4,9 @@ using FluentValidation;
 using Flurl.Http.Testing;
 using Newtonsoft.Json.Linq;
 
-namespace RPC.Core.Services.Tests;
+namespace RPC.Core.ContractIO.Tests;
 
-public class ReadServiceTests
+public class ContractRpcReaderTests
 {
     private const string RpcUrl = "http://localhost:8545/";
     private readonly JObject response = new()
@@ -26,7 +26,7 @@ public class ReadServiceTests
             .WithRequestJson(JToken.FromObject(request))
             .RespondWithJson(response);
 
-        var result = new ReadService(RpcUrl).ReadFromNetwork(request);
+        var result = new ContractRpcReader(RpcUrl).ReadFromNetwork(request);
 
         Assert.NotNull(result);
         Assert.Equal(response, result);
@@ -45,7 +45,7 @@ public class ReadServiceTests
             .WithRequestJson(JToken.FromObject(request))
             .RespondWithJson(response);
 
-        var result = new ReadService(RpcUrl).ReadFromNetwork(request);
+        var result = new ContractRpcReader(RpcUrl).ReadFromNetwork(request);
 
         Assert.NotNull(result);
         Assert.Equal(response, result);
@@ -59,7 +59,7 @@ public class ReadServiceTests
     {
         var request = new RpcRequest(to, "0xbef7a2f0");
 
-        Action testCode = () => new ReadService(RpcUrl).ReadFromNetwork(request);
+        Action testCode = () => new ContractRpcReader(RpcUrl).ReadFromNetwork(request);
 
         var exception = Assert.Throws<ValidationException>(testCode);
         Assert.Equal(GetExceptionMessage("to"), exception.Message);
@@ -76,7 +76,7 @@ public class ReadServiceTests
     {
         var request = new RpcRequest("0xA98b8386a806966c959C35c636b929FE7c5dD7dE", data);
 
-        Action testCode = () => new ReadService(RpcUrl).ReadFromNetwork(request);
+        Action testCode = () => new ContractRpcReader(RpcUrl).ReadFromNetwork(request);
 
         var exception = Assert.Throws<ValidationException>(testCode);
         Assert.Equal(GetExceptionMessage("data"), exception.Message);

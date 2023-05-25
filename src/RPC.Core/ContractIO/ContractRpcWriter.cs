@@ -1,21 +1,20 @@
 ﻿using RPC.Core.Gas;
 using Nethereum.Web3;
-using RPC.Core.Managers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
 
-namespace RPC.Core.Services;
+namespace RPC.Core.ContractIO;
 
-public class WriteService
+public class ContractRpcWriter
 {
     private readonly GasPricer gasPricer;
     private readonly GasEstimator gasEstimator;
     private readonly TransactionSigner transactionSigner;
     private readonly TransactionSender transactionSender;
 
-    public WriteService(IWeb3 web3)
+    public ContractRpcWriter(IWeb3 web3)
     {
         gasPricer = new(web3);
         gasEstimator = new(web3);
