@@ -1,5 +1,7 @@
 ﻿using Flurl.Http;
 using RPC.Core.Models;
+using FluentValidation;
+using RPC.Core.Validation;
 using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.Services;
@@ -13,8 +15,11 @@ public class ReadService
         this.rpcConnection = rpcConnection;
     }
 
-    public JToken ReadFromNetwork(JsonRpcRequest request)
+    public JToken ReadFromNetwork(RpcRequest request)
     {
+        var validator = new RpcRequestValidator();
+        validator.ValidateAndThrow(request);
+
         var response = rpcConnection.PostJsonAsync(request)
             .GetAwaiter()
             .GetResult();

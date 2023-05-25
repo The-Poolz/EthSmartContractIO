@@ -6,24 +6,24 @@ using System.Text.RegularExpressions;
 
 namespace RPC.Core.Validation;
 
-internal class JsonRpcRequestValidator : AbstractValidator<JsonRpcRequest>
+internal class RpcRequestValidator : AbstractValidator<RpcRequest>
 {
     private const string MethodSignaturePattern = @"^0x[0-9a-fA-F]{8}";
     private const string ParametersPattern = @"([0-9a-fA-F]{64})*$";
-    private static readonly Regex EthereumDataPattern = new($"{MethodSignaturePattern}{ParametersPattern}");
+    private static readonly Regex EthereumDataPattern = new($"{MethodSignaturePattern}{ParametersPattern}", default, TimeSpan.FromMinutes(1));
 
-    public JsonRpcRequestValidator()
+    public RpcRequestValidator()
     {
         RuleFor(x => x.Params[0]["to"])
-            .NotNull().WithMessage("Parameter 'to' is null.")
-            .NotEmpty().WithMessage("Parameter 'to' is empty.")
+            .NotNull()
+            .WithMessage("Parameter 'to' is null.")
             .Must(IsValidEthereumAddress)
-            .WithMessage("Parameter 'to' is not correctly formatted.");
+            .WithMessage("Parameter 'to' is empty or not correctly formatted.");
         RuleFor(x => x.Params[0]["data"])
-            .NotNull().WithMessage("Parameter 'data' is null.")
-            .NotEmpty().WithMessage("Parameter 'data' is empty.")
+            .NotNull()
+            .WithMessage("Parameter 'data' is null.")
             .Must(IsValidEthereumData)
-            .WithMessage("Parameter 'data' is not correctly formatted.");
+            .WithMessage("Parameter 'data' is empty or not correctly formatted.");
     }
 
     private bool IsValidEthereumAddress(JToken? data)

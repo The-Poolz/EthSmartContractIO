@@ -3,9 +3,9 @@ using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.Models;
 
-public class JsonRpcRequest
+public class RpcRequest
 {
-    public JsonRpcRequest(string to, string data)
+    public RpcRequest(string to, string data)
     {
         JsonRpc = "2.0";
         Method = "eth_call";
