@@ -26,14 +26,8 @@ internal class RpcRequestValidator : AbstractValidator<RpcRequest>
             .WithMessage("Parameter 'data' is empty or not correctly formatted.");
     }
 
-    private bool IsValidEthereumAddress(JToken? data)
-    {
-        var ethereumAddress = data?.ToString() ?? string.Empty;
-        return AddressExtensions.IsValidEthereumAddressHexFormat(ethereumAddress);
-    }
-    private bool IsValidEthereumData(JToken? data)
-    {
-        var ethereumData = data?.ToString() ?? string.Empty;
-        return EthereumDataPattern.IsMatch(ethereumData);
-    }
+    private bool IsValidEthereumAddress(JToken? data) =>
+        AddressExtensions.IsValidEthereumAddressHexFormat(data!.ToString());
+    private bool IsValidEthereumData(JToken? data) =>
+        EthereumDataPattern.IsMatch(data!.ToString());
 }
