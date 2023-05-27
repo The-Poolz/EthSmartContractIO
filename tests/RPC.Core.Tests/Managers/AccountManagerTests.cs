@@ -7,6 +7,14 @@ namespace RPC.Core.Managers.Tests;
 [Collection("RESET_ENVIRONMENT")]
 public class AccountManagerTests
 {
+    [Fact]
+    internal void Ctor_Parameterless()
+    {
+        var manager = new AccountManager();
+
+        Assert.NotNull(manager);
+    }
+
     [Theory]
     [InlineData(0, 97, "0xE433FfB237950BddCd4a2CD86515B43cea1fDCC8")]
     [InlineData(1, 97, "0xD31e497678B4269EE553A819C505D4a78d0CBF6A")]
