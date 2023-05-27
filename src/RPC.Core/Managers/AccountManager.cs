@@ -10,6 +10,8 @@ public class AccountManager
 {
     private readonly Wallet wallet;
 
+    public AccountManager() : this(new()) { }
+
     public AccountManager(SecretManager secretManager)
     {
         wallet = WalletProvider.GetWallet(secretManager);
