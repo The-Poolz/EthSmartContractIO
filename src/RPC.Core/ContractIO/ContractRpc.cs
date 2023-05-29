@@ -6,7 +6,7 @@ namespace RPC.Core.ContractIO;
 
 public class ContractRpc
 {
-    public JToken Execute<TInput>(RpcAction<TInput> rpcAction, TInput actionInput) where TInput : IActionInput
+    public virtual JToken Execute<TInput>(RpcAction<TInput> rpcAction, TInput actionInput) where TInput : IActionInput
     {
         return actionInput.ActionType switch
         {
