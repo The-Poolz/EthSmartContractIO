@@ -15,8 +15,8 @@ public class ContractRpcReader : RpcAction<RpcRequest>
         this.rpcConnection = rpcConnection;
     }
 
-    public override JToken ExecuteAction(RpcRequest input) =>
-        ReadFromNetwork(input);
+    public override string ExecuteAction(RpcRequest input) =>
+        ReadFromNetwork(input).ToString();
 
     public JToken ReadFromNetwork(RpcRequest request)
     {

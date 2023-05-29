@@ -1,7 +1,6 @@
 ﻿using RPC.Core.Gas;
 using Nethereum.Web3;
 using RPC.Core.Models;
-using Newtonsoft.Json.Linq;
 using RPC.Core.Transaction;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
@@ -23,7 +22,7 @@ public class ContractRpcWriter : RpcAction<TransactionInput>
         transactionSender = new(web3);
     }
 
-    public override JToken ExecuteAction(TransactionInput input) =>
+    public override string ExecuteAction(TransactionInput input) =>
         WriteToNetwork(input);
 
     public string WriteToNetwork(TransactionInput transactionInput)
