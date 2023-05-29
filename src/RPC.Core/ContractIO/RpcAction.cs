@@ -2,7 +2,7 @@
 
 namespace RPC.Core.ContractIO;
 
-public abstract class RpcAction<TInput> where TInput : IActionInput
+public interface IRpcAction<TInput> where TInput : IActionInput
 {
-    public abstract string ExecuteAction(TInput input);
+    public string ExecuteAction(TInput input);
 }

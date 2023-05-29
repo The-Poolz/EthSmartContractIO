@@ -10,7 +10,7 @@ namespace RPC.Core.ContractIO.Tests;
 
 public class ContractRpcTests
 {
-    private readonly ContractRpc contractRpc = new();
+    private readonly IRpcAction contractRpc = new();
     private const string RpcUrl = "http://localhost:8545/";
     private readonly string response = new JObject()
     {
@@ -26,7 +26,7 @@ public class ContractRpcTests
         mockActionInput
             .SetupGet(x => x.ActionType)
             .Returns((ActionType)123);
-        var mockRpcAction = new Mock<RpcAction<IActionInput>>();
+        var mockRpcAction = new Mock<IRpcAction<IActionInput>>();
 
         Action testCode = () => contractRpc.Execute(mockRpcAction.Object, mockActionInput.Object);
 
@@ -43,7 +43,7 @@ public class ContractRpcTests
             .ForCallsTo(RpcUrl)
             .WithRequestJson(JToken.FromObject(request))
             .RespondWithJson(response);
-        var mockRpcAction = new Mock<RpcAction<IActionInput>>();
+        var mockRpcAction = new Mock<IRpcAction<IActionInput>>();
         mockRpcAction.Setup(x => x.ExecuteAction(request))
             .Returns(response);
 
@@ -56,7 +56,7 @@ public class ContractRpcTests
     [Fact]
     internal void Execute_Write_Expected()
     {
-        var mockRpcAction = new Mock<RpcAction<IActionInput>>();
+        var mockRpcAction = new Mock<IRpcAction<IActionInput>>();
         mockRpcAction.Setup(x => x.ExecuteAction(MockTransactionInput.MockTx))
             .Returns(response);
 

@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcReader : RpcAction<RpcRequest>
+public class ContractRpcReader : IRpcAction<RpcRequest>
 {
     private readonly string rpcConnection;
 
@@ -15,7 +15,7 @@ public class ContractRpcReader : RpcAction<RpcRequest>
         this.rpcConnection = rpcConnection;
     }
 
-    public override string ExecuteAction(RpcRequest input) =>
+    public string ExecuteAction(RpcRequest input) =>
         ReadFromNetwork(input).ToString();
 
     public JToken ReadFromNetwork(RpcRequest request)
