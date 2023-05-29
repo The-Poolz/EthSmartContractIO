@@ -1,10 +1,25 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RPC.Core.Types;
 
 namespace RPC.Core.Models;
 
-public class RpcRequest
+public class RpcRequest : IActionInput
 {
+    public ActionType ActionType { get; set; }
+
+    [JsonProperty("jsonrpc")]
+    public string JsonRpc { get; set; }
+
+    [JsonProperty("method")]
+    public string Method { get; set; }
+
+    [JsonProperty("params")]
+    public JArray Params { get; set; }
+
+    [JsonProperty("id")]
+    public int Id { get; set; }
+
     public RpcRequest(string to, string data)
     {
         JsonRpc = "2.0";
@@ -19,17 +34,6 @@ public class RpcRequest
             "latest"
         };
         Id = 0;
+        ActionType = ActionType.Read;
     }
-
-    [JsonProperty("jsonrpc")]
-    public string JsonRpc { get; set; }
-
-    [JsonProperty("method")]
-    public string Method { get; set; }
-
-    [JsonProperty("params")]
-    public JArray Params { get; set; }
-
-    [JsonProperty("id")]
-    public int Id { get; set; }
 }
