@@ -1,5 +1,5 @@
-﻿using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
+﻿using RPC.Core.Models;
+using Nethereum.Hex.HexTypes;
 
 namespace RPC.Core.Tests.Mocks;
 

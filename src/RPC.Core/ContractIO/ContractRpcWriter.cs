@@ -1,13 +1,13 @@
 ﻿using RPC.Core.Gas;
 using Nethereum.Web3;
+using RPC.Core.Models;
 using RPC.Core.Transaction;
-using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcWriter
+public class ContractRpcWriter : IRpcAction<TransactionInput>
 {
     private readonly GasPricer gasPricer;
     private readonly GasEstimator gasEstimator;
@@ -21,6 +21,9 @@ public class ContractRpcWriter
         transactionSigner = new(web3);
         transactionSender = new(web3);
     }
+
+    public string ExecuteAction(TransactionInput input) =>
+        WriteToNetwork(input);
 
     public string WriteToNetwork(TransactionInput transactionInput)
     {

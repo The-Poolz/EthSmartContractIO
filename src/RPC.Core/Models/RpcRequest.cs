@@ -5,6 +5,18 @@ namespace RPC.Core.Models;
 
 public class RpcRequest
 {
+    [JsonProperty("jsonrpc")]
+    public string JsonRpc { get; set; }
+
+    [JsonProperty("method")]
+    public string Method { get; set; }
+
+    [JsonProperty("params")]
+    public JArray Params { get; set; }
+
+    [JsonProperty("id")]
+    public int Id { get; set; }
+
     public RpcRequest(string to, string data)
     {
         JsonRpc = "2.0";
@@ -20,16 +32,4 @@ public class RpcRequest
         };
         Id = 0;
     }
-
-    [JsonProperty("jsonrpc")]
-    public string JsonRpc { get; set; }
-
-    [JsonProperty("method")]
-    public string Method { get; set; }
-
-    [JsonProperty("params")]
-    public JArray Params { get; set; }
-
-    [JsonProperty("id")]
-    public int Id { get; set; }
 }
