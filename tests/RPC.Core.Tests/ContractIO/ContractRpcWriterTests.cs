@@ -18,7 +18,7 @@ public class ContractRpcWriterTests
     }
 
     [Fact]
-    internal void WriteToNetwork()
+    internal void ExecuteAction_ShouldReturnExpectedTransactionHash()
     {
         var writeService = new ContractRpcWriter(MockWeb3.GetMock);
 
