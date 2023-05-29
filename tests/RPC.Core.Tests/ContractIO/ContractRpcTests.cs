@@ -12,12 +12,12 @@ public class ContractRpcTests
 {
     private readonly ContractRpc contractRpc = new();
     private const string RpcUrl = "http://localhost:8545/";
-    private readonly JObject response = new()
+    private readonly string response = new JObject()
     {
         { "jsonrpc", "2.0" },
         { "result", "0x000000000000000000000000000000000000000000000000002386f26fc10000" },
         { "id", 0 }
-    };
+    }.ToString();
 
     [Fact]
     internal void Execute_InvalidActionType_ThrowException()
