@@ -10,7 +10,7 @@ namespace RPC.Core.ContractIO.Tests;
 
 public class ContractRpcTests
 {
-    private readonly IRpcAction contractRpc = new();
+    private readonly ContractRpc contractRpc = new();
     private const string RpcUrl = "http://localhost:8545/";
     private readonly string response = new JObject()
     {
