@@ -12,7 +12,7 @@ public class ContractRpc
         {
             ActionType.Read => rpcAction.ExecuteAction(actionInput),
             ActionType.Write => rpcAction.ExecuteAction(actionInput),
-            _ => throw new NotSupportedException($"Unsupported ActionType: {actionInput.ActionType}"),
+            _ => throw new NotSupportedException($"Unsupported ActionType: {actionInput.ActionType}")
         };
     }
 }
