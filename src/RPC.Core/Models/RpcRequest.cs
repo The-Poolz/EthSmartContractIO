@@ -1,13 +1,10 @@
-﻿using RPC.Core.Types;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.Models;
 
-public class RpcRequest : IActionInput
+public class RpcRequest
 {
-    public ActionType ActionType { get => ActionType.Read; }
-
     [JsonProperty("jsonrpc")]
     public string JsonRpc { get; set; }
 

@@ -19,7 +19,7 @@ public class ContractRpcReaderTests
     [Fact]
     internal void ExecuteAction_ShouldReturnExpectedJson()
     {
-        var request = new RpcRequest("0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
+        var request = new RpcRequestWithActionType("0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
         using var httpTest = new HttpTest();
         httpTest
             .ForCallsTo(RpcUrl)
