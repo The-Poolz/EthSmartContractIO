@@ -22,6 +22,17 @@ public class ContractRpcWriterTests
     {
         var writeService = new ContractRpcWriter(MockWeb3.GetMock);
 
+        var txHash = writeService.ExecuteAction(MockTransactionInput.MockTx);
+
+        Assert.NotNull(txHash);
+        Assert.Equal("transactionHash", txHash);
+    }
+
+    [Fact]
+    internal void WriteToNetwork_ShouldReturnExpectedTransactionHash()
+    {
+        var writeService = new ContractRpcWriter(MockWeb3.GetMock);
+
         var txHash = writeService.WriteToNetwork(MockTransactionInput.MockTx);
 
         Assert.NotNull(txHash);

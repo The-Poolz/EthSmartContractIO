@@ -17,6 +17,22 @@ public class ContractRpcReaderTests
     };
 
     [Fact]
+    internal void ExecuteAction_ShouldReturnExpectedJson()
+    {
+        var request = new RpcRequest("0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
+        using var httpTest = new HttpTest();
+        httpTest
+            .ForCallsTo(RpcUrl)
+            .WithRequestJson(JToken.FromObject(request))
+            .RespondWithJson(response);
+
+        var result = new ContractRpcReader(RpcUrl).ExecuteAction(request);
+
+        Assert.NotNull(result);
+        Assert.Equal(response, result);
+    }
+
+    [Fact]
     internal void ReadFromNetwork_ShouldReturnExpectedJson()
     {
         var request = new RpcRequest("0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
