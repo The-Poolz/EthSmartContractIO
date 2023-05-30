@@ -1,9 +1,10 @@
 ﻿using Nethereum.Web3;
+using RPC.Core.Utility;
 using Nethereum.Hex.HexTypes;
 
 namespace RPC.Core.Gas;
 
-public class GasPricer : GasBase
+public class GasPricer : Web3Base
 {
     public GasPricer(IWeb3 web3) : base(web3) { }
 
