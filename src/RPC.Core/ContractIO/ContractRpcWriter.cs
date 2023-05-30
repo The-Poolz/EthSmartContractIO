@@ -28,13 +28,10 @@ public class ContractRpcWriter : RpcAction
         WriteToNetwork(input);
 
     protected override dynamic CreateActionInput(Request request) =>
-        new TransactionInput()
+        new TransactionInput(request.Data, request.To, request.Value)
         {
             ChainId = new HexBigInteger(request.ChainId),
-            To = request.To,
             From = request.From,
-            Value = request.Value == null ? null : new HexBigInteger(request.Value.Value),
-            Data = request.Data
         };
 
     private string WriteToNetwork(TransactionInput transactionInput)

@@ -12,16 +12,16 @@ public class RequestValidator : AbstractValidator<Request>
             .NotEmpty()
             .When(x => x.ActionType == ActionType.Read);
 
+        RuleFor(x => x.Web3)
+            .NotNull()
+            .When(x => x.ActionType == ActionType.Write);
+
         RuleFor(x => x.To)
             .NotNull().NotEmpty();
 
         RuleFor(x => x.Data)
             .NotEmpty()
             .When(x => x.ActionType == ActionType.Read);
-
-        RuleFor(x => x.Web3)
-            .NotNull()
-            .When(x => x.ActionType == ActionType.Write);
 
         RuleFor(x => x.ChainId)
             .NotEqual(default(uint))

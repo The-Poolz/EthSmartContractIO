@@ -1,6 +1,6 @@
 ﻿using Nethereum.Web3;
 using RPC.Core.Types;
-using System.Numerics;
+using Nethereum.Hex.HexTypes;
 
 namespace RPC.Core.Models;
 
@@ -12,7 +12,7 @@ public class Request
     public uint ChainId { get; set; }
     public string From { get; set; } = null!;
     public string To { get; set; } = null!;
-    public BigInteger? Value { get; set; }
+    public HexBigInteger? Value { get; set; }
     public string Data { get; set; } = null!;
     public GasSettings GasSettings { get; set; } = new();
 }
