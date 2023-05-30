@@ -9,8 +9,7 @@ public class ContractRpc
 {
     public virtual string ExecuteAction(Request request)
     {
-        var validator = new RequestValidator();
-        validator.ValidateAndThrow(request);
+        new RequestValidator().ValidateAndThrow(request);
 
         var rpcAction = GetRpcAction(request);
 
