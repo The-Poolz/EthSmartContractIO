@@ -10,7 +10,7 @@ namespace RPC.Core;
 
 public class Core
 {
-    public string Execute(Request request)
+    public virtual string Execute(Request request)
     {
         var validator = new RequestValidator();
         validator.ValidateAndThrow(request);
