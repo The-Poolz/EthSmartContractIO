@@ -14,12 +14,5 @@ public class Request
     public string To { get; set; } = null!;
     public BigInteger? Value { get; set; }
     public GasSettings? GasSettings { get; set; }
-    public string FunctionName { get; set; } = null!;
-    public string ABI { get; set; } = null!;
-    public object[] Params { get; set; }
-
-    public Request()
-    {
-        Params = Array.Empty<object>();
-    }
+    public string? Data { get; set; }
 }

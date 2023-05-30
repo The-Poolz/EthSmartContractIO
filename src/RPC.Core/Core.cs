@@ -1,10 +1,6 @@
-﻿using Flurl.Util;
-using Nethereum.Contracts;
-using Nethereum.Hex.HexTypes;
+﻿using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
-using Nethereum.Web3.Accounts;
 using RPC.Core.ContractIO;
-using RPC.Core.Managers;
 using RPC.Core.Models;
 using RPC.Core.Types;
 
@@ -12,14 +8,14 @@ namespace RPC.Core;
 
 public class Core
 {
-    public string Run(Request request)
+    public string Execute(Request request)
     {
         // validation
 
         var contractRpc = new ContractRpc();
 
         var rpcAction = GetRpcAction(request);
-        var rpcInput = new object();
+        var rpcInput = GetRpcInput(request);
 
         return contractRpc.Execute(rpcAction, rpcInput);
     }
@@ -40,26 +36,16 @@ public class Core
             _ => throw new ArgumentException("Invalid ActionType"),
         };
 
-    private TransactionInput CreateTransactionInput(Request request)
-    {
-        var contractManager = new ContractManager(request.Web3!, request.ABI, request.To);
-        var function = contractManager.GetMethod(request.FunctionName);
-        var data = function.CreateTransactionInput(request.To, request.Params).Data;
-
-        var transactionInput = new TransactionInput()
+    private TransactionInput CreateTransactionInput(Request request) =>
+        new()
         {
             ChainId = new HexBigInteger(request.ChainId),
             To = request.To,
             From = request.From,
             Value = request.Value == null ? null : new HexBigInteger(request.Value.Value),
-            Data = data
+            Data = request.Data
         };
 
-        return transactionInput;
-    }
-
-    private RpcRequest CreateRpcRequest(Request request)
-    {
-
-    }
+    private RpcRequest CreateRpcRequest(Request request) =>
+        new(request.To, request.Data);
 }
