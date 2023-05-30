@@ -14,10 +14,5 @@ public class Request
     public string To { get; set; } = null!;
     public BigInteger? Value { get; set; }
     public string? Data { get; set; }
-    public GasSettings GasSettings { get; set; }
-
-    public Request()
-    {
-        GasSettings = new();
-    }
+    public GasSettings GasSettings { get; set; } = new();
 }

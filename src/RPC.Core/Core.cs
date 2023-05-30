@@ -1,10 +1,10 @@
-﻿using FluentValidation;
-using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
-using RPC.Core.ContractIO;
+﻿using RPC.Core.Types;
+using FluentValidation;
 using RPC.Core.Models;
-using RPC.Core.Types;
+using RPC.Core.ContractIO;
 using RPC.Core.Validation;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Hex.HexTypes;
 
 namespace RPC.Core;
 
@@ -12,7 +12,7 @@ public class Core
 {
     public string Execute(Request request)
     {
-        var validator = GetActionValidator(request.ActionType);
+        var validator = new RequestValidator();
         validator.ValidateAndThrow(request);
 
         var contractRpc = new ContractRpc();
@@ -22,14 +22,6 @@ public class Core
 
         return contractRpc.Execute(rpcAction, rpcInput);
     }
-
-    private AbstractValidator<Request> GetActionValidator(ActionType actionType) =>
-        actionType switch
-        {
-            ActionType.Read => new ReadRequestValidator(),
-            ActionType.Write => new WriteRequestValidator(),
-            _ => throw new ArgumentException("Invalid ActionType"),
-        };
 
     private IRpcAction GetRpcAction(Request request) =>
         request.ActionType switch
@@ -58,5 +50,5 @@ public class Core
         };
 
     private RpcRequest CreateRpcRequest(Request request) =>
-        new(request.To, request.Data);
+        new(request.To, request.Data!);
 }
