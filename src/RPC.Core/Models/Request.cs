@@ -14,5 +14,5 @@ public class Request
     public string To { get; set; } = null!;
     public HexBigInteger? Value { get; set; }
     public string Data { get; set; } = null!;
-    public GasSettings GasSettings { get; set; } = new();
+    public GasSettings? GasSettings { get; set; }
 }

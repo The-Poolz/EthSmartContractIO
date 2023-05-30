@@ -8,7 +8,9 @@ public class RequestValidator : AbstractValidator<Request>
 {
     public RequestValidator()
     {
-        RuleFor(x => x.To).NotNull().NotEmpty();
+        RuleFor(x => x.To)
+            .NotNull()
+            .NotEmpty();
 
         When(x => x.ActionType == ActionType.Read, RequireReadParameters);
 
@@ -21,22 +23,31 @@ public class RequestValidator : AbstractValidator<Request>
 
     private void RequireReadParameters()
     {
-        RuleFor(x => x.RpcUrl).NotEmpty();
+        RuleFor(x => x.RpcUrl)
+            .NotEmpty();
 
-        RuleFor(x => x.Data).NotEmpty();
+        RuleFor(x => x.Data)
+            .NotEmpty();
     }
 
     private void RequireWriteParameters()
     {
-        RuleFor(x => x.Web3).NotNull();
+        RuleFor(x => x.Web3)
+            .NotNull();
 
-        RuleFor(x => x.ChainId).NotEqual(default(uint));
+        RuleFor(x => x.ChainId)
+            .NotEqual(default(uint));
 
-        RuleFor(x => x.From).NotNull().NotEmpty();
+        RuleFor(x => x.From)
+            .NotNull()
+            .NotEmpty();
 
-        RuleFor(x => x.Value).NotNull();
+        RuleFor(x => x.Value)
+            .NotNull();
 
-        RuleFor(x => x.GasSettings).NotNull().SetValidator(new GasSettingsValidator());
+        RuleFor(x => x.GasSettings)
+            .NotNull()
+            .SetValidator(new GasSettingsValidator()!);
     }
 
     private void EnsureWriteParametersAreNull()
