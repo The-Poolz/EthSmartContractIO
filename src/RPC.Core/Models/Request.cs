@@ -13,6 +13,6 @@ public class Request
     public string From { get; set; } = null!;
     public string To { get; set; } = null!;
     public BigInteger? Value { get; set; }
-    public string? Data { get; set; }
+    public string Data { get; set; } = null!;
     public GasSettings GasSettings { get; set; } = new();
 }

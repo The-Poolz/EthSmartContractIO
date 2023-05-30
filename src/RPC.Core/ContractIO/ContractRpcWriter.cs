@@ -1,7 +1,9 @@
 ﻿using RPC.Core.Gas;
 using Nethereum.Web3;
+using RPC.Core.Models;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
 
@@ -22,10 +24,23 @@ public class ContractRpcWriter : IRpcAction
         transactionSender = new(web3);
     }
 
-    public string ExecuteAction(object input) =>
-        WriteToNetwork((TransactionInput)input);
+    public string ExecuteAction(Request request)
+    {
+        var input = CreateActionInput(request);
+        return WriteToNetwork(input);
+    }
 
-    public string WriteToNetwork(TransactionInput transactionInput)
+    private TransactionInput CreateActionInput(Request request) =>
+        new()
+        {
+            ChainId = new HexBigInteger(request.ChainId),
+            To = request.To,
+            From = request.From,
+            Value = request.Value == null ? null : new HexBigInteger(request.Value.Value),
+            Data = request.Data
+        };
+
+    private string WriteToNetwork(TransactionInput transactionInput)
     {
         var transaction = gasEstimator.EstimateGas(transactionInput);
         transaction.GasPrice = gasPricer.GetCurrentWeiGasPrice();
@@ -34,6 +49,7 @@ public class ContractRpcWriter : IRpcAction
         return transactionSender.SendTransaction(signedTransaction);
     }
 
+    // This method need to be in other place
     public static IWeb3 CreateWeb3(string rpcConnection, Account account)
     {
         var client = new RpcClient(new Uri(rpcConnection));

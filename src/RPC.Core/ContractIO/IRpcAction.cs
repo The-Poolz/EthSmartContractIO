@@ -1,6 +1,8 @@
-﻿namespace RPC.Core.ContractIO;
+﻿using RPC.Core.Models;
+
+namespace RPC.Core.ContractIO;
 
 public interface IRpcAction
 {
-    public string ExecuteAction(object input);
+    public string ExecuteAction(Request request);
 }

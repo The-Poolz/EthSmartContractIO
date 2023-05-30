@@ -15,10 +15,16 @@ public class ContractRpcReader : IRpcAction
         this.rpcConnection = rpcConnection;
     }
 
-    public string ExecuteAction(object input) =>
-        ReadFromNetwork((RpcRequest)input).ToString();
+    public string ExecuteAction(Request request)
+    {
+        var input = CreateActionInput(request);
+        return ReadFromNetwork(input).ToString();
+    }
 
-    public JToken ReadFromNetwork(RpcRequest request)
+    private RpcRequest CreateActionInput(Request request) =>
+        new(request.To, request.Data);
+
+    private JToken ReadFromNetwork(RpcRequest request)
     {
         new RpcRequestValidator().ValidateAndThrow(request);
 
