@@ -45,11 +45,4 @@ public class ContractRpcWriter : IRpcAction
         var signedTransaction = transactionSigner.SignTransaction(transaction);
         return transactionSender.SendTransaction(signedTransaction);
     }
-
-    // This method need to be in other place
-    public static IWeb3 CreateWeb3(string rpcConnection, Account account)
-    {
-        var client = new RpcClient(new Uri(rpcConnection));
-        return new Web3(account, client);
-    }
 }

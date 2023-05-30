@@ -1,10 +1,11 @@
 ﻿using Nethereum.Web3;
+using RPC.Core.Utility;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Gas;
 
-public class GasEstimator : GasBase
+public class GasEstimator : Web3Base
 {
     public const int GasBufferFactor = 10;
 

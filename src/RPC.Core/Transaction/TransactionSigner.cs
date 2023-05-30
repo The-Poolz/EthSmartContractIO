@@ -1,9 +1,10 @@
 ﻿using Nethereum.Web3;
+using RPC.Core.Utility;
 using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Transaction;
 
-public class TransactionSigner : TransactionBase
+public class TransactionSigner : Web3Base
 {
     public TransactionSigner(IWeb3 web3) : base(web3) { }
 
