@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcReader : RpcAction
+public class ContractRpcReader : IRpcAction
 {
     private readonly string rpcConnection;
 
@@ -15,14 +15,14 @@ public class ContractRpcReader : RpcAction
         this.rpcConnection = rpcConnection;
     }
 
-    protected override string Execute(dynamic request)
+    public string ExecuteAction(Request request)
     {
         var input = CreateActionInput(request);
         return ReadFromNetwork(input).ToString();
     }
 
-    protected override dynamic CreateActionInput(Request request) =>
-        new RpcRequest(request.To, request.Data);
+    private RpcRequest CreateActionInput(Request request) =>
+        new(request.To, request.Data);
 
     private JToken ReadFromNetwork(RpcRequest request)
     {

@@ -9,7 +9,7 @@ using Nethereum.JsonRpc.Client;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcWriter : RpcAction
+public class ContractRpcWriter : IRpcAction
 {
     private readonly GasPricer gasPricer;
     private readonly GasEstimator gasEstimator;
@@ -24,11 +24,14 @@ public class ContractRpcWriter : RpcAction
         transactionSender = new(web3);
     }
 
-    protected override string Execute(dynamic input) =>
-        WriteToNetwork(input);
+    public string ExecuteAction(Request request)
+    {
+        var input = CreateActionInput(request);
+        return WriteToNetwork(input);
+    }
 
-    protected override dynamic CreateActionInput(Request request) =>
-        new TransactionInput(request.Data, request.To, request.Value)
+    private TransactionInput CreateActionInput(Request request) =>
+        new(request.Data, request.To, request.Value)
         {
             ChainId = new HexBigInteger(request.ChainId),
             From = request.From

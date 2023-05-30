@@ -16,7 +16,7 @@ public class ContractRpc
         return rpcAction.ExecuteAction(request);
     }
 
-    private RpcAction GetRpcAction(Request request) =>
+    private IRpcAction GetRpcAction(Request request) =>
         request.ActionType == ActionType.Read ?
         new ContractRpcReader(request.RpcUrl!) :
         new ContractRpcWriter(request.Web3!);
