@@ -1,16 +1,24 @@
-﻿using RPC.Core.Types;
+﻿using Nethereum.Util;
+using RPC.Core.Types;
 using RPC.Core.Models;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace RPC.Core.Validation;
 
 public class RequestValidator : AbstractValidator<Request>
 {
+    private const string MethodSignaturePattern = @"^0x[0-9a-fA-F]{8}";
+    private const string ParametersPattern = @"([0-9a-fA-F]{64})*$";
+    private static readonly Regex EthereumDataPattern = new($"{MethodSignaturePattern}{ParametersPattern}", default, TimeSpan.FromMinutes(1));
+
     public RequestValidator()
     {
         RuleFor(x => x.To)
             .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .Must(IsValidEthereumAddress)
+            .WithMessage(GetInvalidAddressMessage("To"));
 
         When(x => x.ActionType == ActionType.Read, RequireReadParameters);
 
@@ -27,7 +35,9 @@ public class RequestValidator : AbstractValidator<Request>
             .NotEmpty();
 
         RuleFor(x => x.Data)
-            .NotEmpty();
+            .NotEmpty()
+            .Must(IsValidEthereumData)
+            .WithMessage("Parameter 'Data' not correctly formatted.");
     }
 
     private void RequireWriteParameters()
@@ -40,7 +50,9 @@ public class RequestValidator : AbstractValidator<Request>
 
         RuleFor(x => x.From)
             .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .Must(IsValidEthereumAddress)
+            .WithMessage(GetInvalidAddressMessage("From"));
 
         RuleFor(x => x.Value)
             .NotNull();
@@ -54,25 +66,37 @@ public class RequestValidator : AbstractValidator<Request>
     {
         RuleFor(x => x.Web3)
             .Null()
-            .WithMessage("Web3 must be null for Read operations");
+            .WithMessage(GetNullMessage("Web3", "Read"));
 
         RuleFor(x => x.From)
             .Empty()
-            .WithMessage("From must be null for Read operations");
+            .WithMessage(GetNullMessage("From", "Read"));
 
         RuleFor(x => x.Value)
             .Null()
-            .WithMessage("Value must be null for Read operations");
+            .WithMessage(GetNullMessage("Value", "Read"));
 
         RuleFor(x => x.GasSettings)
             .Null()
-            .WithMessage("GasSettings must be null for Read operations");
+            .WithMessage(GetNullMessage("GasSettings", "Read"));
     }
 
     private void EnsureReadParametersAreNull()
     {
         RuleFor(x => x.RpcUrl)
             .Empty()
-            .WithMessage("RpcUrl must be null for Write operations");
+            .WithMessage(GetNullMessage("RpcUrl", "Write"));
     }
+
+    private bool IsValidEthereumAddress(string address) =>
+        AddressExtensions.IsValidEthereumAddressHexFormat(address);
+
+    private bool IsValidEthereumData(string data) =>
+        EthereumDataPattern.IsMatch(data);
+
+    private static string GetInvalidAddressMessage(string fieldName) =>
+        $"Parameter '{fieldName}' is invalid ethereum address.";
+
+    private static string GetNullMessage(string fieldName, string operation) =>
+        $"{fieldName} must be null for {operation} operations.";
 }
