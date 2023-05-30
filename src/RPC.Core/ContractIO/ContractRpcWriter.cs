@@ -31,7 +31,7 @@ public class ContractRpcWriter : RpcAction
         new TransactionInput(request.Data, request.To, request.Value)
         {
             ChainId = new HexBigInteger(request.ChainId),
-            From = request.From,
+            From = request.From
         };
 
     private string WriteToNetwork(TransactionInput transactionInput)
