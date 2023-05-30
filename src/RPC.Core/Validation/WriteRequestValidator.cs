@@ -27,12 +27,7 @@ public class WriteRequestValidator : AbstractValidator<Request>
         RuleFor(x => x.GasSettings)
             .NotNull();
 
-        RuleFor(x => x.FunctionName)
-            .NotNull()
-            .NotEmpty();
-
-        RuleFor(x => x.ABI)
-            .NotNull()
-            .NotEmpty();
+        RuleFor(x => x.GasSettings)
+            .SetValidator(new GasSettingsValidator());
     }
 }
