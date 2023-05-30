@@ -24,20 +24,14 @@ public class Core
     }
 
     private IRpcAction GetRpcAction(Request request) =>
-        request.ActionType switch
-        {
-            ActionType.Read => new ContractRpcReader(request.RpcUrl!),
-            ActionType.Write => new ContractRpcWriter(request.Web3!),
-            _ => throw new ArgumentException("Invalid ActionType"),
-        };
+        request.ActionType == ActionType.Read ?
+        new ContractRpcReader(request.RpcUrl!) :
+        new ContractRpcWriter(request.Web3!);
 
     private object GetRpcInput(Request request) =>
-        request.ActionType switch
-        {
-            ActionType.Read => CreateTransactionInput(request),
-            ActionType.Write => CreateRpcRequest(request),
-            _ => throw new ArgumentException("Invalid ActionType"),
-        };
+        request.ActionType == ActionType.Read ?
+        CreateRpcRequest(request) :
+        CreateTransactionInput(request);
 
     private TransactionInput CreateTransactionInput(Request request) =>
         new()
