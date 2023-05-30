@@ -2,6 +2,6 @@
 
 public class GasSettings
 {
-    public int MaxGasLimit { get; set; }
-    public int MaxGweiGasPrice { get; set; }
+    public uint MaxGasLimit { get; set; }
+    public uint MaxGweiGasPrice { get; set; }
 }
