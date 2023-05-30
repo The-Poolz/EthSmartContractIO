@@ -10,9 +10,14 @@ public class Request
     public string? RpcUrl { get; set; }
     public IWeb3? Web3 { get; set; }
     public uint ChainId { get; set; }
-    public string? From { get; set; }
+    public string From { get; set; } = null!;
     public string To { get; set; } = null!;
     public BigInteger? Value { get; set; }
-    public GasSettings? GasSettings { get; set; }
     public string? Data { get; set; }
+    public GasSettings GasSettings { get; set; }
+
+    public Request()
+    {
+        GasSettings = new();
+    }
 }
