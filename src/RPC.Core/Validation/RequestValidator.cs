@@ -1,5 +1,4 @@
-﻿using RPC.Core.Types;
-using RPC.Core.Models;
+﻿using RPC.Core.Models;
 using FluentValidation;
 
 namespace RPC.Core.Validation;
@@ -8,25 +7,16 @@ public class RequestValidator : AbstractValidator<Request>
 {
     public RequestValidator()
     {
-        RuleFor(x => x)
-            .Must(RequireParameters);
+        RuleFor(x => x.ActionType)
+            .IsInEnum();
 
         RuleFor(x => x)
-            .Must(RequireWriteParameters);
-
-        RuleFor(x => x)
-            .Must(RequireReadParameters);
+            .Must(RequireAnyRequest);
     }
 
-    private bool RequireParameters(Request request)
+    private bool RequireAnyRequest(Request request)
     {
-        if (!Enum.IsDefined(typeof(ActionType), request.ActionType))
-            return false;
-
-        if (request.ChainId == 0)
-            return false;
-
-        if (string.IsNullOrEmpty(request.To))
+        if (request.Write == null && request.Read == null)
             return false;
 
         return true;
@@ -35,6 +25,9 @@ public class RequestValidator : AbstractValidator<Request>
     private bool RequireWriteParameters(Request request)
     {
         if (request.Web3 == null)
+            return false;
+
+        if (string.IsNullOrEmpty(request.From))
             return false;
 
         if (request.GasSettings == null)

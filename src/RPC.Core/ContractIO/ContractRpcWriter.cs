@@ -2,8 +2,6 @@
 using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Transaction;
-using Nethereum.Web3.Accounts;
-using Nethereum.JsonRpc.Client;
 
 namespace RPC.Core.ContractIO;
 
@@ -32,11 +30,5 @@ public class ContractRpcWriter : IRpcAction<TransactionInput>
 
         var signedTransaction = transactionSigner.SignTransaction(transaction);
         return transactionSender.SendTransaction(signedTransaction);
-    }
-
-    public static IWeb3 CreateWeb3(string rpcConnection, Account account)
-    {
-        var client = new RpcClient(new Uri(rpcConnection));
-        return new Web3(account, client);
     }
 }
