@@ -10,7 +10,7 @@ namespace RPC.Core.ContractIO.Tests;
 public class ContractRpcTests
 {
     private readonly ContractRpc contractRpc = new();
-    private readonly Mock<IRpcAction> mockRpcAction = new();
+    private readonly Mock<RpcAction> mockRpcAction = new();
 
     private void MockRpcActionExecute(object input, string returnValue)
     {
