@@ -1,29 +1,28 @@
 ﻿using Xunit;
 using RPC.Core.Tests.Mocks;
+using RPC.Core.Models;
 
 namespace RPC.Core.ContractIO.Tests;
 
 public class ContractRpcWriterTests
 {
-    //[Fact]
-    //internal void ExecuteAction_ShouldReturnExpectedTransactionHash()
-    //{
-    //    var writeService = new ContractRpcWriter(MockWeb3.GetMock);
+    private const string RpcUrl = "http://localhost:8545/";
+    private const int AccountId = 0;
 
-    //    var txHash = writeService.ExecuteAction(MockTransactionInput.MockTx);
+    [Fact]
+    internal void ExecuteAction_ShouldReturnExpectedTransactionHash()
+    {
+        var gasSettings = new GasSettings()
+        {
+            MaxGasLimit = 21000,
+            MaxGweiGasPrice = 10,
+        };
+        var request = new Request(RpcUrl, AccountId, 1, MockTransactionInput.MockTx.From, MockTransactionInput.MockTx.To, MockTransactionInput.MockTx.Value, gasSettings);
+        var writeService = new ContractRpcWriter(RpcUrl, AccountId, MockSecretManager.GetMock);
 
-    //    Assert.NotNull(txHash);
-    //    Assert.Equal("transactionHash", txHash);
-    //}
+        var txHash = writeService.ExecuteAction(request);
 
-    //[Fact]
-    //internal void WriteToNetwork_ShouldReturnExpectedTransactionHash()
-    //{
-    //    var writeService = new ContractRpcWriter(MockWeb3.GetMock);
-
-    //    var txHash = writeService.WriteToNetwork(MockTransactionInput.MockTx);
-
-    //    Assert.NotNull(txHash);
-    //    Assert.Equal("transactionHash", txHash);
-    //}
+        Assert.NotNull(txHash);
+        Assert.Equal("transactionHash", txHash);
+    }
 }

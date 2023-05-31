@@ -16,6 +16,7 @@ public class ContractRpcReader : IRpcAction
     public string ExecuteAction(Request request)
     {
         var input = CreateActionInput(request);
+
         return ReadFromNetwork(input).ToString();
     }
 
