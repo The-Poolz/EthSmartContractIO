@@ -1,8 +1,6 @@
 ﻿using RPC.Core.Types;
 using SecretsManager;
 using RPC.Core.Models;
-using FluentValidation;
-using RPC.Core.Validation;
 
 namespace RPC.Core.ContractIO;
 
@@ -10,8 +8,6 @@ public class ContractRpc
 {
     public virtual string ExecuteAction(Request request, SecretManager? secretManager = null)
     {
-        new RequestValidator().ValidateAndThrow(request);
-
         secretManager ??= new SecretManager();
 
         var rpcAction = GetRpcAction(request, secretManager);
