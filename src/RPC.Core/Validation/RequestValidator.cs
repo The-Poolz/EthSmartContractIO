@@ -20,20 +20,20 @@ public class RequestValidator : AbstractValidator<Request>
             .Must(IsValidEthereumAddress)
             .WithMessage(GetInvalidAddressMessage("To"));
 
+        RuleFor(x => x.RpcUrl)
+            .NotNull()
+            .NotEmpty()
+            .Must(Flurl.Url.IsValid);
+
         When(x => x.ActionType == ActionType.Read, RequireReadParameters);
 
         When(x => x.ActionType == ActionType.Write, RequireWriteParameters);
 
         When(x => x.ActionType == ActionType.Read, EnsureWriteParametersAreNull);
-
-        When(x => x.ActionType == ActionType.Write, EnsureReadParametersAreNull);
     }
 
     private void RequireReadParameters()
     {
-        RuleFor(x => x.RpcUrl)
-            .NotEmpty();
-
         RuleFor(x => x.Data)
             .NotEmpty()
             .Must(IsValidEthereumData)
@@ -42,8 +42,8 @@ public class RequestValidator : AbstractValidator<Request>
 
     private void RequireWriteParameters()
     {
-        RuleFor(x => x.Web3)
-            .NotNull();
+        RuleFor(x => x.AccountId)
+            .NotEqual(default(int));
 
         RuleFor(x => x.ChainId)
             .NotEqual(default(uint));
@@ -64,9 +64,12 @@ public class RequestValidator : AbstractValidator<Request>
 
     private void EnsureWriteParametersAreNull()
     {
-        RuleFor(x => x.Web3)
-            .Null()
-            .WithMessage(GetNullMessage("Web3", "Read"));
+        RuleFor(x => x.AccountId)
+            .Empty()
+            .WithMessage(GetNullMessage("AccountId", "Read"));
+
+        RuleFor(x => x.ChainId)
+            .NotEqual(default(uint));
 
         RuleFor(x => x.From)
             .Empty()
@@ -79,13 +82,6 @@ public class RequestValidator : AbstractValidator<Request>
         RuleFor(x => x.GasSettings)
             .Null()
             .WithMessage(GetNullMessage("GasSettings", "Read"));
-    }
-
-    private void EnsureReadParametersAreNull()
-    {
-        RuleFor(x => x.RpcUrl)
-            .Empty()
-            .WithMessage(GetNullMessage("RpcUrl", "Write"));
     }
 
     private bool IsValidEthereumAddress(string address) =>

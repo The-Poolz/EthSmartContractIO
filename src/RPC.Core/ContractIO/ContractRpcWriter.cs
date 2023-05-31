@@ -1,11 +1,11 @@
 ﻿using RPC.Core.Gas;
-using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
-using Nethereum.Web3.Accounts;
-using Nethereum.JsonRpc.Client;
+using RPC.Core.Utility;
+using RPC.Core.Managers;
+using SecretsManager;
 
 namespace RPC.Core.ContractIO;
 
@@ -16,8 +16,12 @@ public class ContractRpcWriter : IRpcAction
     private readonly TransactionSigner transactionSigner;
     private readonly TransactionSender transactionSender;
 
-    public ContractRpcWriter(IWeb3 web3)
+    public ContractRpcWriter(string rpcUrl, int accountId, SecretManager secretManager)
     {
+        var accountManager = new AccountManager(secretManager);
+        var account = accountManager.GetAccount(accountId);
+        var web3 = Web3Base.CreateWeb3(rpcUrl, account);
+
         gasPricer = new(web3);
         gasEstimator = new(web3);
         transactionSigner = new(web3);
