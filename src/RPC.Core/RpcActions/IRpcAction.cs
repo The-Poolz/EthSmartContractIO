@@ -1,6 +1,6 @@
 ﻿using RPC.Core.Models;
 
-namespace RPC.Core.ContractIO;
+namespace RPC.Core.RpcActions;
 
 public interface IRpcAction
 {
