@@ -16,7 +16,7 @@ public class ContractRpcReaderTests
     }.ToString();
 
     [Fact]
-    internal void ExecuteAction_ShouldReturnExpectedJson()
+    internal void RunContractAction_ShouldReturnExpectedJsonString()
     {
         var request = new Request(RpcUrl, "0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
         using var httpTest = new HttpTest();
@@ -24,7 +24,7 @@ public class ContractRpcReaderTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
 
-        var result = new ContractRpcReader(RpcUrl).ExecuteAction(request);
+        var result = new ContractRpcReader(request).RunContractAction();
 
         Assert.NotNull(result);
         Assert.Equal(response, result);
