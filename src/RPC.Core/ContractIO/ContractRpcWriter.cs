@@ -46,11 +46,14 @@ public class ContractRpcWriter : IContractIO
 
     private void CheckGasLimits(TransactionInput transactionInput)
     {
-        if (request.GasSettings.MaxGasLimit > transactionInput.Gas.Value)
+        if (transactionInput.Gas.Value > request.GasSettings.MaxGasLimit)
         {
             throw new InvalidOperationException("Gas limit exceeded.");
         }
-        if (new BigInteger(UnitConversion.Convert.FromWei(request.GasSettings.MaxGweiGasPrice, UnitConversion.EthUnit.Gwei)) > transactionInput.GasPrice.Value)
+
+        decimal etherValue = request.GasSettings.MaxGweiGasPrice * (decimal)Math.Pow(10, -9);
+        BigInteger weiValue = new UnitConversion().ToWei(etherValue);
+        if (transactionInput.GasPrice.Value > weiValue)
         {
             throw new InvalidOperationException("Gas price exceeded.");
         }
