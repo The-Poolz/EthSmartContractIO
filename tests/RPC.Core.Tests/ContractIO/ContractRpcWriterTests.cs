@@ -31,7 +31,7 @@ public class ContractRpcWriterTests
         Environment.SetEnvironmentVariable("SECRET_MNEMONIC_KEY", "words");
         var contractRpcWriter = new ContractRpcWriter(request)
         {
-            SecretManager = MockSecretManager.GetMock
+            MnemonicProvider = new MockMnemonicProvider()
         };
 
         var result = contractRpcWriter.InitializeWeb3();
@@ -46,7 +46,7 @@ public class ContractRpcWriterTests
         var contractRpcWriter = new ContractRpcWriter(request)
         {
             Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            MnemonicProvider = new MockMnemonicProvider()
         };
 
         var result = contractRpcWriter.RunContractAction();
@@ -61,7 +61,7 @@ public class ContractRpcWriterTests
         var contractRpcWriter = new ContractRpcWriter(request)
         {
             Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            MnemonicProvider = new MockMnemonicProvider()
         };
 
         var result = contractRpcWriter.RunContractAction();
@@ -86,7 +86,7 @@ public class ContractRpcWriterTests
         var contractRpcWriter = new ContractRpcWriter(request)
         {
             Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            MnemonicProvider = new MockMnemonicProvider()
         };
 
         Action testCode = () => contractRpcWriter.RunContractAction();
@@ -111,7 +111,7 @@ public class ContractRpcWriterTests
         var contractRpcWriter = new ContractRpcWriter(request)
         {
             Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            MnemonicProvider = new MockMnemonicProvider()
         };
 
         Action testCode = () => contractRpcWriter.RunContractAction();

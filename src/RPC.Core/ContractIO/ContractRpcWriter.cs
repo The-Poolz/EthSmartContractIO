@@ -1,11 +1,11 @@
 ﻿using RPC.Core.Gas;
 using Nethereum.Util;
 using Nethereum.Web3;
-using SecretsManager;
 using System.Numerics;
 using RPC.Core.Models;
 using RPC.Core.Utility;
 using RPC.Core.Managers;
+using RPC.Core.Providers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
@@ -17,7 +17,7 @@ public class ContractRpcWriter : IContractIO
     private readonly RpcRequest request;
 
     public IWeb3? Web3 { get; set; }
-    public SecretManager? SecretManager { get; set; }
+    public IMnemonicProvider? MnemonicProvider { get; set; }
 
     public ContractRpcWriter(RpcRequest request)
     {
@@ -39,8 +39,7 @@ public class ContractRpcWriter : IContractIO
 
     public IWeb3 InitializeWeb3()
     {
-        SecretManager ??= new SecretManager();
-        var accountManager = new AccountManager(SecretManager);
+        var accountManager = new AccountManager(MnemonicProvider);
         var account = accountManager.GetAccount(request.AccountId, new HexBigInteger(request.ChainId));
         return Web3Base.CreateWeb3(request.RpcUrl, account);
     }
