@@ -13,9 +13,6 @@ public class ContractRpcReader : IContractIO
         this.request = request;
     }
 
-    private RpcRequest CreateActionInput() =>
-        new(request.To, request.Data);
-
     public virtual string RunContractAction()
     {
         var input = CreateActionInput();
@@ -29,4 +26,7 @@ public class ContractRpcReader : IContractIO
             .GetResult()
             .ToString();
     }
+
+    private RpcRequest CreateActionInput() =>
+        new(request.To, request.Data);
 }
