@@ -1,35 +1,59 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using RPC.Core.Types;
+using Nethereum.Hex.HexTypes;
+using RPC.Core.Validation;
+using FluentValidation;
 
 namespace RPC.Core.Models;
 
 public class RpcRequest
 {
-    [JsonProperty("jsonrpc")]
-    public string JsonRpc { get; set; }
+    public ActionType ActionType { get; private set; }
+    public string RpcUrl { get; private set; } = null!;
+    public int AccountId { get; private set; }
+    public uint ChainId { get; private set; }
+    public string From { get; private set; } = null!;
+    public string To { get; private set; } = null!;
+    public HexBigInteger Value { get; private set; } = null!;
+    public GasSettings GasSettings { get; private set; } = null!;
+    public string Data { get; private set; } = null!;
 
-    [JsonProperty("method")]
-    public string Method { get; set; }
-
-    [JsonProperty("params")]
-    public JArray Params { get; set; }
-
-    [JsonProperty("id")]
-    public int Id { get; set; }
-
-    public RpcRequest(string to, string data)
+    /// <summary>
+    /// Initialize <see cref="RpcRequest"/> object for <see cref="ActionType.Read"/> operation.
+    /// </summary>
+    public RpcRequest(string rpcUrl, string to, string data)
     {
-        JsonRpc = "2.0";
-        Method = "eth_call";
-        Params = new JArray()
-        {
-            new JObject()
-            {
-                { "to", to },
-                { "data", data }
-            },
-            "latest"
-        };
-        Id = 0;
+        ActionType = ActionType.Read;
+        RpcUrl = rpcUrl;
+        To = to;
+        Data = data;
+
+        new ReadRequestValidator().ValidateAndThrow(this);
+    }
+
+    /// <summary>
+    /// Initialize <see cref="RpcRequest"/> object for <see cref="ActionType.Write"/> operation.
+    /// </summary>
+    public RpcRequest(
+        string rpcUrl,
+        int accountId,
+        uint chainId,
+        string from,
+        string to,
+        HexBigInteger value,
+        GasSettings gasSettings,
+        string? data = null
+    )
+    {
+        ActionType = ActionType.Write;
+        RpcUrl = rpcUrl;
+        AccountId = accountId;
+        ChainId = chainId;
+        From = from;
+        To = to;
+        Value = value;
+        GasSettings = gasSettings;
+        Data = data ?? string.Empty;
+
+        new WriteRequestValidator().ValidateAndThrow(this);
     }
 }

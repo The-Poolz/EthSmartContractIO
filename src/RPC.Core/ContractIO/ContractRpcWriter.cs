@@ -14,12 +14,12 @@ namespace RPC.Core.ContractIO;
 
 public class ContractRpcWriter : IContractIO
 {
-    private readonly Request request;
+    private readonly RpcRequest request;
 
     public IWeb3? Web3 { get; set; }
     public SecretManager? SecretManager { get; set; }
 
-    public ContractRpcWriter(Request request)
+    public ContractRpcWriter(RpcRequest request)
     {
         this.request = request;
     }

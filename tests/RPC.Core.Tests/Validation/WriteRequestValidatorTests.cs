@@ -19,7 +19,7 @@ namespace RPC.Core.Validation.Tests
         [Fact]
         internal void Write_ShouldNotHaveValidationError()
         {
-            var request = new Request(validRpcUrl, validAccountId, validChainId, validEthereumAddress, validEthereumAddress, validValue, validGasSettings);
+            var request = new RpcRequest(validRpcUrl, validAccountId, validChainId, validEthereumAddress, validEthereumAddress, validValue, validGasSettings);
 
             var validator = new WriteRequestValidator();
 
@@ -37,7 +37,7 @@ namespace RPC.Core.Validation.Tests
         [MemberData(nameof(TestData))]
         internal void Write_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, int accountId, uint chainId, string from, string to, HexBigInteger value, GasSettings gasSettings, string expectedErrorMessage)
         {
-            Action testCode = () => new Request(rpcUrl, accountId, chainId, from, to, value, gasSettings);
+            Action testCode = () => new RpcRequest(rpcUrl, accountId, chainId, from, to, value, gasSettings);
 
             var exception = Assert.Throws<ValidationException>(testCode);
             Assert.Equal(expectedErrorMessage, exception.Message);

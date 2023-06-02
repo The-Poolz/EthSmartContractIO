@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace RPC.Core.Validation;
 
-public class BaseRequestValidator : AbstractValidator<Request>
+public class BaseRequestValidator : AbstractValidator<RpcRequest>
 {
     protected const string MethodSignaturePattern = @"^0x[0-9a-fA-F]{8}";
     protected const string ParametersPattern = @"([0-9a-fA-F]{64})*$";

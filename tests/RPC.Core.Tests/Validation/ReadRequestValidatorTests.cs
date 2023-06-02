@@ -15,7 +15,7 @@ public class ReadRequestValidatorTests
     [Fact]
     internal void Read_ShouldNotHaveValidationError()
     {
-        var request = new Request(validRpcUrl, validEthereumAddress, validData);
+        var request = new RpcRequest(validRpcUrl, validEthereumAddress, validData);
 
         var result = validator.TestValidate(request);
 
@@ -28,7 +28,7 @@ public class ReadRequestValidatorTests
     [MemberData(nameof(TestData))]
     internal void Request_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, string ethereumAddress, string data, string expectedErrorMessage)
     {
-        Action testCode = () => new Request(rpcUrl, ethereumAddress, data);
+        Action testCode = () => new RpcRequest(rpcUrl, ethereumAddress, data);
 
         var exception = Assert.Throws<ValidationException>(testCode);
         Assert.Equal(expectedErrorMessage, exception.Message);

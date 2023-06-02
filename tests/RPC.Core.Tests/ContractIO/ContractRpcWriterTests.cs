@@ -9,11 +9,11 @@ namespace RPC.Core.ContractIO.Tests;
 [Collection("RESET_ENVIRONMENT")]
 public class ContractRpcWriterTests
 {
-    private Request request;
+    private RpcRequest request;
 
     public ContractRpcWriterTests()
     {
-        request = new Request(
+        request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
             accountId: 0,
             chainId: 1,
@@ -73,7 +73,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void CheckGasLimits_GasLimitExceeded_ThrowException()
     {
-        request = new Request(
+        request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
             accountId: 0,
             chainId: 1,
@@ -98,7 +98,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void CheckGasLimits_GasPriceExceeded_ThrowException()
     {
-        request = new Request(
+        request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
             accountId: 0,
             chainId: 1,
