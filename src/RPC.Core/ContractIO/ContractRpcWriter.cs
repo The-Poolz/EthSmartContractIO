@@ -1,29 +1,40 @@
 ﻿using RPC.Core.Gas;
+using Nethereum.Util;
+using Nethereum.Web3;
+using SecretsManager;
+using System.Numerics;
 using RPC.Core.Models;
+using RPC.Core.Utility;
+using RPC.Core.Managers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
-using RPC.Core.Utility;
-using RPC.Core.Managers;
-using SecretsManager;
-using Nethereum.Util;
-using System.Numerics;
-using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO;
 
 public class ContractRpcWriter : IContractIO
 {
-    private IWeb3 web3;
     private readonly Request request;
 
-    public ContractRpcWriter(Request request, SecretManager secretManager)
-    {
-        var accountManager = new AccountManager(secretManager);
-        var account = accountManager.GetAccount(request.AccountId, new HexBigInteger(request.ChainId));
-        web3 = Web3Base.CreateWeb3(request.RpcUrl, account);
+    public IWeb3? Web3 { get; set; }
+    public SecretManager? SecretManager { get; set; }
 
+    public ContractRpcWriter(Request request)
+    {
         this.request = request;
+    }
+
+    public virtual string RunContractAction()
+    {
+        Web3 ??= InitializeWeb3();
+
+        var transaction = new GasEstimator(Web3).EstimateGas(CreateActionInput());
+        transaction.GasPrice = new GasPricer(Web3).GetCurrentWeiGasPrice();
+
+        CheckGasLimits(transaction);
+
+        var signedTransaction = new TransactionSigner(Web3).SignTransaction(transaction);
+        return new TransactionSender(Web3).SendTransaction(signedTransaction);
     }
 
     private TransactionInput CreateActionInput() =>
@@ -33,18 +44,7 @@ public class ContractRpcWriter : IContractIO
             From = request.From
         };
 
-    public virtual string RunContractAction()
-    {
-        var transaction = new GasEstimator(web3).EstimateGas(CreateActionInput());
-        transaction.GasPrice = new GasPricer(web3).GetCurrentWeiGasPrice();
-
-        CheckGasLimits(transaction);
-
-        var signedTransaction = new TransactionSigner(web3).SignTransaction(transaction);
-        return new TransactionSender(web3).SendTransaction(signedTransaction);
-    }
-
-    public void CheckGasLimits(TransactionInput transactionInput)
+    private void CheckGasLimits(TransactionInput transactionInput)
     {
         if (request.GasSettings.MaxGasLimit > transactionInput.Gas.Value)
         {
@@ -56,8 +56,11 @@ public class ContractRpcWriter : IContractIO
         }
     }
 
-    public void SetWeb3(IWeb3 web3)
+    private  IWeb3 InitializeWeb3()
     {
-        this.web3 = web3;
+        SecretManager ??= new SecretManager();
+        var accountManager = new AccountManager(SecretManager);
+        var account = accountManager.GetAccount(request.AccountId, new HexBigInteger(request.ChainId));
+        return Web3Base.CreateWeb3(request.RpcUrl, account);
     }
 }

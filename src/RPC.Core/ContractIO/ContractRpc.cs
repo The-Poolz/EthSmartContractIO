@@ -1,5 +1,4 @@
 ﻿using RPC.Core.Types;
-using SecretsManager;
 using RPC.Core.Models;
 using RPC.Core.RpcActions;
 
@@ -7,24 +6,22 @@ namespace RPC.Core.ContractIO;
 
 public class ContractRpc
 {
-    public virtual string ExecuteAction(Request request, SecretManager? secretManager = null)
+    public virtual string ExecuteAction(Request request)
     {
-        secretManager ??= new SecretManager();
-
-        var contractIO = GetContractIO(request, secretManager);
+        var contractIO = GetContractIO(request);
 
         var rpcAction = GetRpcAction(contractIO, request.ActionType);
 
         return rpcAction.ExecuteAction(request);
     }
 
-    public virtual IRpcAction GetRpcAction(IContractIO contractIO, ActionType actionType) =>
+    private IRpcAction GetRpcAction(IContractIO contractIO, ActionType actionType) =>
         actionType == ActionType.Read ?
         new ReadRpcAction(contractIO) :
         new WriteRpcAction(contractIO);
 
-    public virtual IContractIO GetContractIO(Request request, SecretManager secretManager) =>
+    private IContractIO GetContractIO(Request request) =>
         request.ActionType == ActionType.Read ?
         new ContractRpcReader(request) :
-        new ContractRpcWriter(request, secretManager);
+        new ContractRpcWriter(request);
 }

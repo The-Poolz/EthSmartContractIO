@@ -11,11 +11,7 @@ public class GasSettingsValidatorTests
     [Fact]
     public void ShouldHaveError_WhenMaxGasLimitIsDefault()
     {
-        var gasSettings = new GasSettings
-        {
-            MaxGasLimit = default,
-            MaxGweiGasPrice = 50
-        };
+        var gasSettings = new GasSettings(default, 50);
 
         var result = validator.TestValidate(gasSettings);
 
@@ -25,11 +21,7 @@ public class GasSettingsValidatorTests
     [Fact]
     public void ShouldHaveError_WhenMaxGweiGasPriceIsDefault()
     {
-        var gasSettings = new GasSettings
-        {
-            MaxGasLimit = 21000,
-            MaxGweiGasPrice = default
-        };
+        var gasSettings = new GasSettings(21000, default);
 
         var result = validator.TestValidate(gasSettings);
 
@@ -39,11 +31,7 @@ public class GasSettingsValidatorTests
     [Fact]
     public void ShouldNotHaveError_WhenMaxGasLimitIsNotDefault()
     {
-        var gasSettings = new GasSettings
-        {
-            MaxGasLimit = 21000,
-            MaxGweiGasPrice = 50
-        };
+        var gasSettings = new GasSettings(21000, 50);
 
         var result = validator.TestValidate(gasSettings);
 
