@@ -2,9 +2,11 @@
 using RPC.Core.Models;
 using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO.Tests;
 
+[Collection("RESET_ENVIRONMENT")]
 public class ContractRpcWriterTests
 {
     private Request request;
@@ -20,6 +22,22 @@ public class ContractRpcWriterTests
             value: new HexBigInteger(10000000000000000),
             gasSettings: new GasSettings(30000, 6)
         );
+    }
+
+    [Fact]
+    internal void InitializeWeb3()
+    {
+        Environment.SetEnvironmentVariable("SECRET_MNEMONIC_ID", "Mnemonic");
+        Environment.SetEnvironmentVariable("SECRET_MNEMONIC_KEY", "words");
+        var contractRpcWriter = new ContractRpcWriter(request)
+        {
+            SecretManager = MockSecretManager.GetMock
+        };
+
+        var result = contractRpcWriter.InitializeWeb3();
+
+        Assert.NotNull(result);
+        Assert.IsType<Web3>(result);
     }
 
     [Fact]

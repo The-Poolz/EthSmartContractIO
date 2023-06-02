@@ -37,6 +37,14 @@ public class ContractRpcWriter : IContractIO
         return new TransactionSender(Web3).SendTransaction(signedTransaction);
     }
 
+    public IWeb3 InitializeWeb3()
+    {
+        SecretManager ??= new SecretManager();
+        var accountManager = new AccountManager(SecretManager);
+        var account = accountManager.GetAccount(request.AccountId, new HexBigInteger(request.ChainId));
+        return Web3Base.CreateWeb3(request.RpcUrl, account);
+    }
+
     private TransactionInput CreateActionInput() =>
         new(request.Data, request.To, request.Value)
         {
@@ -57,13 +65,5 @@ public class ContractRpcWriter : IContractIO
         {
             throw new InvalidOperationException("Gas price exceeded.");
         }
-    }
-
-    private  IWeb3 InitializeWeb3()
-    {
-        SecretManager ??= new SecretManager();
-        var accountManager = new AccountManager(SecretManager);
-        var account = accountManager.GetAccount(request.AccountId, new HexBigInteger(request.ChainId));
-        return Web3Base.CreateWeb3(request.RpcUrl, account);
     }
 }
