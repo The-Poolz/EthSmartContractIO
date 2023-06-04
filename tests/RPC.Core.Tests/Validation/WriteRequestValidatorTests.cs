@@ -14,7 +14,7 @@ namespace RPC.Core.Validation.Tests
         private static readonly int validAccountId = 1;
         private static readonly uint validChainId = 1;
         private static readonly HexBigInteger validValue = new(10);
-        private static readonly GasSettings validGasSettings = new() { MaxGasLimit = 20000, MaxGweiGasPrice = 10 };
+        private static readonly GasSettings validGasSettings = new(20000, 10);
 
         [Fact]
         internal void Write_ShouldNotHaveValidationError()

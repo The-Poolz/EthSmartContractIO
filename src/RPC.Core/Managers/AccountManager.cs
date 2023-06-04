@@ -1,6 +1,7 @@
 ﻿using SecretsManager;
 using RPC.Core.Providers;
 using Nethereum.HdWallet;
+using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
 
 namespace RPC.Core.Managers;
@@ -14,6 +15,6 @@ public class AccountManager
         wallet = WalletProvider.GetWallet(secretManager);
     }
 
-    public Account GetAccount(int id) =>
-        wallet.GetAccount(id);
+    public Account GetAccount(int id, HexBigInteger chainId) =>
+        wallet.GetAccount(id, chainId);
 }

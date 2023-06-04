@@ -4,33 +4,29 @@ using Newtonsoft.Json.Linq;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcReader : IRpcAction
+public class ContractRpcReader : IContractIO
 {
-    private readonly string rpcConnection;
+    private readonly Request request;
 
-    public ContractRpcReader(string rpcConnection)
+    public ContractRpcReader(Request request)
     {
-        this.rpcConnection = rpcConnection;
+        this.request = request;
     }
 
-    public string ExecuteAction(Request request)
+    public virtual string RunContractAction()
     {
-        var input = CreateActionInput(request);
+        var input = CreateActionInput();
 
-        return ReadFromNetwork(input).ToString();
-    }
-
-    private RpcRequest CreateActionInput(Request request) =>
-        new(request.To, request.Data);
-
-    private JToken ReadFromNetwork(RpcRequest request)
-    {
-        var response = rpcConnection.PostJsonAsync(request)
+        var response = request.RpcUrl.PostJsonAsync(input)
             .GetAwaiter()
             .GetResult();
 
         return response.GetJsonAsync<JToken>()
             .GetAwaiter()
-            .GetResult();
+            .GetResult()
+            .ToString();
     }
+
+    private RpcRequest CreateActionInput() =>
+        new(request.To, request.Data);
 }
