@@ -11,7 +11,6 @@ public class RpcRequest
     public string RpcUrl { get; private set; } = null!;
     public int AccountId { get; private set; }
     public uint ChainId { get; private set; }
-    public string From { get; private set; } = null!;
     public string To { get; private set; } = null!;
     public HexBigInteger Value { get; private set; } = null!;
     public GasSettings GasSettings { get; private set; } = null!;
@@ -37,7 +36,6 @@ public class RpcRequest
         string rpcUrl,
         int accountId,
         uint chainId,
-        string from,
         string to,
         HexBigInteger value,
         GasSettings gasSettings,
@@ -48,7 +46,6 @@ public class RpcRequest
         RpcUrl = rpcUrl;
         AccountId = accountId;
         ChainId = chainId;
-        From = from;
         To = to;
         Value = value;
         GasSettings = gasSettings;

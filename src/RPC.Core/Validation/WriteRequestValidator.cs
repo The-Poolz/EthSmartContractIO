@@ -9,12 +9,6 @@ public class WriteRequestValidator : BaseRequestValidator
         RuleFor(x => x.ChainId)
             .NotEqual(default(uint));
 
-        RuleFor(x => x.From)
-            .NotNull()
-            .NotEmpty()
-            .Must(IsValidEthereumAddress)
-            .WithMessage(GetInvalidAddressMessage("From"));
-
         RuleFor(x => x.Value)
             .NotNull();
 
