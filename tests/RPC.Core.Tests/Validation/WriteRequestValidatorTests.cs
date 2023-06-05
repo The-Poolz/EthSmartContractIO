@@ -19,7 +19,7 @@ namespace RPC.Core.Validation.Tests
         [Fact]
         internal void Write_ShouldNotHaveValidationError()
         {
-            var request = new RpcRequest(validRpcUrl, validAccountId, validChainId, validEthereumAddress, validEthereumAddress, validValue, validGasSettings);
+            var request = new RpcRequest(validRpcUrl, validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings);
 
             var validator = new WriteRequestValidator();
 
@@ -27,7 +27,6 @@ namespace RPC.Core.Validation.Tests
 
             result.ShouldNotHaveValidationErrorFor(x => x.RpcUrl);
             result.ShouldNotHaveValidationErrorFor(x => x.AccountId);
-            result.ShouldNotHaveValidationErrorFor(x => x.From);
             result.ShouldNotHaveValidationErrorFor(x => x.To);
             result.ShouldNotHaveValidationErrorFor(x => x.Value);
             result.ShouldNotHaveValidationErrorFor(x => x.GasSettings);
@@ -35,9 +34,9 @@ namespace RPC.Core.Validation.Tests
 
         [Theory]
         [MemberData(nameof(TestData))]
-        internal void Write_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, int accountId, uint chainId, string from, string to, HexBigInteger value, GasSettings gasSettings, string expectedErrorMessage)
+        internal void Write_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, int accountId, uint chainId, string to, HexBigInteger value, GasSettings gasSettings, string expectedErrorMessage)
         {
-            Action testCode = () => new RpcRequest(rpcUrl, accountId, chainId, from, to, value, gasSettings);
+            Action testCode = () => new RpcRequest(rpcUrl, accountId, chainId, to, value, gasSettings);
 
             var exception = Assert.Throws<ValidationException>(testCode);
             Assert.Equal(expectedErrorMessage, exception.Message);
@@ -46,12 +45,11 @@ namespace RPC.Core.Validation.Tests
         public static IEnumerable<object[]> TestData =>
             new List<object[]>
             {
-                new object[] { "", validAccountId, validChainId, validEthereumAddress, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: 'Rpc Url' must not be empty. Severity: Error{Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
-                new object[] { "invalid url", validAccountId, validChainId, validEthereumAddress, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
-                new object[] { validRpcUrl, validAccountId, 0, validEthereumAddress, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- ChainId: 'Chain Id' must not be equal to '0'. Severity: Error" },
-                new object[] { validRpcUrl, validAccountId, validChainId, "", validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- From: 'From' must not be empty. Severity: Error{Environment.NewLine} -- From: Parameter 'From' is invalid ethereum address. Severity: Error" },
-                new object[] { validRpcUrl, validAccountId, validChainId, validEthereumAddress, "", validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- To: 'To' must not be empty. Severity: Error{Environment.NewLine} -- To: Parameter 'To' is invalid ethereum address. Severity: Error" },
-                new object[] { validRpcUrl, validAccountId, validChainId, validEthereumAddress, validEthereumAddress, validValue, null, $"Validation failed: {Environment.NewLine} -- GasSettings: 'Gas Settings' must not be empty. Severity: Error" }
+                new object[] { "", validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: 'Rpc Url' must not be empty. Severity: Error{Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
+                new object[] { "invalid url", validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
+                new object[] { validRpcUrl, validAccountId, 0, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- ChainId: 'Chain Id' must not be equal to '0'. Severity: Error" },
+                new object[] { validRpcUrl, validAccountId, validChainId, "", validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- To: 'To' must not be empty. Severity: Error{Environment.NewLine} -- To: Parameter 'To' is invalid ethereum address. Severity: Error" },
+                new object[] { validRpcUrl, validAccountId, validChainId, validEthereumAddress, validValue, null, $"Validation failed: {Environment.NewLine} -- GasSettings: 'Gas Settings' must not be empty. Severity: Error" }
             };
     }
 }
