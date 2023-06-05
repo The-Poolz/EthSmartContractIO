@@ -6,9 +6,9 @@ namespace RPC.Core.ContractIO;
 
 public class ContractRpcReader : IContractIO
 {
-    private readonly Request request;
+    private readonly RpcRequest request;
 
-    public ContractRpcReader(Request request)
+    public ContractRpcReader(RpcRequest request)
     {
         this.request = request;
     }
@@ -27,6 +27,6 @@ public class ContractRpcReader : IContractIO
             .ToString();
     }
 
-    private RpcRequest CreateActionInput() =>
+    private ReadRpcRequest CreateActionInput() =>
         new(request.To, request.Data);
 }

@@ -9,15 +9,14 @@ namespace RPC.Core.ContractIO.Tests;
 [Collection("RESET_ENVIRONMENT")]
 public class ContractRpcWriterTests
 {
-    private Request request;
+    private RpcRequest request;
 
     public ContractRpcWriterTests()
     {
-        request = new Request(
+        request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
             accountId: 0,
             chainId: 1,
-            from: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             to: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             value: new HexBigInteger(10000000000000000),
             gasSettings: new GasSettings(30000, 6)
@@ -73,11 +72,10 @@ public class ContractRpcWriterTests
     [Fact]
     internal void CheckGasLimits_GasLimitExceeded_ThrowException()
     {
-        request = new Request(
+        request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
             accountId: 0,
             chainId: 1,
-            from: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             to: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             value: new HexBigInteger(10000000000000000),
             gasSettings: new GasSettings(20000, 6)
@@ -98,11 +96,10 @@ public class ContractRpcWriterTests
     [Fact]
     internal void CheckGasLimits_GasPriceExceeded_ThrowException()
     {
-        request = new Request(
+        request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
             accountId: 0,
             chainId: 1,
-            from: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             to: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             value: new HexBigInteger(10000000000000000),
             gasSettings: new GasSettings(30000, 4)
