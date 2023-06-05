@@ -11,6 +11,8 @@ public class ContractRpc
     public virtual string ExecuteAction(RpcRequest request, IMnemonicProvider mnemonicProvider) =>
         GetRpcWriter(request, mnemonicProvider).RunContractAction();
 
-    private static ContractRpcReader GetRpcReader(RpcRequest request) => new(request);
-    private static ContractRpcWriter GetRpcWriter(RpcRequest request) => new(request);
+    private static ContractRpcReader GetRpcReader(RpcRequest request) =>
+        new(request);
+    private static ContractRpcWriter GetRpcWriter(RpcRequest request, IMnemonicProvider mnemonicProvider) =>
+        new(request, mnemonicProvider);
 }
