@@ -40,9 +40,6 @@ public class GasLimitChecker
         return this;
     }
 
-    private static BigInteger ConvertGweiToWei(decimal gweiValue)
-    {
-        var etherValue = gweiValue * (decimal)Math.Pow(10, -9);
-        return new UnitConversion().ToWei(etherValue);
-    }
+    private static BigInteger ConvertGweiToWei(decimal gweiValue) =>
+        UnitConversion.Convert.ToWei(gweiValue, UnitConversion.EthUnit.Gwei);
 }
