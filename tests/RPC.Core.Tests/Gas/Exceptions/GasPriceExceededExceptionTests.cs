@@ -8,7 +8,12 @@ public class GasPriceExceededExceptionTests : ExceptionSerializationTestBase<Gas
     [Fact]
     internal void GasPriceExceededException_SerializationTest()
     {
-        RunSerializationTest("Gas price exceeded.");
+        var expectedMessage = "Gas price exceeded.";
+
+        RunSerializationTest(expectedMessage);
+
+        var actualMessage = infoForGetObjectData.GetString("Message");
+        Assert.Equal(expectedMessage, actualMessage);
     }
 
     protected override TestableGasPriceExceededException CreateTestableException(SerializationInfo info, StreamingContext context) =>

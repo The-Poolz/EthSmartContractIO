@@ -5,6 +5,8 @@ namespace RPC.Core.Gas.Exceptions.Tests;
 public abstract class ExceptionSerializationTestBase<TException, TTestableException>
     where TTestableException : Exception
 {
+    protected SerializationInfo infoForGetObjectData = null!;
+
     protected void RunSerializationTest(string message)
     {
         var info = new SerializationInfo(typeof(TException), new FormatterConverter());
@@ -23,7 +25,7 @@ public abstract class ExceptionSerializationTestBase<TException, TTestableExcept
 
         var exception = CreateTestableException(info, context);
 
-        var infoForGetObjectData = new SerializationInfo(typeof(TException), new FormatterConverter());
+        infoForGetObjectData = new SerializationInfo(typeof(TException), new FormatterConverter());
         exception.GetObjectData(infoForGetObjectData, context);
     }
 

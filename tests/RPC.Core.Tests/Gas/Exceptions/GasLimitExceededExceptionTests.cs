@@ -8,7 +8,12 @@ public class GasLimitExceededExceptionTests : ExceptionSerializationTestBase<Gas
     [Fact]
     internal void GasPriceExceededException_SerializationTest()
     {
-        RunSerializationTest("Gas limit exceeded.");
+        var expectedMessage = "Gas limit exceeded.";
+
+        RunSerializationTest(expectedMessage);
+
+        var actualMessage = infoForGetObjectData.GetString("Message");
+        Assert.Equal(expectedMessage, actualMessage);
     }
 
     protected override TestableGasLimitExceededException CreateTestableException(SerializationInfo info, StreamingContext context) =>
