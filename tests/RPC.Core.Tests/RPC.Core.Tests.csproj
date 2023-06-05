@@ -29,4 +29,8 @@
     <ProjectReference Include="..\..\src\RPC.Core\RPC.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Gas\Exceptions\" />
+  </ItemGroup>
+
 </Project>
