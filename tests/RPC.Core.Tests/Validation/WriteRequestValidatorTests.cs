@@ -34,7 +34,7 @@ public class WriteRequestValidatorTests
     [MemberData(nameof(TestData))]
     internal void Write_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, int accountId, uint chainId, string to, HexBigInteger value, GasSettings gasSettings, string expectedErrorMessage)
     {
-        void testCode() => new RpcRequest(rpcUrl, accountId, chainId, to, value, gasSettings);
+        void testCode() { _ = new RpcRequest(rpcUrl, accountId, chainId, to, value, gasSettings); };
 
         var exception = Assert.Throws<ValidationException>(testCode);
         Assert.Equal(expectedErrorMessage, exception.Message);
