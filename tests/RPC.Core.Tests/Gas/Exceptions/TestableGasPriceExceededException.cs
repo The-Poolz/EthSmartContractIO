@@ -2,7 +2,7 @@
 
 namespace RPC.Core.Gas.Exceptions.Tests;
 
-public class TestableGasPriceExceededException : GasLimitExceededException
+public class TestableGasPriceExceededException : GasPriceExceededException
 {
     public TestableGasPriceExceededException(SerializationInfo info, StreamingContext context)
         : base(info, context)
