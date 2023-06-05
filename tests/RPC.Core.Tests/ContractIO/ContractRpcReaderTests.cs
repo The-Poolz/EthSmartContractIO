@@ -30,7 +30,7 @@ public class ContractRpcReaderTests
     }
 
     [Fact]
-    internal void RunContractAction_ShouldReturnExpectedEmptyString()
+    internal void RunContractAction_ShouldThrowException()
     {
         var errorResponse = new JObject
         {
@@ -50,9 +50,9 @@ public class ContractRpcReaderTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(errorResponse);
 
-        var result = new ContractRpcReader(request).RunContractAction();
+        Action testCode = () => new ContractRpcReader(request).RunContractAction();
 
-        Assert.NotNull(result);
-        Assert.Equal(string.Empty, result);
+        var exception = Assert.Throws<KeyNotFoundException>(testCode);
+        Assert.Equal("Response does not contain the key 'result'.", exception.Message);
     }
 }

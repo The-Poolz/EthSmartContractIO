@@ -33,6 +33,6 @@ public class ContractRpcReader : IContractIO
             .GetAwaiter()
             .GetResult();
 
-        return response["result"]?.ToString() ?? string.Empty;
+        return response["result"]?.ToString() ?? throw new KeyNotFoundException("Response does not contain the key 'result'.");
     }
 }
