@@ -29,10 +29,10 @@ public class ContractRpcReader : IContractIO
 
     private static string ParseResponse(IFlurlResponse flurlResponse)
     {
-        var response = flurlResponse.GetJsonAsync<JToken>()
+        var response = flurlResponse.GetJsonAsync<JObject>()
             .GetAwaiter()
             .GetResult();
 
-        return response["result"]?.ToString() ?? string.Empty;
+        return response["result"]?.ToObject<string>() ?? string.Empty;
     }
 }

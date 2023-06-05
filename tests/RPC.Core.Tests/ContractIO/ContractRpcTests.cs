@@ -18,7 +18,7 @@ public class ContractRpcTests
             { "jsonrpc", "2.0" },
             { "result", "0x000000000000000000000000000000000000000000000000002386f26fc10000" },
             { "id", 0 }
-        }.ToString();
+        };
         using var httpTest = new HttpTest();
         httpTest
             .ForCallsTo(RpcUrl)
@@ -27,6 +27,6 @@ public class ContractRpcTests
         var result = new ContractRpc().ExecuteAction(request);
 
         Assert.NotNull(result);
-        Assert.Equal(response, result);
+        Assert.Equal(response["result"]?.ToObject<string>(), result);
     }
 }
