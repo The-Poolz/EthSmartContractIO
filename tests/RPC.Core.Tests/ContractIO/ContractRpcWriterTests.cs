@@ -6,7 +6,6 @@ using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO.Tests;
 
-[Collection("RESET_ENVIRONMENT")]
 public class ContractRpcWriterTests
 {
     private RpcRequest request;
