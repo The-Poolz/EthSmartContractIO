@@ -21,12 +21,18 @@ public class ContractRpcReader : IContractIO
             .GetAwaiter()
             .GetResult();
 
-        return response.GetJsonAsync<JToken>()
-            .GetAwaiter()
-            .GetResult()
-            .ToString();
+        return ParseResponse(response);
     }
 
     private ReadRpcRequest CreateActionInput() =>
         new(request.To, request.Data);
+
+    private static string ParseResponse(IFlurlResponse flurlResponse)
+    {
+        var response = flurlResponse.GetJsonAsync<JToken>()
+            .GetAwaiter()
+            .GetResult();
+
+        return response["result"]?.ToString() ?? string.Empty;
+    }
 }
