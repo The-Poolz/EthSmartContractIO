@@ -36,7 +36,7 @@ namespace RPC.Core.Validation.Tests
         [MemberData(nameof(TestData))]
         internal void Write_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, int accountId, uint chainId, string to, HexBigInteger value, GasSettings gasSettings, string expectedErrorMessage)
         {
-            Action testCode = () => new RpcRequest(rpcUrl, accountId, chainId, to, value, gasSettings);
+            void testCode() => new RpcRequest(rpcUrl, accountId, chainId, to, value, gasSettings);
 
             var exception = Assert.Throws<ValidationException>(testCode);
             Assert.Equal(expectedErrorMessage, exception.Message);
