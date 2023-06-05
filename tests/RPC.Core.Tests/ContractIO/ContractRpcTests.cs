@@ -2,6 +2,7 @@
 using RPC.Core.Models;
 using Flurl.Http.Testing;
 using Newtonsoft.Json.Linq;
+using RPC.Core.Tests.Mocks;
 
 namespace RPC.Core.ContractIO.Tests;
 
@@ -24,7 +25,7 @@ public class ContractRpcTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
 
-        var result = new ContractRpc().ExecuteAction(request);
+        var result = new ContractRpc(new MockMnemonicProvider()).ExecuteAction(request);
 
         Assert.NotNull(result);
         Assert.Equal(response, result);

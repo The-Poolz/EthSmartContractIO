@@ -6,13 +6,18 @@ namespace RPC.Core.ContractIO;
 
 public class ContractRpc
 {
-    public virtual string ExecuteAction(RpcRequest request) =>
-        GetRpcReader(request).RunContractAction();
-    public virtual string ExecuteAction(RpcRequest request, IMnemonicProvider mnemonicProvider) =>
-        GetRpcWriter(request, mnemonicProvider).RunContractAction();
+    private readonly IMnemonicProvider mnemonicProvider;
 
-    private static ContractRpcReader GetRpcReader(RpcRequest request) =>
-        new(request);
-    private static ContractRpcWriter GetRpcWriter(RpcRequest request, IMnemonicProvider mnemonicProvider) =>
-        new(request, mnemonicProvider);
+    public ContractRpc(IMnemonicProvider mnemonicProvider)
+    {
+        this.mnemonicProvider = mnemonicProvider;
+    }
+
+    public virtual string ExecuteAction(RpcRequest request) =>
+        GetContractIO(request).RunContractAction();
+
+    private IContractIO GetContractIO(RpcRequest request) =>
+        request.ActionType == ActionType.Read ?
+        new ContractRpcReader(request) :
+        new ContractRpcWriter(request, mnemonicProvider);
 }
