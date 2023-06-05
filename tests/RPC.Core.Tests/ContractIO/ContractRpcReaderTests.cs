@@ -32,17 +32,17 @@ public class ContractRpcReaderTests
     [Fact]
     internal void RunContractAction_ShouldReturnExpectedEmptyString()
     {
-        var errorResponse = new JObject()
+        var errorResponse = new JObject
         {
             { "jsonrpc", "2.0" },
+            { "id", 0 },
             {
-                new JObject()
+                "error", new JObject
                 {
                     { "code", -32602 },
                     { "message", "missing value for required argument 0" }
                 }
-            },
-            { "id", 0 }
+            }
         };
         var request = new RpcRequest(RpcUrl, "0xA98b8386a806966c959C35c636b929FE7c5dD7dE", "0xbef7a2f0");
         using var httpTest = new HttpTest();
