@@ -6,7 +6,6 @@ using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO.Tests;
 
-[Collection("RESET_ENVIRONMENT")]
 public class ContractRpcWriterTests
 {
     private RpcRequest request;
@@ -26,12 +25,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void InitializeWeb3()
     {
-        Environment.SetEnvironmentVariable("SECRET_MNEMONIC_ID", "Mnemonic");
-        Environment.SetEnvironmentVariable("SECRET_MNEMONIC_KEY", "words");
-        var contractRpcWriter = new ContractRpcWriter(request)
-        {
-            SecretManager = MockSecretManager.GetMock
-        };
+        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider());
 
         var result = contractRpcWriter.InitializeWeb3();
 
@@ -42,10 +36,9 @@ public class ContractRpcWriterTests
     [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
-        var contractRpcWriter = new ContractRpcWriter(request)
+        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider())
         {
-            Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            Web3 = MockWeb3.GetMock
         };
 
         var result = contractRpcWriter.RunContractAction();
@@ -57,10 +50,9 @@ public class ContractRpcWriterTests
     [Fact]
     internal void CheckGasLimits_LimitsNotExceeded_WithoutThrows()
     {
-        var contractRpcWriter = new ContractRpcWriter(request)
+        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider())
         {
-            Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            Web3 = MockWeb3.GetMock
         };
 
         var result = contractRpcWriter.RunContractAction();
@@ -81,10 +73,9 @@ public class ContractRpcWriterTests
             gasSettings: new GasSettings(20000, 6)
         );
 
-        var contractRpcWriter = new ContractRpcWriter(request)
+        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider())
         {
-            Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            Web3 = MockWeb3.GetMock
         };
 
         Action testCode = () => contractRpcWriter.RunContractAction();
@@ -105,10 +96,9 @@ public class ContractRpcWriterTests
             gasSettings: new GasSettings(30000, 4)
         );
 
-        var contractRpcWriter = new ContractRpcWriter(request)
+        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider())
         {
-            Web3 = MockWeb3.GetMock,
-            SecretManager = MockSecretManager.GetMock
+            Web3 = MockWeb3.GetMock
         };
 
         Action testCode = () => contractRpcWriter.RunContractAction();
