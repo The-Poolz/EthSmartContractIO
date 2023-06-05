@@ -5,7 +5,7 @@ using SecretsManager;
 using System.Numerics;
 using RPC.Core.Models;
 using RPC.Core.Utility;
-using RPC.Core.Managers;
+using RPC.Core.Providers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
@@ -15,6 +15,7 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
+    private string accountAddress;
 
     public IWeb3? Web3 { get; set; }
     public SecretManager? SecretManager { get; set; }
@@ -40,16 +41,16 @@ public class ContractRpcWriter : IContractIO
     public IWeb3 InitializeWeb3()
     {
         SecretManager ??= new SecretManager();
-        var accountManager = new AccountManager(SecretManager);
-        var account = accountManager.GetAccount(request.AccountId, new HexBigInteger(request.ChainId));
-        return Web3Base.CreateWeb3(request.RpcUrl, account);
+        var accountProvider = new AccountProvider(SecretManager, request.AccountId, request.ChainId);
+        accountAddress = accountProvider.AccountAddress;
+        return Web3Base.CreateWeb3(request.RpcUrl, accountProvider.Account);
     }
 
     private TransactionInput CreateActionInput() =>
         new(request.Data, request.To, request.Value)
         {
             ChainId = new HexBigInteger(request.ChainId),
-            From = request.From
+            From = accountAddress
         };
 
     private void CheckGasLimits(TransactionInput transactionInput)
