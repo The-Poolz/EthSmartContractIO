@@ -15,7 +15,7 @@ public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
     private readonly IMnemonicProvider mnemonicProvider;
-    private string accountAddress;
+    private string? accountAddress;
 
     public IWeb3? Web3 { get; set; }
 
