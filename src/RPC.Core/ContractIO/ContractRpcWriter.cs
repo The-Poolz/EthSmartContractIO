@@ -4,7 +4,6 @@ using Nethereum.Web3;
 using System.Numerics;
 using RPC.Core.Models;
 using RPC.Core.Utility;
-using RPC.Core.Managers;
 using RPC.Core.Providers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
@@ -15,14 +14,15 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
+    private readonly IMnemonicProvider mnemonicProvider;
     private string accountAddress;
 
     public IWeb3? Web3 { get; set; }
-    public IMnemonicProvider? MnemonicProvider { get; set; }
 
-    public ContractRpcWriter(RpcRequest request)
+    public ContractRpcWriter(RpcRequest request, IMnemonicProvider mnemonicProvider)
     {
         this.request = request;
+        this.mnemonicProvider = mnemonicProvider;
     }
 
     public virtual string RunContractAction()
@@ -40,7 +40,7 @@ public class ContractRpcWriter : IContractIO
 
     public IWeb3 InitializeWeb3()
     {
-        var accountProvider = new AccountProvider(MnemonicProvider, request.AccountId, request.ChainId);
+        var accountProvider = new AccountProvider(mnemonicProvider, request.AccountId, request.ChainId);
         accountAddress = accountProvider.AccountAddress;
         return Web3Base.CreateWeb3(request.RpcUrl, accountProvider.Account);
     }

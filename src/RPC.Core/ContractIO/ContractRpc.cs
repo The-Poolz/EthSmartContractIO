@@ -1,19 +1,16 @@
 ﻿using RPC.Core.Types;
 using RPC.Core.Models;
+using RPC.Core.Providers;
 
 namespace RPC.Core.ContractIO;
 
 public class ContractRpc
 {
-    public virtual string ExecuteAction(RpcRequest request)
-    {
-        var contractIO = GetContractIO(request);
+    public virtual string ExecuteAction(RpcRequest request) =>
+        GetRpcReader(request).RunContractAction();
+    public virtual string ExecuteAction(RpcRequest request, IMnemonicProvider mnemonicProvider) =>
+        GetRpcWriter(request, mnemonicProvider).RunContractAction();
 
-        return contractIO.RunContractAction();
-    }
-
-    private static IContractIO GetContractIO(RpcRequest request) =>
-        request.ActionType == ActionType.Read ?
-        new ContractRpcReader(request) :
-        new ContractRpcWriter(request);
+    private static ContractRpcReader GetRpcReader(RpcRequest request) => new(request);
+    private static ContractRpcWriter GetRpcWriter(RpcRequest request) => new(request);
 }
