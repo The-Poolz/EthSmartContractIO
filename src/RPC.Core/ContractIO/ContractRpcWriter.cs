@@ -32,7 +32,7 @@ public class ContractRpcWriter : IContractIO
         var transaction = new GasEstimator(Web3).EstimateGas(CreateActionInput());
         transaction.GasPrice = new GasPricer(Web3).GetCurrentWeiGasPrice();
 
-        CheckGasLimits(transaction);
+        new GasLimitChecker(transaction, request.GasSettings).CheckAndThrow();
 
         var signedTransaction = new TransactionSigner(Web3).SignTransaction(transaction);
         return new TransactionSender(Web3).SendTransaction(signedTransaction);
@@ -51,19 +51,4 @@ public class ContractRpcWriter : IContractIO
             ChainId = new HexBigInteger(request.ChainId),
             From = accountAddress
         };
-
-    private void CheckGasLimits(TransactionInput transactionInput)
-    {
-        if (transactionInput.Gas.Value > request.GasSettings.MaxGasLimit)
-        {
-            throw new InvalidOperationException("Gas limit exceeded.");
-        }
-
-        decimal etherValue = request.GasSettings.MaxGweiGasPrice * (decimal)Math.Pow(10, -9);
-        BigInteger weiValue = new UnitConversion().ToWei(etherValue);
-        if (transactionInput.GasPrice.Value > weiValue)
-        {
-            throw new InvalidOperationException("Gas price exceeded.");
-        }
-    }
 }
