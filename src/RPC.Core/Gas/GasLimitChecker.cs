@@ -2,6 +2,7 @@
 using System.Numerics;
 using RPC.Core.Models;
 using Nethereum.RPC.Eth.DTOs;
+using RPC.Core.Gas.Exceptions;
 
 namespace RPC.Core.Gas;
 
@@ -16,27 +17,35 @@ public class GasLimitChecker
         this.gasSettings = gasSettings;
     }
 
-    public void CheckGasLimits()
+    public GasLimitChecker CheckAndThrow()
     {
         CheckGasLimit();
         CheckGasPrice();
+        return this;
     }
 
-    private void CheckGasLimit()
+    private GasLimitChecker CheckGasLimit()
     {
         if (transactionInput.Gas.Value > gasSettings.MaxGasLimit)
         {
-            throw new InvalidOperationException("Gas limit exceeded.");
+            throw new GasLimitExceededException();
         }
+        return this;
     }
 
-    private void CheckGasPrice()
+    private GasLimitChecker CheckGasPrice()
     {
-        decimal etherValue = gasSettings.MaxGweiGasPrice * (decimal)Math.Pow(10, -9);
-        BigInteger weiValue = new UnitConversion().ToWei(etherValue);
-        if (transactionInput.GasPrice.Value > weiValue)
+        BigInteger maxWeiGasPrice = ConvertGweiToWei(gasSettings.MaxGweiGasPrice);
+        if (transactionInput.GasPrice.Value > maxWeiGasPrice)
         {
-            throw new InvalidOperationException("Gas price exceeded.");
+            throw new GasPriceExceededException();
         }
+        return this;
+    }
+
+    private static BigInteger ConvertGweiToWei(decimal gweiValue)
+    {
+        var etherValue = gweiValue * (decimal)Math.Pow(10, -9);
+        return new UnitConversion().ToWei(etherValue);
     }
 }

@@ -2,6 +2,7 @@
 using RPC.Core.Models;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
+using RPC.Core.Gas.Exceptions;
 
 namespace RPC.Core.Gas.Tests;
 
@@ -17,7 +18,7 @@ public class GasLimitCheckerTests
             GasPrice = new HexBigInteger(5000000000)
         };
 
-        new GasLimitChecker(transactionInput, gasSettings).CheckGasLimits();
+        new GasLimitChecker(transactionInput, gasSettings).CheckAndThrow();
     }
 
     [Fact]
@@ -30,9 +31,9 @@ public class GasLimitCheckerTests
             GasPrice = new HexBigInteger(5000000000)
         };
 
-        Action testCode = () => new GasLimitChecker(transactionInput, gasSettings).CheckGasLimits();
+        Action testCode = () => new GasLimitChecker(transactionInput, gasSettings).CheckAndThrow();
 
-        var exception = Assert.Throws<InvalidOperationException>(testCode);
+        var exception = Assert.Throws<GasLimitExceededException>(testCode);
         Assert.Equal("Gas limit exceeded.", exception.Message);
     }
 
@@ -46,9 +47,9 @@ public class GasLimitCheckerTests
             GasPrice = new HexBigInteger(5000000000)
         };
 
-        Action testCode = () => new GasLimitChecker(transactionInput, gasSettings).CheckGasLimits();
+        Action testCode = () => new GasLimitChecker(transactionInput, gasSettings).CheckAndThrow();
 
-        var exception = Assert.Throws<InvalidOperationException>(testCode);
+        var exception = Assert.Throws<GasPriceExceededException>(testCode);
         Assert.Equal("Gas price exceeded.", exception.Message);
     }
 }
