@@ -3,19 +3,14 @@ using System.Runtime.Serialization;
 
 namespace RPC.Core.Gas.Exceptions.Tests;
 
-public class GasPriceExceededExceptionTests : ExceptionSerializationTestBase
+public class GasPriceExceededExceptionTests : ExceptionSerializationTestBase<GasPriceExceededException, TestableGasPriceExceededException>
 {
     [Fact]
     internal void GasPriceExceededException_SerializationTest()
     {
-        var message = "Gas price exceeded.";
-        var context = new StreamingContext();
-
-        var exception = new TestableGasPriceExceededException(GetSerializationInfo<GasPriceExceededException>(message), context);
-
-        var infoForGetObjectData = new SerializationInfo(typeof(GasPriceExceededException), new FormatterConverter());
-        exception.GetObjectData(infoForGetObjectData, context);
-
-        Assert.Equal(message, exception.Message);
+        RunSerializationTest("Gas price exceeded.");
     }
+
+    protected override TestableGasPriceExceededException CreateTestableException(SerializationInfo info, StreamingContext context) =>
+        new(info, context);
 }

@@ -2,9 +2,10 @@
 
 namespace RPC.Core.Gas.Exceptions.Tests;
 
-public class ExceptionSerializationTestBase
+public abstract class ExceptionSerializationTestBase<TException, TTestableException>
+    where TTestableException : Exception
 {
-    protected static SerializationInfo GetSerializationInfo<TException>(string message)
+    protected void RunSerializationTest(string message)
     {
         var info = new SerializationInfo(typeof(TException), new FormatterConverter());
         info.AddValue("Message", message);
@@ -18,6 +19,13 @@ public class ExceptionSerializationTestBase
         info.AddValue("RemoteStackIndex", 0, typeof(int));
         info.AddValue("ExceptionMethod", null, typeof(string));
 
-        return info;
+        var context = new StreamingContext();
+
+        var exception = CreateTestableException(info, context);
+
+        var infoForGetObjectData = new SerializationInfo(typeof(TException), new FormatterConverter());
+        exception.GetObjectData(infoForGetObjectData, context);
     }
+
+    protected abstract TTestableException CreateTestableException(SerializationInfo info, StreamingContext context);
 }
