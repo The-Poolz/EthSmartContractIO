@@ -13,7 +13,6 @@ public class WriteRequestValidator : BaseRequestValidator
             .NotNull();
 
         RuleFor(x => x.GasSettings)
-            .NotNull()
             .SetValidator(new GasSettingsValidator());
     }
 }
