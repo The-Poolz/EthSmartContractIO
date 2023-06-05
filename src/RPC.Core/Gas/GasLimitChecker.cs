@@ -17,12 +17,9 @@ public class GasLimitChecker
         this.gasSettings = gasSettings;
     }
 
-    public GasLimitChecker CheckAndThrow()
-    {
-        CheckGasLimit();
-        CheckGasPrice();
-        return this;
-    }
+    public GasLimitChecker CheckAndThrow() =>
+        CheckGasLimit()
+        .CheckGasPrice();
 
     private GasLimitChecker CheckGasLimit()
     {
