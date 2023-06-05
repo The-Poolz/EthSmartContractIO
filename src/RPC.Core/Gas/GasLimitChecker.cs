@@ -5,15 +5,24 @@ using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Gas;
 
-public static class GasLimitChecker
+public class GasLimitChecker
 {
-    public static void CheckGasLimits(TransactionInput transactionInput, GasSettings gasSettings)
+    private readonly TransactionInput transactionInput;
+    private readonly GasSettings gasSettings;
+
+    public GasLimitChecker(TransactionInput transactionInput, GasSettings gasSettings)
     {
-        CheckGasLimit(transactionInput, gasSettings);
-        CheckGasPrice(transactionInput, gasSettings);
+        this.transactionInput = transactionInput;
+        this.gasSettings = gasSettings;
     }
 
-    private static void CheckGasLimit(TransactionInput transactionInput, GasSettings gasSettings)
+    public void CheckGasLimits()
+    {
+        CheckGasLimit();
+        CheckGasPrice();
+    }
+
+    private void CheckGasLimit()
     {
         if (transactionInput.Gas.Value > gasSettings.MaxGasLimit)
         {
@@ -21,7 +30,7 @@ public static class GasLimitChecker
         }
     }
 
-    private static void CheckGasPrice(TransactionInput transactionInput, GasSettings gasSettings)
+    private void CheckGasPrice()
     {
         decimal etherValue = gasSettings.MaxGweiGasPrice * (decimal)Math.Pow(10, -9);
         BigInteger weiValue = new UnitConversion().ToWei(etherValue);

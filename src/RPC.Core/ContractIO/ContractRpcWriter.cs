@@ -32,7 +32,7 @@ public class ContractRpcWriter : IContractIO
         var transaction = new GasEstimator(Web3).EstimateGas(CreateActionInput());
         transaction.GasPrice = new GasPricer(Web3).GetCurrentWeiGasPrice();
 
-        GasLimitChecker.CheckGasLimits(transaction, request.GasSettings);
+        new GasLimitChecker(transaction, request.GasSettings).CheckGasLimits();
 
         var signedTransaction = new TransactionSigner(Web3).SignTransaction(transaction);
         return new TransactionSender(Web3).SendTransaction(signedTransaction);

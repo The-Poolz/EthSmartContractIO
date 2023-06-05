@@ -17,7 +17,7 @@ public class GasLimitCheckerTests
             GasPrice = new HexBigInteger(5000000000)
         };
 
-        GasLimitChecker.CheckGasLimits(transactionInput, gasSettings);
+        new GasLimitChecker(transactionInput, gasSettings).CheckGasLimits();
     }
 
     [Fact]
@@ -30,7 +30,7 @@ public class GasLimitCheckerTests
             GasPrice = new HexBigInteger(5000000000)
         };
 
-        void testCode() => GasLimitChecker.CheckGasLimits(transactionInput, gasSettings);
+        Action testCode = () => new GasLimitChecker(transactionInput, gasSettings).CheckGasLimits();
 
         var exception = Assert.Throws<InvalidOperationException>(testCode);
         Assert.Equal("Gas limit exceeded.", exception.Message);
@@ -46,7 +46,7 @@ public class GasLimitCheckerTests
             GasPrice = new HexBigInteger(5000000000)
         };
 
-        void testCode() => GasLimitChecker.CheckGasLimits(transactionInput, gasSettings);
+        Action testCode = () => new GasLimitChecker(transactionInput, gasSettings).CheckGasLimits();
 
         var exception = Assert.Throws<InvalidOperationException>(testCode);
         Assert.Equal("Gas price exceeded.", exception.Message);
