@@ -1,9 +1,8 @@
-﻿using Moq;
-using SecretsManager;
+﻿using RPC.Core.Providers;
 
 namespace RPC.Core.Tests.Mocks;
 
-internal static class MockSecretManager
+internal class MockMnemonicProvider : IMnemonicProvider
 {
     internal static string[] MnemonicWords =>
         new string[]
@@ -22,15 +21,5 @@ internal static class MockSecretManager
             "curious"
         };
 
-    internal static SecretManager GetMock
-    {
-        get
-        {
-            var secretManager = new Mock<SecretManager>();
-            secretManager.Setup(x => x.GetSecretValue("Mnemonic", "words"))
-                .Returns(string.Join(' ', MnemonicWords));
-
-            return secretManager.Object;
-        }
-    }
+    public string GetMnemonic() => string.Join(" ", MnemonicWords);
 }

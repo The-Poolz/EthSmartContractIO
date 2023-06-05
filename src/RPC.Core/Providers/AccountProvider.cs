@@ -1,4 +1,3 @@
-using SecretsManager;
 using RPC.Core.Managers;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
@@ -10,9 +9,9 @@ public class AccountProvider
     public Account Account { get; set; }
     public string AccountAddress { get; set; }
     
-    public AccountProvider(SecretManager secretManager, int accountId, uint chainId)
+    public AccountProvider(IMnemonicProvider mnemonicProvider, int accountId, uint chainId)
     {
-        var accountManager = new AccountManager(secretManager);
+        var accountManager = new AccountManager(mnemonicProvider);
         Account = accountManager.GetAccount(accountId, new HexBigInteger(chainId));
         AccountAddress = Account.Address;
     }
