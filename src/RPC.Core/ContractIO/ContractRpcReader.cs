@@ -33,6 +33,6 @@ public class ContractRpcReader : IContractIO
             .GetAwaiter()
             .GetResult();
 
-        return response["result"]?.ToObject<string>() ?? string.Empty;
+        return response["result"]?.ToString() ?? string.Empty;
     }
 }

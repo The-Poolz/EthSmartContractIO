@@ -28,6 +28,6 @@ public class ContractRpcTests
         var result = new ContractRpc(new MockMnemonicProvider()).ExecuteAction(request);
 
         Assert.NotNull(result);
-        Assert.Equal(response["result"]?.ToObject<string>(), result);
+        Assert.Equal(response["result"]?.ToString(), result);
     }
 }

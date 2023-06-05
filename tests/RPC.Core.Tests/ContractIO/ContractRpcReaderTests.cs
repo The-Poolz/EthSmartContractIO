@@ -8,7 +8,7 @@ namespace RPC.Core.ContractIO.Tests;
 public class ContractRpcReaderTests
 {
     private const string RpcUrl = "http://localhost:8545/";
-    private readonly JObject response = new JObject()
+    private readonly JObject response = new()
     {
         { "jsonrpc", "2.0" },
         { "result", "0x000000000000000000000000000000000000000000000000002386f26fc10000" },
@@ -26,7 +26,7 @@ public class ContractRpcReaderTests
         var result = new ContractRpcReader(request).RunContractAction();
 
         Assert.NotNull(result);
-        Assert.Equal(response["result"]?.ToObject<string>(), result);
+        Assert.Equal(response["result"]?.ToString(), result);
     }
 
     [Fact]
