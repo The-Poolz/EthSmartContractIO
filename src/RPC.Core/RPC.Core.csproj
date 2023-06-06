@@ -18,9 +18,14 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>Smart Contract, Ethereum, IO</PackageTags>
     <PackageProjectUrl>https://www.nuget.org/packages/SmartContractIO</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
