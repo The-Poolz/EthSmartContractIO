@@ -12,15 +12,13 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IMnemonicProvider mnemonicProvider;
     private string? accountAddress;
 
     public IWeb3? Web3 { get; set; }
 
-    public ContractRpcWriter(RpcRequest request, IMnemonicProvider mnemonicProvider)
+    public ContractRpcWriter(RpcRequest request)
     {
         this.request = request;
-        this.mnemonicProvider = mnemonicProvider;
     }
 
     public virtual string RunContractAction()
@@ -38,7 +36,11 @@ public class ContractRpcWriter : IContractIO
 
     public IWeb3 InitializeWeb3()
     {
-        var accountProvider = new AccountProvider(mnemonicProvider, request.WriteRequest!.AccountId, request.WriteRequest!.ChainId);
+        var accountProvider = new AccountProvider(
+            mnemonicProvider: request.WriteRequest!.MnemonicProvider,
+            accountId: request.WriteRequest!.AccountId,
+            chainId: request.WriteRequest!.ChainId
+        );
         accountAddress = accountProvider.AccountAddress;
         return Web3Base.CreateWeb3(request.RpcUrl, accountProvider.Account);
     }
