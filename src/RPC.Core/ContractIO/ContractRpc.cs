@@ -8,7 +8,7 @@ public class ContractRpc
     public virtual string ExecuteAction(RpcRequest request) =>
         GetContractIO(request).RunContractAction();
 
-    private IContractIO GetContractIO(RpcRequest request) =>
+    private static IContractIO GetContractIO(RpcRequest request) =>
         request.ActionType == ActionType.Read ?
         new ContractRpcReader(request) :
         new ContractRpcWriter(request);
