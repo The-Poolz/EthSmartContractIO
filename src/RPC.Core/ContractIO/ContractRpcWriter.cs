@@ -11,7 +11,6 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private string? accountAddress;
 
     public IWeb3? Web3 { get; set; }
 
@@ -33,16 +32,13 @@ public class ContractRpcWriter : IContractIO
         return new TransactionSender(Web3).SendTransaction(signedTransaction);
     }
 
-    public IWeb3 InitializeWeb3()
-    {
-        accountAddress = request.WriteRequest!.AccountProvider.Account.Address;
-        return Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
-    }
+    public IWeb3 InitializeWeb3() =>
+        Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 
     private TransactionInput CreateActionInput() =>
         new(request.Data, request.To, request.WriteRequest!.Value)
         {
             ChainId = new HexBigInteger(request.WriteRequest!.ChainId),
-            From = accountAddress
+            From = request.WriteRequest!.AccountProvider.Account.Address
         };
 }
