@@ -31,8 +31,8 @@ public class RpcRequest
     public RpcRequest(
         string rpcUrl,
         string to,
-        string? data = null,
-        WriteRpcRequest? writeRequest = null
+        WriteRpcRequest? writeRequest = null,
+        string? data = null
     )
     {
         ActionType = ActionType.Write;
