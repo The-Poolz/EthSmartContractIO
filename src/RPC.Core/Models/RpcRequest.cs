@@ -1,7 +1,6 @@
 ﻿using RPC.Core.Types;
-using Nethereum.Hex.HexTypes;
-using RPC.Core.Validation;
 using FluentValidation;
+using RPC.Core.Validation;
 
 namespace RPC.Core.Models;
 
@@ -9,12 +8,9 @@ public class RpcRequest
 {
     public ActionType ActionType { get; private set; }
     public string RpcUrl { get; private set; }
-    public int AccountId { get; private set; }
-    public uint ChainId { get; private set; }
     public string To { get; private set; }
-    public HexBigInteger Value { get; private set; } = null!;
-    public GasSettings GasSettings { get; private set; } = null!;
     public string Data { get; private set; }
+    public WriteRpcRequest? WriteRequest { get; private set; }
 
     /// <summary>
     /// Initialize <see cref="RpcRequest"/> object for <see cref="ActionType.Read"/> operation.
@@ -34,22 +30,16 @@ public class RpcRequest
     /// </summary>
     public RpcRequest(
         string rpcUrl,
-        int accountId,
-        uint chainId,
         string to,
-        HexBigInteger value,
-        GasSettings gasSettings,
-        string? data = null
+        string? data = null,
+        WriteRpcRequest? writeRequest = null
     )
     {
         ActionType = ActionType.Write;
         RpcUrl = rpcUrl;
-        AccountId = accountId;
-        ChainId = chainId;
         To = to;
-        Value = value;
-        GasSettings = gasSettings;
         Data = data ?? string.Empty;
+        WriteRequest = writeRequest;
 
         new WriteRequestValidator().ValidateAndThrow(this);
     }
