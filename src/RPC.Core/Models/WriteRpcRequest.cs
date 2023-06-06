@@ -7,9 +7,9 @@ public class WriteRpcRequest
 {
     public int AccountId { get; private set; }
     public uint ChainId { get; private set; }
-    public HexBigInteger Value { get; private set; } = null!;
-    public GasSettings GasSettings { get; private set; } = null!;
-    public IMnemonicProvider MnemonicProvider { get; private set; } = null!;
+    public HexBigInteger Value { get; private set; }
+    public GasSettings GasSettings { get; private set; }
+    public IMnemonicProvider MnemonicProvider { get; private set; }
 
     public WriteRpcRequest(
         int accountId,
