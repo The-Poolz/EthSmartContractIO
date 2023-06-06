@@ -31,7 +31,7 @@ public class RpcRequest
     public RpcRequest(
         string rpcUrl,
         string to,
-        WriteRpcRequest? writeRequest = null,
+        WriteRpcRequest writeRequest,
         string? data = null
     )
     {
