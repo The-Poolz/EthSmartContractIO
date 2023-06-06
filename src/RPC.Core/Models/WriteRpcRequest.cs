@@ -10,4 +10,19 @@ public class WriteRpcRequest
     public HexBigInteger Value { get; private set; } = null!;
     public GasSettings GasSettings { get; private set; } = null!;
     public IMnemonicProvider MnemonicProvider { get; private set; } = null!;
+
+    public WriteRpcRequest(
+        int accountId,
+        uint chainId,
+        HexBigInteger value,
+        GasSettings gasSettings,
+        IMnemonicProvider mnemonicProvider
+    )
+    {
+        AccountId = accountId;
+        ChainId = chainId;
+        Value = value;
+        GasSettings = gasSettings;
+        MnemonicProvider = mnemonicProvider;
+    }
 }
