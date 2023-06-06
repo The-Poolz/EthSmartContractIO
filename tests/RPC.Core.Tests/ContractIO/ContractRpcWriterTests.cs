@@ -8,24 +8,27 @@ namespace RPC.Core.ContractIO.Tests;
 
 public class ContractRpcWriterTests
 {
-    private RpcRequest request;
+    private readonly RpcRequest request;
 
     public ContractRpcWriterTests()
     {
         request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
-            accountId: 0,
-            chainId: 1,
             to: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
-            value: new HexBigInteger(10000000000000000),
-            gasSettings: new GasSettings(30000, 6)
+            writeRequest: new WriteRpcRequest(
+                accountId: 0,
+                chainId: 1,
+                value: new HexBigInteger(10000000000000000),
+                gasSettings: new GasSettings(30000, 6),
+                mnemonicProvider: new MockMnemonicProvider()
+            )
         );
     }
 
     [Fact]
     internal void InitializeWeb3()
     {
-        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider());
+        var contractRpcWriter = new ContractRpcWriter(request);
 
         var result = contractRpcWriter.InitializeWeb3();
 
@@ -36,7 +39,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
-        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider())
+        var contractRpcWriter = new ContractRpcWriter(request)
         {
             Web3 = MockWeb3.GetMock
         };

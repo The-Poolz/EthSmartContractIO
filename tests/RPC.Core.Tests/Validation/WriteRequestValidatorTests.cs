@@ -1,6 +1,7 @@
 ﻿using Xunit;
 using RPC.Core.Models;
 using FluentValidation;
+using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
 using FluentValidation.TestHelper;
 
@@ -19,22 +20,42 @@ public class WriteRequestValidatorTests
     [Fact]
     internal void Write_ShouldNotHaveValidationError()
     {
-        var request = new RpcRequest(validRpcUrl, validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings);
+        var request = new RpcRequest(
+            rpcUrl: validRpcUrl,
+            to: validEthereumAddress,
+            writeRequest: new WriteRpcRequest(
+                accountId: validAccountId,
+                chainId: validChainId,
+                value: validValue,
+                gasSettings: validGasSettings,
+                mnemonicProvider: new MockMnemonicProvider()
+            )
+        );
 
         var result = validator.TestValidate(request);
 
         result.ShouldNotHaveValidationErrorFor(x => x.RpcUrl);
-        result.ShouldNotHaveValidationErrorFor(x => x.AccountId);
+        result.ShouldNotHaveValidationErrorFor(x => x.WriteRequest!.AccountId);
         result.ShouldNotHaveValidationErrorFor(x => x.To);
-        result.ShouldNotHaveValidationErrorFor(x => x.Value);
-        result.ShouldNotHaveValidationErrorFor(x => x.GasSettings);
+        result.ShouldNotHaveValidationErrorFor(x => x.WriteRequest!.Value);
+        result.ShouldNotHaveValidationErrorFor(x => x.WriteRequest!.GasSettings);
     }
 
     [Theory]
     [MemberData(nameof(TestData))]
     internal void Write_ShouldHaveValidationError_WhenInvalidParametersArePassed(string rpcUrl, int accountId, uint chainId, string to, HexBigInteger value, GasSettings gasSettings, string expectedErrorMessage)
     {
-        Action testCode = () => _ = new RpcRequest(rpcUrl, accountId, chainId, to, value, gasSettings);
+        Action testCode = () => _ = new RpcRequest(
+            rpcUrl: rpcUrl,
+            to: to,
+            writeRequest: new WriteRpcRequest(
+                accountId: accountId,
+                chainId: chainId,
+                value: value,
+                gasSettings: gasSettings,
+                mnemonicProvider: new MockMnemonicProvider()
+            )
+        );
 
         var exception = Assert.Throws<ValidationException>(testCode);
         Assert.Equal(expectedErrorMessage, exception.Message);
@@ -45,7 +66,7 @@ public class WriteRequestValidatorTests
         {
             new object[] { "", validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: 'Rpc Url' must not be empty. Severity: Error{Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
             new object[] { "invalid url", validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
-            new object[] { validRpcUrl, validAccountId, 0, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- ChainId: 'Chain Id' must not be equal to '0'. Severity: Error" },
+            new object[] { validRpcUrl, validAccountId, 0, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- WriteRequest.ChainId: 'Write Request Chain Id' must not be equal to '0'. Severity: Error" },
             new object[] { validRpcUrl, validAccountId, validChainId, "", validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- To: 'To' must not be empty. Severity: Error{Environment.NewLine} -- To: Parameter 'To' is invalid ethereum address. Severity: Error" },
         };
 }
