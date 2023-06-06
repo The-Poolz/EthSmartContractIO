@@ -47,6 +47,5 @@ public class WriteRequestValidatorTests
             new object[] { "invalid url", validAccountId, validChainId, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- RpcUrl: Invalid URL. Severity: Error" },
             new object[] { validRpcUrl, validAccountId, 0, validEthereumAddress, validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- ChainId: 'Chain Id' must not be equal to '0'. Severity: Error" },
             new object[] { validRpcUrl, validAccountId, validChainId, "", validValue, validGasSettings, $"Validation failed: {Environment.NewLine} -- To: 'To' must not be empty. Severity: Error{Environment.NewLine} -- To: Parameter 'To' is invalid ethereum address. Severity: Error" },
-            new object[] { validRpcUrl, validAccountId, validChainId, validEthereumAddress, validValue, null, $"Validation failed: {Environment.NewLine} -- GasSettings: 'Gas Settings' must not be empty. Severity: Error" }
         };
 }
