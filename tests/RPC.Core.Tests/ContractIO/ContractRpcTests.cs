@@ -25,7 +25,7 @@ public class ContractRpcTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
 
-        var result = new ContractRpc(new MockMnemonicProvider()).ExecuteAction(request);
+        var result = new ContractRpc().ExecuteAction(request);
 
         Assert.NotNull(result);
         Assert.Equal(response["result"]?.ToString(), result);

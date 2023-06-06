@@ -28,7 +28,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void InitializeWeb3()
     {
-        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider());
+        var contractRpcWriter = new ContractRpcWriter(request);
 
         var result = contractRpcWriter.InitializeWeb3();
 
@@ -39,7 +39,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
-        var contractRpcWriter = new ContractRpcWriter(request, new MockMnemonicProvider())
+        var contractRpcWriter = new ContractRpcWriter(request)
         {
             Web3 = MockWeb3.GetMock
         };
