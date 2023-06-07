@@ -14,6 +14,7 @@ public class ContractRpcReaderTests
         { "result", "0x000000000000000000000000000000000000000000000000002386f26fc10000" },
         { "id", 0 }
     };
+
     [Fact]
     internal void RunContractAction_ShouldReturnExpectedJsonString()
     {

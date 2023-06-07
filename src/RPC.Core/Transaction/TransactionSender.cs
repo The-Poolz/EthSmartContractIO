@@ -3,7 +3,7 @@ using RPC.Core.Utility;
 
 namespace RPC.Core.Transaction;
 
-public class TransactionSender : Web3Base
+public class TransactionSender : Web3Base, ITransactionSender
 {
     public TransactionSender(IWeb3 web3) : base(web3) { }
 

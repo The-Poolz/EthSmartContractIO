@@ -5,11 +5,16 @@ namespace RPC.Core.ContractIO;
 
 public class ContractRpc
 {
+    public IServiceProvider? ServiceProvider { get; set; }
+
     public virtual string ExecuteAction(RpcRequest request) =>
         GetContractIO(request).RunContractAction();
 
-    private static IContractIO GetContractIO(RpcRequest request) =>
+    private IContractIO GetContractIO(RpcRequest request) =>
         request.ActionType == ActionType.Read ?
         new ContractRpcReader(request) :
-        new ContractRpcWriter(request);
+        new ContractRpcWriter(
+            request: request,
+            serviceProvider: ServiceProvider
+        );
 }
