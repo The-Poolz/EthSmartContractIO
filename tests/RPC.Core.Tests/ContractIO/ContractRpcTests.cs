@@ -55,13 +55,6 @@ public class ContractRpcTests
     [Fact]
     internal void ExecuteAction_WriteWithMockServices_ExpectedTransactionHex()
     {
-        var mockGasEstimator = new Mock<IGasEstimator>();
-        mockGasEstimator.Setup(x => x.EstimateGas(It.IsAny<TransactionInput>()))
-            .Returns(new TransactionInput()
-            {
-                Gas = new HexBigInteger(29000),
-                GasPrice = new HexBigInteger(5000000000)
-            });
         var mockGasPricer = new Mock<IGasPricer>();
         mockGasPricer.Setup(x => x.GetCurrentWeiGasPrice())
             .Returns(new HexBigInteger(5000000000));
@@ -72,7 +65,6 @@ public class ContractRpcTests
         mockTransactionSender.Setup(x => x.SendTransaction("signedTransaction"))
             .Returns("transactionHash");
         contractRpc.ServiceProvider = new ServiceProviderBuilder()
-            .AddGasEstimator(mockGasEstimator.Object)
             .AddGasPricer(mockGasPricer.Object)
             .AddTransactionSigner(mockTransactionSigner.Object)
             .AddTransactionSender(mockTransactionSender.Object)

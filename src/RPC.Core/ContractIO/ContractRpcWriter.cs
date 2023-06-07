@@ -12,7 +12,6 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IGasEstimator gasEstimator;
     private readonly IGasPricer gasPricer;
     private readonly ITransactionSigner transactionSigner;
     private readonly ITransactionSender transactionSender;
@@ -21,7 +20,6 @@ public class ContractRpcWriter : IContractIO
     {
         this.request = request;
         var web3 = serviceProvider?.GetService<IWeb3>() ?? InitializeWeb3();
-        gasEstimator = serviceProvider?.GetService<IGasEstimator>() ?? new GasEstimator(web3);
         gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
         transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
         transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
@@ -29,7 +27,7 @@ public class ContractRpcWriter : IContractIO
 
     public virtual string RunContractAction()
     {
-        var transaction = gasEstimator.EstimateGas(CreateActionInput());
+        var transaction = CreateActionInput();
         transaction.GasPrice = gasPricer.GetCurrentWeiGasPrice();
 
         new GasLimitChecker(transaction, request.WriteRequest!.GasSettings).CheckAndThrow();
@@ -45,6 +43,7 @@ public class ContractRpcWriter : IContractIO
         new(request.Data, request.To, request.WriteRequest!.Value)
         {
             ChainId = new HexBigInteger(request.WriteRequest!.ChainId),
-            From = request.WriteRequest!.AccountProvider.Account.Address
+            From = request.WriteRequest!.AccountProvider.Account.Address,
+            Gas = new HexBigInteger(request.WriteRequest!.GasSettings.MaxGasLimit)
         };
 }
