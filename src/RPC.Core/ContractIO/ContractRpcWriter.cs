@@ -21,10 +21,10 @@ public class ContractRpcWriter : IContractIO
     {
         this.request = request;
         var web3 = serviceProvider?.GetService<IWeb3>() ?? InitializeWeb3();
-        this.gasEstimator = serviceProvider?.GetService<IGasEstimator>() ?? new GasEstimator(web3);
-        this.gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
-        this.transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
-        this.transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
+        gasEstimator = serviceProvider?.GetService<IGasEstimator>() ?? new GasEstimator(web3);
+        gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
+        transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
+        transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
     }
 
     public virtual string RunContractAction()
