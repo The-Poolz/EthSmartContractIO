@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.Builders;
 
-public class ServiceProviderBuilder
+public class ServiceProviderBuilder 
 {
     private readonly IServiceCollection services;
 
