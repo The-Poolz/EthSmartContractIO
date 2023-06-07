@@ -11,7 +11,6 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IWeb3 web3;
     private readonly IGasEstimator gasEstimator;
     private readonly IGasPricer gasPricer;
     private readonly ITransactionSigner transactionSigner;
@@ -27,11 +26,11 @@ public class ContractRpcWriter : IContractIO
     )
     {
         this.request = request;
-        this.web3 = web3 ?? InitializeWeb3();
-        this.gasEstimator = gasEstimator ?? new GasEstimator(this.web3);
-        this.gasPricer = gasPricer ?? new GasPricer(this.web3);
-        this.transactionSigner = transactionSigner ?? new TransactionSigner(this.web3);
-        this.transactionSender = transactionSender ?? new TransactionSender(this.web3);
+        var web3Instance = web3 ?? InitializeWeb3();
+        this.gasEstimator = gasEstimator ?? new GasEstimator(web3Instance);
+        this.gasPricer = gasPricer ?? new GasPricer(web3Instance);
+        this.transactionSigner = transactionSigner ?? new TransactionSigner(web3Instance);
+        this.transactionSender = transactionSender ?? new TransactionSender(web3Instance);
     }
 
     public virtual string RunContractAction()
