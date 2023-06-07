@@ -5,6 +5,7 @@ using RPC.Core.Utility;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.ContractIO;
 
@@ -16,21 +17,14 @@ public class ContractRpcWriter : IContractIO
     private readonly ITransactionSigner transactionSigner;
     private readonly ITransactionSender transactionSender;
 
-    public ContractRpcWriter(
-        RpcRequest request,
-        IWeb3? web3 = null,
-        IGasEstimator? gasEstimator = null,
-        IGasPricer? gasPricer = null,
-        ITransactionSigner? transactionSigner = null,
-        ITransactionSender? transactionSender = null
-    )
+    public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null)
     {
         this.request = request;
-        var web3Instance = web3 ?? InitializeWeb3();
-        this.gasEstimator = gasEstimator ?? new GasEstimator(web3Instance);
-        this.gasPricer = gasPricer ?? new GasPricer(web3Instance);
-        this.transactionSigner = transactionSigner ?? new TransactionSigner(web3Instance);
-        this.transactionSender = transactionSender ?? new TransactionSender(web3Instance);
+        var web3 = serviceProvider?.GetService<IWeb3>() ?? InitializeWeb3();
+        this.gasEstimator = serviceProvider?.GetService<IGasEstimator>() ?? new GasEstimator(web3);
+        this.gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
+        this.transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
+        this.transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
     }
 
     public virtual string RunContractAction()

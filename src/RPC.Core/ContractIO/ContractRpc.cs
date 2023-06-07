@@ -1,9 +1,5 @@
-﻿using RPC.Core.Gas;
-using RPC.Core.Types;
-using Nethereum.Web3;
+﻿using RPC.Core.Types;
 using RPC.Core.Models;
-using RPC.Core.Transaction;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.ContractIO;
 
@@ -19,10 +15,6 @@ public class ContractRpc
         new ContractRpcReader(request) :
         new ContractRpcWriter(
             request: request,
-            web3: ServiceProvider?.GetService<IWeb3>(),
-            gasEstimator: ServiceProvider?.GetService<IGasEstimator>(),
-            gasPricer: ServiceProvider?.GetService<IGasPricer>(),
-            transactionSigner: ServiceProvider?.GetService<ITransactionSigner>(),
-            transactionSender: ServiceProvider?.GetService<ITransactionSender>()
+            serviceProvider: ServiceProvider
         );
 }

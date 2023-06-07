@@ -3,6 +3,7 @@ using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using RPC.Core.Builders;
 
 namespace RPC.Core.ContractIO.Tests;
 
@@ -38,7 +39,10 @@ public class ContractRpcWriterTests
     [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
-        var contractRpcWriter = new ContractRpcWriter(request, MockWeb3.GetMock);
+        var serviceProvider = new ServiceProviderBuilder()
+            .AddWeb3(MockWeb3.GetMock)
+            .Build();
+        var contractRpcWriter = new ContractRpcWriter(request, serviceProvider);
 
         var result = contractRpcWriter.RunContractAction();
 
