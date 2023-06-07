@@ -1,8 +1,8 @@
 ﻿using Xunit;
+using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
-using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO.Tests;
 
@@ -16,11 +16,10 @@ public class ContractRpcWriterTests
             rpcUrl: "http://localhost:8545/",
             to: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
             writeRequest: new WriteRpcRequest(
-                accountId: 0,
                 chainId: 1,
                 value: new HexBigInteger(10000000000000000),
                 gasSettings: new GasSettings(30000, 6),
-                mnemonicProvider: new MockMnemonicProvider()
+                accountProvider: MockMnemonicProvider.MnemonicProvider
             )
         );
     }

@@ -2,7 +2,6 @@
 using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Utility;
-using RPC.Core.Providers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
@@ -12,7 +11,6 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private string? accountAddress;
 
     public IWeb3? Web3 { get; set; }
 
@@ -34,21 +32,13 @@ public class ContractRpcWriter : IContractIO
         return new TransactionSender(Web3).SendTransaction(signedTransaction);
     }
 
-    public IWeb3 InitializeWeb3()
-    {
-        var accountProvider = new AccountProvider(
-            mnemonicProvider: request.WriteRequest!.MnemonicProvider,
-            accountId: request.WriteRequest!.AccountId,
-            chainId: request.WriteRequest!.ChainId
-        );
-        accountAddress = accountProvider.AccountAddress;
-        return Web3Base.CreateWeb3(request.RpcUrl, accountProvider.Account);
-    }
+    public IWeb3 InitializeWeb3() =>
+        Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 
     private TransactionInput CreateActionInput() =>
         new(request.Data, request.To, request.WriteRequest!.Value)
         {
             ChainId = new HexBigInteger(request.WriteRequest!.ChainId),
-            From = accountAddress
+            From = request.WriteRequest!.AccountProvider.Account.Address
         };
 }
