@@ -11,12 +11,12 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
+    private IWeb3? Web3;
 
-    public IWeb3? Web3 { get; set; }
-
-    public ContractRpcWriter(RpcRequest request)
+    public ContractRpcWriter(RpcRequest request, IWeb3? web3 = null)
     {
         this.request = request;
+        Web3 = web3;
     }
 
     public virtual string RunContractAction()

@@ -38,10 +38,7 @@ public class ContractRpcWriterTests
     [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
-        var contractRpcWriter = new ContractRpcWriter(request)
-        {
-            Web3 = MockWeb3.GetMock
-        };
+        var contractRpcWriter = new ContractRpcWriter(request, MockWeb3.GetMock);
 
         var result = contractRpcWriter.RunContractAction();
 
