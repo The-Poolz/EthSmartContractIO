@@ -1,54 +1,50 @@
 ﻿using RPC.Core.Gas;
-using Nethereum.Util;
 using Nethereum.Web3;
-using System.Numerics;
 using RPC.Core.Models;
 using RPC.Core.Utility;
-using RPC.Core.Providers;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.ContractIO;
 
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IMnemonicProvider mnemonicProvider;
-    private string? accountAddress;
+    private readonly IGasEstimator gasEstimator;
+    private readonly IGasPricer gasPricer;
+    private readonly ITransactionSigner transactionSigner;
+    private readonly ITransactionSender transactionSender;
 
-    public IWeb3? Web3 { get; set; }
-
-    public ContractRpcWriter(RpcRequest request, IMnemonicProvider mnemonicProvider)
+    public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null)
     {
         this.request = request;
-        this.mnemonicProvider = mnemonicProvider;
+        var web3 = serviceProvider?.GetService<IWeb3>() ?? InitializeWeb3();
+        gasEstimator = serviceProvider?.GetService<IGasEstimator>() ?? new GasEstimator(web3);
+        gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
+        transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
+        transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
     }
 
     public virtual string RunContractAction()
     {
-        Web3 ??= InitializeWeb3();
+        var transaction = gasEstimator.EstimateGas(CreateActionInput());
+        transaction.GasPrice = gasPricer.GetCurrentWeiGasPrice();
 
-        var transaction = new GasEstimator(Web3).EstimateGas(CreateActionInput());
-        transaction.GasPrice = new GasPricer(Web3).GetCurrentWeiGasPrice();
+        new GasLimitChecker(transaction, request.WriteRequest!.GasSettings).CheckAndThrow();
 
-        new GasLimitChecker(transaction, request.GasSettings).CheckAndThrow();
-
-        var signedTransaction = new TransactionSigner(Web3).SignTransaction(transaction);
-        return new TransactionSender(Web3).SendTransaction(signedTransaction);
+        var signedTransaction = transactionSigner.SignTransaction(transaction);
+        return transactionSender.SendTransaction(signedTransaction);
     }
 
-    public IWeb3 InitializeWeb3()
-    {
-        var accountProvider = new AccountProvider(mnemonicProvider, request.AccountId, request.ChainId);
-        accountAddress = accountProvider.AccountAddress;
-        return Web3Base.CreateWeb3(request.RpcUrl, accountProvider.Account);
-    }
+    public IWeb3 InitializeWeb3() =>
+        Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 
     private TransactionInput CreateActionInput() =>
-        new(request.Data, request.To, request.Value)
+        new(request.Data, request.To, request.WriteRequest!.Value)
         {
-            ChainId = new HexBigInteger(request.ChainId),
-            From = accountAddress
+            ChainId = new HexBigInteger(request.WriteRequest!.ChainId),
+            From = request.WriteRequest!.AccountProvider.Account.Address
         };
 }

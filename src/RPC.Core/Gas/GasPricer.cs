@@ -4,7 +4,7 @@ using Nethereum.Hex.HexTypes;
 
 namespace RPC.Core.Gas;
 
-public class GasPricer : Web3Base
+public class GasPricer : Web3Base, IGasPricer
 {
     public GasPricer(IWeb3 web3) : base(web3) { }
 
