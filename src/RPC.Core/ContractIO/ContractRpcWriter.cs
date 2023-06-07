@@ -11,25 +11,38 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private IWeb3? Web3;
+    private readonly IWeb3 web3;
+    private readonly IGasEstimator gasEstimator;
+    private readonly IGasPricer gasPricer;
+    private readonly ITransactionSigner transactionSigner;
+    private readonly ITransactionSender transactionSender;
 
-    public ContractRpcWriter(RpcRequest request, IWeb3? web3 = null)
+    public ContractRpcWriter(
+        RpcRequest request,
+        IWeb3? web3 = null,
+        IGasEstimator? gasEstimator = null,
+        IGasPricer? gasPricer = null,
+        ITransactionSigner? transactionSigner = null,
+        ITransactionSender? transactionSender = null
+    )
     {
         this.request = request;
-        Web3 = web3;
+        this.web3 = web3 ?? InitializeWeb3();
+        this.gasEstimator = gasEstimator ?? new GasEstimator(this.web3);
+        this.gasPricer = gasPricer ?? new GasPricer(this.web3);
+        this.transactionSigner = transactionSigner ?? new TransactionSigner(this.web3);
+        this.transactionSender = transactionSender ?? new TransactionSender(this.web3);
     }
 
     public virtual string RunContractAction()
     {
-        Web3 ??= InitializeWeb3();
-
-        var transaction = new GasEstimator(Web3).EstimateGas(CreateActionInput());
-        transaction.GasPrice = new GasPricer(Web3).GetCurrentWeiGasPrice();
+        var transaction = gasEstimator.EstimateGas(CreateActionInput());
+        transaction.GasPrice = gasPricer.GetCurrentWeiGasPrice();
 
         new GasLimitChecker(transaction, request.WriteRequest!.GasSettings).CheckAndThrow();
 
-        var signedTransaction = new TransactionSigner(Web3).SignTransaction(transaction);
-        return new TransactionSender(Web3).SendTransaction(signedTransaction);
+        var signedTransaction = transactionSigner.SignTransaction(transaction);
+        return transactionSender.SendTransaction(signedTransaction);
     }
 
     public IWeb3 InitializeWeb3() =>

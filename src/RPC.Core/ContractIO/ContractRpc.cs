@@ -15,5 +15,5 @@ public class ContractRpc
     private IContractIO GetContractIO(RpcRequest request) =>
         request.ActionType == ActionType.Read ?
         new ContractRpcReader(request) :
-        new ContractRpcWriter(request, ServiceProvider?.GetService<IWeb3>());
+        new ContractRpcWriter(request, web3: ServiceProvider?.GetService<IWeb3>());
 }

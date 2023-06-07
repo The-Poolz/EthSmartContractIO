@@ -5,7 +5,7 @@ using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Gas;
 
-public class GasEstimator : Web3Base
+public class GasEstimator : Web3Base, IGasEstimator
 {
     public const int GasBufferFactor = 10;
 
