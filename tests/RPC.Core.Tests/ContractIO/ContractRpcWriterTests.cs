@@ -1,5 +1,4 @@
 ﻿using Xunit;
-using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Builders;
 using RPC.Core.Tests.Mocks;
