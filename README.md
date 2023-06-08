@@ -20,7 +20,7 @@
         - [Example](#example)
         - [MnemonicProvider](#mnemonicprovider)
     - [ContractRpc](#contractrpc)
-- [How to Use](9#how-to-use)
+- [How to Use](#how-to-use)
 - [Custom Implementations](#custom-implementations-and-dependency-injection)
     - [Interfaces](#interfaces)
         - [IGasPricer](#igaspricer)
