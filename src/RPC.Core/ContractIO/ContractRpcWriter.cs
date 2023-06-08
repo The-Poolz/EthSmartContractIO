@@ -30,7 +30,6 @@ public class ContractRpcWriter : IContractIO
             transactionSigner.SignTransaction(
                 CreateActionInput));
 
-
     public IWeb3 InitializeWeb3() =>
         Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 
