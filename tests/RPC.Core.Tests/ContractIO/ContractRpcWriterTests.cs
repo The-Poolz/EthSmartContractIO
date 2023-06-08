@@ -3,6 +3,8 @@ using RPC.Core.Models;
 using RPC.Core.Builders;
 using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using Microsoft.Extensions.DependencyInjection;
+using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO.Tests;
 
@@ -35,6 +37,17 @@ public class ContractRpcWriterTests
         var result = contractRpcWriter.RunContractAction();
 
         Assert.NotNull(result);
-        Assert.Equal("transactionHash", result);
+        Assert.Equal("transactionHash", result);   
     }
+    [Fact]
+    internal void ServiceManager_ExpectedServiceProvider()
+    {
+        var expectedServiceManager = new ServiceManager(request, null);
+
+        var result = expectedServiceManager.GetService<IWeb3>();
+
+        Assert.NotNull(expectedServiceManager);
+        Assert.NotNull(result);
+    }
+
 }
