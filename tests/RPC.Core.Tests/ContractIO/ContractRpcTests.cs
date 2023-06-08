@@ -57,7 +57,7 @@ public class ContractRpcTests
     {
         var mockGasPricer = new Mock<IGasPricer>();
         mockGasPricer.Setup(x => x.GetCurrentWeiGasPrice())
-            .Returns(new HexBigInteger(5000000000));
+            .Returns(new HexBigInteger(1));
         var mockTransactionSigner = new Mock<ITransactionSigner>();
         mockTransactionSigner.Setup(x => x.SignTransaction(It.IsAny<TransactionInput>()))
             .Returns("signedTransaction");

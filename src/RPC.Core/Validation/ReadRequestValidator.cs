@@ -10,5 +10,9 @@ public class ReadRequestValidator : BaseRequestValidator
             .NotEmpty()
             .Must(IsValidEthereumData)
             .WithMessage("Parameter 'Data' not correctly formatted.");
+
+        RuleFor(x => x.WriteRequest)
+            .Null()
+            .WithMessage("Parameter 'WriteRequest' must be null.");
     }
 }

@@ -6,6 +6,8 @@ using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
 using Microsoft.Extensions.DependencyInjection;
+using RPC.Core.Validation;
+using FluentValidation;
 
 namespace RPC.Core.ContractIO;
 
@@ -30,7 +32,8 @@ public class ContractRpcWriter : IContractIO
         var transaction = CreateActionInput();
         transaction.GasPrice = gasPricer.GetCurrentWeiGasPrice();
 
-        new GasLimitChecker(transaction, request.WriteRequest!.GasSettings).CheckAndThrow();
+        new GasPriceCheckerValidator().ValidateAndThrow
+            (new GasPriceChecker(transaction, request.WriteRequest!.GasSettings));
 
         var signedTransaction = transactionSigner.SignTransaction(transaction);
         return transactionSender.SendTransaction(signedTransaction);
