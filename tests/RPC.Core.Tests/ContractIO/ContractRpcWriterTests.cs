@@ -49,5 +49,4 @@ public class ContractRpcWriterTests
         Assert.NotNull(expectedServiceManager);
         Assert.NotNull(result);
     }
-
 }
