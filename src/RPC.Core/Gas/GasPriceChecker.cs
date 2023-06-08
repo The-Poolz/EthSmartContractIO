@@ -1,6 +1,8 @@
 ﻿using RPC.Core.Models;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Util;
+using RPC.Core.Validation;
+using FluentValidation;
 
 namespace RPC.Core.Gas;
 
@@ -13,5 +15,6 @@ public class GasPriceChecker
     {
         GasPrice = (uint)UnitConversion.Convert.FromWei(transactionInput.GasPrice, UnitConversion.EthUnit.Gwei);
         MaxGweiGasPrice = gasSettings.MaxGweiGasPrice;
+        new GasPriceCheckerValidator().ValidateAndThrow(this);
     }
 }

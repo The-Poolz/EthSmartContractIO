@@ -6,8 +6,6 @@ using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
 using Microsoft.Extensions.DependencyInjection;
-using RPC.Core.Validation;
-using FluentValidation;
 
 namespace RPC.Core.ContractIO;
 
@@ -27,26 +25,21 @@ public class ContractRpcWriter : IContractIO
         transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
     }
 
-    public virtual string RunContractAction()
-    {
-        var transaction = CreateActionInput();
-        transaction.GasPrice = gasPricer.GetCurrentWeiGasPrice();
+    public virtual string RunContractAction() =>
+        transactionSender.SendTransaction(
+            transactionSigner.SignTransaction(
+                CreateActionInput));
 
-        new GasPriceCheckerValidator().ValidateAndThrow
-            (new GasPriceChecker(transaction, request.WriteRequest!.GasSettings));
-
-        var signedTransaction = transactionSigner.SignTransaction(transaction);
-        return transactionSender.SendTransaction(signedTransaction);
-    }
 
     public IWeb3 InitializeWeb3() =>
         Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 
-    private TransactionInput CreateActionInput() =>
+    private TransactionInput CreateActionInput =>
         new(request.Data, request.To, request.WriteRequest!.Value)
         {
             ChainId = new HexBigInteger(request.WriteRequest!.ChainId),
             From = request.WriteRequest!.AccountProvider.Account.Address,
-            Gas = new HexBigInteger(request.WriteRequest!.GasSettings.MaxGasLimit)
+            Gas = new HexBigInteger(request.WriteRequest!.GasSettings.MaxGasLimit),
+            GasPrice = gasPricer.GetCurrentWeiGasPrice()
         };
 }
