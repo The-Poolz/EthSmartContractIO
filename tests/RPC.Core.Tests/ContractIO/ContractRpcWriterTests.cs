@@ -35,6 +35,7 @@ public class ContractRpcWriterTests
 
         Assert.NotNull(expectedServiceManager);
         Assert.NotNull(result);
+        Assert.IsType<Web3>(result);
     }
 
     [Fact]
