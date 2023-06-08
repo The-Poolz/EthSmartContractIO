@@ -28,7 +28,7 @@ public class ContractRpcTests
             chainId: 1,
             value: new HexBigInteger(10000000000000000),
             gasSettings: new GasSettings(30000, 6),
-            accountProvider: MockMnemonicProvider.MnemonicProvider
+            accountProvider: new MockAccountProvider()
         )
     );
 
