@@ -8,6 +8,30 @@
 
 `SmartContractIO` is a .NET library aimed at simplifying the interaction with Ethereum smart contracts. It allows developers to execute actions on the Ethereum network by wrapping the complexity of Ethereum RPC calls into a more manageable, high-level API.
 
+## Navigation
+
+- [Getting Started](#getting-started)
+- [Core Components](#core-components)
+    - [RpcRequest](#rpcrequest)
+        - [Read Request](#read-request)
+        - [Write Request](#write-request)
+    - [GasSettings](#gassettings)
+    - [IAccountProvider](#iaccountprovider)
+        - [Example](#example)
+        - [MnemonicProvider](#mnemonicprovider)
+    - [ContractRpc](#contractrpc)
+- [How to Use](9#how-to-use)
+- [Custom Implementations](#custom-implementations-and-dependency-injection)
+    - [Interfaces](#interfaces)
+        - [IGasPricer](#igaspricer)
+        - [ITransactionSigner](#itransactionsigner)
+        - [ITransactionSender](#itransactionsender)
+    - [IServiceProvider](#iserviceprovider)
+- [Testing SmartContractIO](#testing-smartcontractio)
+    - [Overriding ExecuteAction Method](#overriding-executeaction-method)
+    - [Creating an IWeb3 Moq Object](#creating-an-iweb3-moq-object)
+- [More Information](#more-information)
+
 ## Getting Started
 
 To use `SmartContractIO`, you will need to add it as a dependency to your project. You can do this by adding it as a NuGet package:
