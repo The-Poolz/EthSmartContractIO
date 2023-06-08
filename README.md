@@ -107,7 +107,7 @@ Here is a description of the `MnemonicProvider`:
     - `chainId`: A uint that represents the ID of the Ethereum chain to use. Different chains have different IDs, and this ID helps ensure that the correct chain is used.
     - `seedPassword (optional)`: A string representing the password to use when generating the wallet from the mnemonic. This password adds an additional layer of security to the wallet.
 
-```cshaprp
+```csharp
 using Nethereum.HdWallet;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
