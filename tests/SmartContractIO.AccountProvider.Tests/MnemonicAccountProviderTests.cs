@@ -5,7 +5,7 @@ namespace SmartContractIO.AccountProvider.Tests;
 public class MnemonicAccountProviderTests
 {
     [Fact]
-    public void Ctor_InitializesAccountWithGivenMnemonicWordsAccountIdAndChainId()
+    internal void Ctor_InitializesAccountWithGivenMnemonicWordsAccountIdAndChainId()
     {
         var mnemonicWords = "abandon amount liar amount expire adjust cage candy arch gather drum buyer";
         var accountId = 0u;

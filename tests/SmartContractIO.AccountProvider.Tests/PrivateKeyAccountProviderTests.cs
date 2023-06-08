@@ -5,7 +5,7 @@ namespace SmartContractIO.AccountProvider.Tests;
 public class PrivateKeyAccountProviderTests
 {
     [Fact]
-    public void Ctor_InitializesAccountWithGivenPrivateKeyAndChainId()
+    internal void Ctor_InitializesAccountWithGivenPrivateKeyAndChainId()
     {
         var privateKey = "0x1234";
         var chainId = 1u;
