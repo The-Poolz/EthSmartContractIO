@@ -10,17 +10,17 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IServiceProvider serviceRouterProvider;
+    private readonly IServiceProvider serviceProvider;
     private IGasPricer GasPricer =>
-        serviceRouterProvider.GetRequiredService<IGasPricer>();
+        serviceProvider.GetRequiredService<IGasPricer>();
     private ITransactionSigner TransactionSigner =>
-        serviceRouterProvider.GetRequiredService<ITransactionSigner>();
+        serviceProvider.GetRequiredService<ITransactionSigner>();
     private ITransactionSender TransactionSender =>
-        serviceRouterProvider.GetRequiredService<ITransactionSender>();
+        serviceProvider.GetRequiredService<ITransactionSender>();
 
     public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
     {
-        serviceRouterProvider = new ServiceManager(request, serviceProvider);
+        this.serviceProvider = new ServiceManager(request, serviceProvider);
         this.request = request;
     }
 
