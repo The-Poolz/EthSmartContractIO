@@ -26,7 +26,7 @@ public class WriteRequestValidatorTests
                 chainId: validChainId,
                 value: validValue,
                 gasSettings: validGasSettings,
-                accountProvider: MockMnemonicProvider.MnemonicProvider
+                accountProvider: new MockAccountProvider()
             )
         );
 
@@ -49,7 +49,7 @@ public class WriteRequestValidatorTests
                 chainId: chainId,
                 value: value,
                 gasSettings: gasSettings,
-                accountProvider: MockMnemonicProvider.MnemonicProvider
+                accountProvider: new MockAccountProvider()
             )
         );
 
