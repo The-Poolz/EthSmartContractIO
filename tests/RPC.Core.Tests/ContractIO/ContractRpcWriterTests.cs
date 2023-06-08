@@ -27,6 +27,17 @@ public class ContractRpcWriterTests
     }
 
     [Fact]
+    internal void ServiceManager_ExpectedServiceProvider()
+    {
+        var expectedServiceManager = new ServiceManager(request, null);
+
+        var result = expectedServiceManager.GetService<IWeb3>();
+
+        Assert.NotNull(expectedServiceManager);
+        Assert.NotNull(result);
+    }
+
+    [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
         var serviceProvider = new ServiceProviderBuilder()
@@ -38,15 +49,5 @@ public class ContractRpcWriterTests
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);   
-    }
-    [Fact]
-    internal void ServiceManager_ExpectedServiceProvider()
-    {
-        var expectedServiceManager = new ServiceManager(request, null);
-
-        var result = expectedServiceManager.GetService<IWeb3>();
-
-        Assert.NotNull(expectedServiceManager);
-        Assert.NotNull(result);
     }
 }
