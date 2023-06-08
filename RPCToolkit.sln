@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPC.Core.Tests", "tests\RPC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartContractIO.AccountProvider", "src\SmartContractIO.AccountProvider\SmartContractIO.AccountProvider.csproj", "{E62435A9-1B0D-42D0-A97E-E2282F182D22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartContractIO.AccountProvider.Tests", "tests\SmartContractIO.AccountProvider.Tests\SmartContractIO.AccountProvider.Tests.csproj", "{B9995AB4-BDBB-4240-9991-69AE3CD8640A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{E62435A9-1B0D-42D0-A97E-E2282F182D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E62435A9-1B0D-42D0-A97E-E2282F182D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E62435A9-1B0D-42D0-A97E-E2282F182D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9995AB4-BDBB-4240-9991-69AE3CD8640A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9995AB4-BDBB-4240-9991-69AE3CD8640A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9995AB4-BDBB-4240-9991-69AE3CD8640A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9995AB4-BDBB-4240-9991-69AE3CD8640A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{2239CE1E-1567-4762-A247-7492B6021678} = {12F04936-DD1B-43AF-B598-C621F4993297}
 		{91B41160-0AAA-481E-A003-CF231DC86B6A} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
 		{E62435A9-1B0D-42D0-A97E-E2282F182D22} = {12F04936-DD1B-43AF-B598-C621F4993297}
+		{B9995AB4-BDBB-4240-9991-69AE3CD8640A} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD146413-3E44-4442-A2A3-F9139D4C8ACD}
