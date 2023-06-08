@@ -1,7 +1,5 @@
 ﻿using RPC.Core.Gas;
-using Nethereum.Web3;
 using RPC.Core.Models;
-using RPC.Core.Utility;
 using RPC.Core.Transaction;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
@@ -9,21 +7,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcWriter : Web3Base, IContractIO
+public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private IGasPricer GasPricer => serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
+    private readonly IServiceProvider serviceRouterProvider;
+    private IGasPricer GasPricer =>
+        serviceRouterProvider.GetRequiredService<IGasPricer>();
     private ITransactionSigner TransactionSigner =>
-        serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
+        serviceRouterProvider.GetRequiredService<ITransactionSigner>();
     private ITransactionSender TransactionSender =>
-        serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
-    private readonly IServiceProvider? serviceProvider;
+        serviceRouterProvider.GetRequiredService<ITransactionSender>();
 
     public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
-        : base(serviceProvider?.GetService<IWeb3>() ??
-            CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account))
     {
-        this.serviceProvider = serviceProvider;
+        serviceRouterProvider = new ServiceManager(request, serviceProvider);
         this.request = request;
     }
 
