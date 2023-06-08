@@ -32,22 +32,6 @@ internal static class MockWeb3
             web3Mock.SetupGet(w => w.Eth.Transactions).Returns(ethApiTransactionsServiceMock.Object);
             web3Mock.Setup(x => x.Eth.GasPrice.SendRequestAsync(null))
                 .ReturnsAsync(new HexBigInteger(5000000000));
-            web3Mock.Setup(x => x.Eth.TransactionManager.EstimateGasAsync(It.IsAny<TransactionInput>()))
-                .Returns((TransactionInput transactionInput) =>
-                {
-                    if (transactionInput?.Gas?.Value < 27109)
-                    {
-                        throw new RpcResponseException(
-                            new RpcError(-32000, $"gas required exceeds allowance ({transactionInput.Gas.Value}): eth_estimateGas"));
-                    }
-
-                    if (transactionInput?.Value?.Value < 10000000000000000)
-                    {
-                        throw new RpcResponseException(new RpcError(-32000, "execution reverted: Not Enough Fee Provided: eth_estimateGas"));
-                    }
-
-                    return Task.FromResult(new HexBigInteger(27109));
-                });
 
             return web3Mock.Object;
         }
