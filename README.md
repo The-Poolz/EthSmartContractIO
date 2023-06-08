@@ -275,6 +275,58 @@ In the example above, `MyCustomGasPricer`, `MyCustomTransactionSigner`, and `MyC
 
 By using this approach, you can easily customize the behavior of the library to suit your specific needs.
 
+## Testing SmartContractIO
+
+Testing is a critical part of software development and ensures the reliability and accuracy of your code. SmartContractIO's architecture allows it to be tested in a couple of ways:
+
+### Overriding `ExecuteAction` Method
+
+The `ExecuteAction` method in the `ContractRpc` class is marked as `virtual`.
+This allows the method to be overridden in a subclass, which is useful for testing scenarios.
+You can use mocking libraries such as `Moq` to mock the method's behavior.
+
+Here's an example using `Moq`:
+
+```csharp
+var contractRpcMock = new Mock<ContractRpc> { CallBase = true };
+contractRpcMock
+    .Setup(x => x.ExecuteAction(It.IsAny<RpcRequest>()))
+    .Returns("YourMockedResult");
+
+// Now when you call ExecuteAction, it will return "YourMockedResult"
+var result = contractRpcMock.Object.ExecuteAction(someRpcRequest);
+
+Assert.Equal("YourMockedResult", result);
+```
+
+In this example, regardless of what `RpcRequest` you pass to `ExecuteAction`, it will always return the string `"YourMockedResult"`.
+
+### Creating an IWeb3 Moq Object
+
+Alternatively, you can mock the `IWeb3` object and pass it to `ContractRpc` using the `ServiceProvider`.
+The `ServiceProviderBuilder` class provides an `AddWeb3` method for this purpose.
+
+Here's an example of how to mock `IWeb3` using `Moq` and inject it using `ServiceProviderBuilder`:
+
+```csharp
+var web3Mock = new Mock<IWeb3>();
+// Setup your web3Mock...
+
+var serviceProvider = new ServiceProviderBuilder()
+    .AddWeb3(web3Mock.Object)
+    .Build();
+
+var contractRpc = new ContractRpc()
+{
+    ServiceProvider = serviceProvider
+};
+```
+
+In this example, `ContractRpc` will use your mocked `IWeb3` object, allowing you to control its behavior for testing.
+
+By leveraging these strategies, you can create comprehensive unit tests for your code that interacts with the SmartContractIO library.
+This ensures the correct behavior of your Ethereum interactions.
+
 ## Contribute
 
 We welcome contributions from the community. Please submit pull requests for bug fixes, improvements and new features.
