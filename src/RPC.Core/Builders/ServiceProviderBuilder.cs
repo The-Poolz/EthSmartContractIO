@@ -25,12 +25,6 @@ public class ServiceProviderBuilder
         return this;
     }
 
-    public ServiceProviderBuilder AddGasEstimator(IGasEstimator gasEstimator)
-    {
-        services.AddSingleton(gasEstimator);
-        return this;
-    }
-
     public ServiceProviderBuilder AddGasPricer(IGasPricer gasPricer)
     {
         services.AddSingleton(gasPricer);
