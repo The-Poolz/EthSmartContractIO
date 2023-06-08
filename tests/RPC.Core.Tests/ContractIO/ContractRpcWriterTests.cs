@@ -26,17 +26,6 @@ public class ContractRpcWriterTests
     }
 
     [Fact]
-    internal void InitializeWeb3()
-    {
-        var contractRpcWriter = new ContractRpcWriter(request);
-
-        var result = contractRpcWriter.InitializeWeb3();
-
-        Assert.NotNull(result);
-        Assert.IsType<Web3>(result);
-    }
-
-    [Fact]
     internal void RunContractAction_ExpectedTransactionHex()
     {
         var serviceProvider = new ServiceProviderBuilder()

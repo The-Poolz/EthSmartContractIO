@@ -9,17 +9,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.ContractIO;
 
-public class ContractRpcWriter : IContractIO
+public class ContractRpcWriter : Web3Base, IContractIO
 {
     private readonly RpcRequest request;
     private readonly IGasPricer gasPricer;
     private readonly ITransactionSigner transactionSigner;
     private readonly ITransactionSender transactionSender;
 
-    public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null)
+    public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
+        : base(serviceProvider?.GetService<IWeb3>() ??
+            CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account))
     {
         this.request = request;
-        var web3 = serviceProvider?.GetService<IWeb3>() ?? InitializeWeb3();
         gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
         transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
         transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
@@ -29,9 +30,6 @@ public class ContractRpcWriter : IContractIO
         transactionSender.SendTransaction(
             transactionSigner.SignTransaction(
                 CreateActionInput));
-
-    public IWeb3 InitializeWeb3() =>
-        Web3Base.CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 
     private TransactionInput CreateActionInput =>
         new(request.Data, request.To, request.WriteRequest!.Value)
