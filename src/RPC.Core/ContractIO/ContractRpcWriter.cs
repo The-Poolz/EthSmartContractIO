@@ -12,23 +12,24 @@ namespace RPC.Core.ContractIO;
 public class ContractRpcWriter : Web3Base, IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IGasPricer gasPricer;
-    private readonly ITransactionSigner transactionSigner;
-    private readonly ITransactionSender transactionSender;
+    private IGasPricer GasPricer => serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
+    private ITransactionSigner TransactionSigner =>
+        serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
+    private ITransactionSender TransactionSender =>
+        serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
+    private readonly IServiceProvider? serviceProvider;
 
     public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
         : base(serviceProvider?.GetService<IWeb3>() ??
             CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account))
     {
+        this.serviceProvider = serviceProvider;
         this.request = request;
-        gasPricer = serviceProvider?.GetService<IGasPricer>() ?? new GasPricer(web3);
-        transactionSigner = serviceProvider?.GetService<ITransactionSigner>() ?? new TransactionSigner(web3);
-        transactionSender = serviceProvider?.GetService<ITransactionSender>() ?? new TransactionSender(web3);
     }
 
     public virtual string RunContractAction() =>
-        transactionSender.SendTransaction(
-            transactionSigner.SignTransaction(
+        TransactionSender.SendTransaction(
+            TransactionSigner.SignTransaction(
                 CreateActionInput));
 
     private TransactionInput CreateActionInput =>
@@ -37,6 +38,6 @@ public class ContractRpcWriter : Web3Base, IContractIO
             ChainId = new HexBigInteger(request.WriteRequest!.ChainId),
             From = request.WriteRequest!.AccountProvider.Account.Address,
             Gas = new HexBigInteger(request.WriteRequest!.GasSettings.MaxGasLimit),
-            GasPrice = gasPricer.GetCurrentWeiGasPrice()
+            GasPrice = GasPricer.GetCurrentWeiGasPrice()
         };
 }
