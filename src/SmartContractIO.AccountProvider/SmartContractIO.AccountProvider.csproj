@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RPC.Core\RPC.Core.csproj" />
-    <ProjectReference Include="..\SmartContractIO.SecretsProvider\SmartContractIO.SecretsProvider.csproj" />
   </ItemGroup>
 
 </Project>
