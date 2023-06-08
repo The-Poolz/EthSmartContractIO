@@ -49,6 +49,6 @@ public class ContractRpcWriterTests
         var result = contractRpcWriter.RunContractAction();
 
         Assert.NotNull(result);
-        Assert.Equal("transactionHash", result);   
+        Assert.Equal("transactionHash", result);
     }
 }
