@@ -206,6 +206,75 @@ var result = contractRpc.ExecuteAction(writeRequest);
 Console.WriteLine(result);
 ```
 
+## Custom Implementations and Dependency Injection
+
+With `SmartContractIO`, you're not limited to the default implementation of certain interfaces like `IGasPricer`, `ITransactionSigner`, and `ITransactionSender`.
+You can provide your own custom implementations and inject them into the `ContractRpc` class using the `IServiceProvider` property.
+
+### Interfaces
+Here are the interfaces you can replace:
+
+#### IGasPricer
+
+This interface is responsible for providing the current gas price.
+If you have a custom strategy for gas price, you can implement this interface and provide your own method for getting the current gas price.
+
+```csharp
+public interface IGasPricer
+{
+    HexBigInteger GetCurrentWeiGasPrice();
+}
+```
+
+#### ITransactionSigner
+
+This interface is responsible for signing transactions.
+If you have a custom transaction signing method, you can implement this interface and provide your own transaction signing logic.
+
+```csharp
+public interface ITransactionSigner
+{
+    string SignTransaction(TransactionInput transaction);
+}
+```
+
+#### ITransactionSender
+This interface is responsible for sending transactions to the Ethereum network.
+If you have a custom method for sending transactions, you can implement this interface and provide your own transaction sending logic.
+
+```csharp
+public interface ITransactionSender
+{
+    string SendTransaction(string signedTransaction);
+}
+```
+
+### IServiceProvider
+
+To use your custom implementations, you need to provide an `IServiceProvider` instance to the `ContractRpc` class that contains your implementations.
+You can use the `ServiceProviderBuilder` class from the `RPC.Core.Builders` namespace to create an `IServiceProvider` object.
+
+Here is a sample usage of `ServiceProviderBuilder`:
+
+```csharp
+// Add your custom implementations
+var serviceProvider = new ServiceProviderBuilder()
+    .AddGasPricer(new MyCustomGasPricer())
+    .AddTransactionSigner(new MyCustomTransactionSigner())
+    .AddTransactionSender(new MyCustomTransactionSender())
+    .Build();
+
+// Create a ContractRpc instance and inject your custom implementations
+var contractRpc = new ContractRpc()
+{
+    ServiceProvider = serviceProvider
+};
+```
+
+In the example above, `MyCustomGasPricer`, `MyCustomTransactionSigner`, and `MyCustomTransactionSender` are your custom implementations of the `IGasPricer`, `ITransactionSigner`, and `ITransactionSender` interfaces, respectively.
+
+By using this approach, you can easily customize the behavior of the library to suit your specific needs.
+
 ## Contribute
 
 We welcome contributions from the community. Please submit pull requests for bug fixes, improvements and new features.
