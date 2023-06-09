@@ -1,8 +1,8 @@
-﻿using RPC.Core.Models;
-using Nethereum.RPC.Eth.DTOs;
-using Nethereum.Util;
-using RPC.Core.Validation;
+﻿using Nethereum.Util;
+using RPC.Core.Models;
 using FluentValidation;
+using RPC.Core.Validation;
+using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Gas;
 
