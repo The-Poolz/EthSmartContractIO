@@ -1,6 +1,6 @@
-﻿using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
 using RPC.Core.Gas;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
 
 namespace RPC.Core.Models;
 
