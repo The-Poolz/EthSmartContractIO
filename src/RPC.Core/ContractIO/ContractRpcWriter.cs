@@ -26,8 +26,7 @@ public class ContractRpcWriter : IContractIO
 
     public virtual string RunContractAction() =>
         TransactionSender.SendTransaction(
-            TransactionSigner.SignTransaction(
-                CreateActionInput));
+            TransactionSigner.SignTransaction(CreateActionInput));
 
     private TransactionInput CreateActionInput =>
         new(request.Data, request.To, request.WriteRequest!.Value)
