@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SmartContractIO.AccountProvider\EthSmartContractIO.AccountProvider.csproj" />
+    <ProjectReference Include="..\..\src\EthSmartContractIO.AccountProvider\EthSmartContractIO.AccountProvider.csproj" />
   </ItemGroup>
 
 </Project>
