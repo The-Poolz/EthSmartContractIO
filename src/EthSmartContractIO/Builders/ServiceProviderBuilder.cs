@@ -1,5 +1,6 @@
 ﻿using Nethereum.Web3;
 using EthSmartContractIO.Gas;
+using EthSmartContractIO.Providers;
 using EthSmartContractIO.Transaction;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,12 @@ public class ServiceProviderBuilder
     public ServiceProvider Build()
     {
         return services.BuildServiceProvider();
+    }
+
+    public ServiceProviderBuilder AddAccountProvider(IAccountProvider accountProvider)
+    {
+        services.AddSingleton(accountProvider);
+        return this;
     }
 
     public ServiceProviderBuilder AddWeb3(IWeb3 web3)
