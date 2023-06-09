@@ -4,6 +4,17 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <Authors>Lomet, ArdenHide</Authors>
+    <Company>The-Poolz</Company>
+    <PackageId>EthSmartContractIO.AccountProvider</PackageId>
+    <Product>EthSmartContractIO.AccountProvider</Product>
+    <Title>A EthSmartContractIO module, offering account management features for Ethereum blockchains.</Title>
+    <Description>A EthSmartContractIO module, offering account management features for Ethereum blockchains.</Description>
+    <RepositoryUrl>https://github.com/The-Poolz/RPCToolkit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://www.nuget.org/packages/EthSmartContractIO.AccountProvider</PackageProjectUrl>
+    <PackageTags>Smart Contract, Ethereum, IO, Ethereum Account</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

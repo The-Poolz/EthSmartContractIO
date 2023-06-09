@@ -9,7 +9,7 @@
     <PackageId>SmartContractIO</PackageId>
     <Title>A tool designed to read and write data in Smart-Contract.</Title>
     <Version>1.0.0</Version>
-    <Authors>Lomet</Authors>
+    <Authors>Lomet, ArdenHide</Authors>
     <Company>The-Poolz</Company>
     <Product>SmartContractIO</Product>
     <Description>A tool designed to read and write data in Smart-Contract.</Description>
@@ -17,7 +17,7 @@
     <RepositoryUrl>https://github.com/The-Poolz/RPCToolkit</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Smart Contract, Ethereum, IO</PackageTags>
-    <PackageProjectUrl>https://www.nuget.org/packages/SmartContractIO</PackageProjectUrl>
+    <PackageProjectUrl>https://www.nuget.org/packages/EthSmartContractIO</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
