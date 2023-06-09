@@ -1,6 +1,6 @@
 ﻿using Nethereum.Web3.Accounts;
 
-namespace RPC.Core.Providers;
+namespace EthSmartContractIO.Providers;
 
 public interface IAccountProvider
 {

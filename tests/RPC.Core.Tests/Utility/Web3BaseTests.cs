@@ -2,7 +2,7 @@
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 
-namespace RPC.Core.Utility.Tests;
+namespace EthSmartContractIO.Utility.Tests;
 
 public class Web3BaseTests
 {

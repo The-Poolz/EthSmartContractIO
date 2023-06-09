@@ -7,7 +7,7 @@ using Nethereum.JsonRpc.Client;
 using Nethereum.RPC.Eth.Services;
 using Nethereum.RPC.TransactionManagers;
 
-namespace RPC.Core.Tests.Mocks;
+namespace EthSmartContractIO.Tests.Mocks;
 
 internal static class MockWeb3
 {

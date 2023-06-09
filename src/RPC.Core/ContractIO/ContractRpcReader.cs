@@ -1,8 +1,8 @@
 ﻿using Flurl.Http;
-using RPC.Core.Models;
 using Newtonsoft.Json.Linq;
+using EthSmartContractIO.Models;
 
-namespace RPC.Core.ContractIO;
+namespace EthSmartContractIO.ContractIO;
 
 public class ContractRpcReader : IContractIO
 {

@@ -1,4 +1,4 @@
-﻿namespace RPC.Core.Transaction;
+﻿namespace EthSmartContractIO.Transaction;
 
 public interface ITransactionSender
 {

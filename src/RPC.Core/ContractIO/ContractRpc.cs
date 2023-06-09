@@ -1,6 +1,6 @@
-﻿using RPC.Core.Models;
+﻿using EthSmartContractIO.Models;
 
-namespace RPC.Core.ContractIO;
+namespace EthSmartContractIO.ContractIO;
 
 public class ContractRpc
 {

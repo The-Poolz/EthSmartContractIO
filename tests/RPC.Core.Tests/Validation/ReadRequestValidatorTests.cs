@@ -1,9 +1,9 @@
 ﻿using Xunit;
-using RPC.Core.Models;
 using FluentValidation;
+using EthSmartContractIO.Models;
 using FluentValidation.TestHelper;
 
-namespace RPC.Core.Validation.Tests;
+namespace EthSmartContractIO.Validation.Tests;
 
 public class ReadRequestValidatorTests
 {

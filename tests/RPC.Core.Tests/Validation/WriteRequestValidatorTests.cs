@@ -1,11 +1,11 @@
 ﻿using Xunit;
-using RPC.Core.Models;
 using FluentValidation;
-using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Models;
 using FluentValidation.TestHelper;
+using EthSmartContractIO.Tests.Mocks;
 
-namespace RPC.Core.Validation.Tests;
+namespace EthSmartContractIO.Validation.Tests;
 
 public class WriteRequestValidatorTests
 {

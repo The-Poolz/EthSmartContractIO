@@ -1,17 +1,16 @@
 ﻿using Moq;
 using Xunit;
-using RPC.Core.Gas;
-using RPC.Core.Models;
-using RPC.Core.Builders;
 using Flurl.Http.Testing;
 using Newtonsoft.Json.Linq;
-using RPC.Core.Tests.Mocks;
-using RPC.Core.Transaction;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
-using Microsoft.Extensions.DependencyInjection;
+using EthSmartContractIO.Gas;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Builders;
+using EthSmartContractIO.Tests.Mocks;
+using EthSmartContractIO.Transaction;
 
-namespace RPC.Core.ContractIO.Tests;
+namespace EthSmartContractIO.ContractIO.Tests;
 
 public class ContractRpcTests
 {

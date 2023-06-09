@@ -1,9 +1,9 @@
-﻿using RPC.Core.Gas;
-using RPC.Core.Models;
-using RPC.Core.Transaction;
+﻿using EthSmartContractIO.Gas;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Transaction;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RPC.Core.ContractIO;
+namespace EthSmartContractIO.ContractIO;
 
 public class ContractRpcWriter : IContractIO
 {

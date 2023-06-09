@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace RPC.Core.Models;
+namespace EthSmartContractIO.Models;
 
 public class ReadRpcRequest
 {

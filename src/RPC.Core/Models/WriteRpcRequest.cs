@@ -1,7 +1,7 @@
-﻿using RPC.Core.Providers;
-using Nethereum.Hex.HexTypes;
+﻿using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Providers;
 
-namespace RPC.Core.Models;
+namespace EthSmartContractIO.Models;
 
 public class WriteRpcRequest
 {

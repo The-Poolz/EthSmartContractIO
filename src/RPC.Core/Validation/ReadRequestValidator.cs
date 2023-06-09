@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace RPC.Core.Validation;
+namespace EthSmartContractIO.Validation;
 
 public class ReadRequestValidator : BaseRequestValidator
 {

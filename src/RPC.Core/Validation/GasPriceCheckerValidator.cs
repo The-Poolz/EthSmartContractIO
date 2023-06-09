@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using RPC.Core.Gas;
+using EthSmartContractIO.Gas;
 
-namespace RPC.Core.Validation;
+namespace EthSmartContractIO.Validation;
 
 public class GasPriceCheckerValidator : AbstractValidator<GasPriceChecker>
 {

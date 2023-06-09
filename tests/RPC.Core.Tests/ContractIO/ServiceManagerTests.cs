@@ -1,11 +1,11 @@
 ﻿using Xunit;
 using Nethereum.Web3;
-using RPC.Core.Models;
-using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Tests.Mocks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RPC.Core.ContractIO.Tests;
+namespace EthSmartContractIO.ContractIO.Tests;
 
 public class ServiceManagerTests
 {

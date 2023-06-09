@@ -2,7 +2,7 @@
 using Nethereum.Web3.Accounts;
 using Nethereum.JsonRpc.Client;
 
-namespace RPC.Core.Utility;
+namespace EthSmartContractIO.Utility;
 
 public abstract class Web3Base
 {

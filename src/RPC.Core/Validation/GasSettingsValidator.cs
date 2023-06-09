@@ -1,7 +1,7 @@
-﻿using RPC.Core.Models;
-using FluentValidation;
+﻿using FluentValidation;
+using EthSmartContractIO.Models;
 
-namespace RPC.Core.Validation;
+namespace EthSmartContractIO.Validation;
 
 public class GasSettingsValidator : AbstractValidator<GasSettings>
 {

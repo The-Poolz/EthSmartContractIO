@@ -1,9 +1,9 @@
 ﻿using Xunit;
-using RPC.Core.Models;
 using Flurl.Http.Testing;
 using Newtonsoft.Json.Linq;
+using EthSmartContractIO.Models;
 
-namespace RPC.Core.ContractIO.Tests;
+namespace EthSmartContractIO.ContractIO.Tests;
 
 public class ContractRpcReaderTests
 {

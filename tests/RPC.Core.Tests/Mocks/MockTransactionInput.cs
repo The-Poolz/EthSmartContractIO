@@ -1,7 +1,7 @@
 ﻿using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 
-namespace RPC.Core.Tests.Mocks;
+namespace EthSmartContractIO.Tests.Mocks;
 
 internal static class MockTransactionInput
 {

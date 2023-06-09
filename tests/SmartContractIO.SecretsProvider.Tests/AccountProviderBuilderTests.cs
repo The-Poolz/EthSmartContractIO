@@ -1,7 +1,7 @@
 using Moq;
 using Xunit;
 
-namespace SmartContractIO.SecretsProvider.Tests;
+namespace EthSmartContractIO.SecretsProvider.Tests;
 
 public class AccountProviderBuilderTests
 {

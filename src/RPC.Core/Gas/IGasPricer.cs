@@ -1,6 +1,6 @@
 ﻿using Nethereum.Hex.HexTypes;
 
-namespace RPC.Core.Gas;
+namespace EthSmartContractIO.Gas;
 
 public interface IGasPricer
 {

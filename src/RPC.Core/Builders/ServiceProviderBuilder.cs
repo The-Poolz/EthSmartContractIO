@@ -1,9 +1,9 @@
-﻿using RPC.Core.Gas;
-using Nethereum.Web3;
-using RPC.Core.Transaction;
+﻿using Nethereum.Web3;
+using EthSmartContractIO.Gas;
+using EthSmartContractIO.Transaction;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RPC.Core.Builders;
+namespace EthSmartContractIO.Builders;
 
 public class ServiceProviderBuilder
 {

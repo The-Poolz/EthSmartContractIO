@@ -1,8 +1,8 @@
 ﻿using Xunit;
-using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Tests.Mocks;
 
-namespace RPC.Core.Gas.Tests;
+namespace EthSmartContractIO.Gas.Tests;
 
 public class GasPricerTests
 {

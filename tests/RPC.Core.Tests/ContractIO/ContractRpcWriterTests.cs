@@ -1,10 +1,10 @@
 ﻿using Xunit;
-using RPC.Core.Models;
-using RPC.Core.Builders;
-using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Builders;
+using EthSmartContractIO.Tests.Mocks;
 
-namespace RPC.Core.ContractIO.Tests;
+namespace EthSmartContractIO.ContractIO.Tests;
 
 public class ContractRpcWriterTests
 {

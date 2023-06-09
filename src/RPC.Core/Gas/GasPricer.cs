@@ -1,8 +1,8 @@
 ﻿using Nethereum.Web3;
-using RPC.Core.Utility;
 using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Utility;
 
-namespace RPC.Core.Gas;
+namespace EthSmartContractIO.Gas;
 
 public class GasPricer : Web3Base, IGasPricer
 {

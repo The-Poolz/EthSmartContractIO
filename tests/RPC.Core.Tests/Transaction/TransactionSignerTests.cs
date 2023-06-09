@@ -1,7 +1,7 @@
 ﻿using Xunit;
-using RPC.Core.Tests.Mocks;
+using EthSmartContractIO.Tests.Mocks;
 
-namespace RPC.Core.Transaction.Tests;
+namespace EthSmartContractIO.Transaction.Tests;
 
 public class TransactionSignerTests
 {

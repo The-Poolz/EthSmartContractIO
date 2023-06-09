@@ -1,6 +1,6 @@
-﻿using SmartContractIO.AccountProvider;
+﻿using EthSmartContractIO.AccountProvider;
 
-namespace SmartContractIO.SecretsProvider;
+namespace EthSmartContractIO.SecretsProvider;
 
 public class AccountProviderBuilder
 {

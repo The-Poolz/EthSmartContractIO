@@ -1,11 +1,11 @@
 ﻿using Xunit;
-using RPC.Core.Models;
+using FluentValidation;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
-using RPC.Core.Validation;
-using FluentValidation;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Validation;
 
-namespace RPC.Core.Gas.Tests;
+namespace EthSmartContractIO.Gas.Tests;
 
 public class GasLimitCheckerTests
 {

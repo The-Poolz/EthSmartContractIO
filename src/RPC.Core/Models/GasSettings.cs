@@ -1,4 +1,4 @@
-﻿namespace RPC.Core.Models;
+﻿namespace EthSmartContractIO.Models;
 
 public class GasSettings
 {

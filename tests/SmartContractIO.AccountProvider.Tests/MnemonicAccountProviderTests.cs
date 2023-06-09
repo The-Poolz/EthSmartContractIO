@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace SmartContractIO.AccountProvider.Tests;
+namespace EthSmartContractIO.AccountProvider.Tests;
 
 public class MnemonicAccountProviderTests
 {

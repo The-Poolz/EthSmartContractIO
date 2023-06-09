@@ -2,7 +2,7 @@
 using Xunit;
 using SecretsManager;
 
-namespace SmartContractIO.SecretsProvider.Tests;
+namespace EthSmartContractIO.SecretsProvider.Tests;
 
 public class EnvironmentSecretProviderTests
 {

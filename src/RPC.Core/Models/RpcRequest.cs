@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using RPC.Core.Validation;
+using EthSmartContractIO.Validation;
 
-namespace RPC.Core.Models;
+namespace EthSmartContractIO.Models;
 
 public class RpcRequest
 {

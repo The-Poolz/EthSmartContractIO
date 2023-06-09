@@ -1,8 +1,8 @@
-﻿using RPC.Core.Providers;
-using Nethereum.Hex.HexTypes;
+﻿using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
+using EthSmartContractIO.Providers;
 
-namespace SmartContractIO.AccountProvider;
+namespace EthSmartContractIO.AccountProvider;
 
 public class PrivateKeyAccountProvider : IAccountProvider
 {

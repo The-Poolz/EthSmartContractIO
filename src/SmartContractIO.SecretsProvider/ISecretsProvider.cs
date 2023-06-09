@@ -1,4 +1,4 @@
-﻿namespace SmartContractIO.SecretsProvider;
+﻿namespace EthSmartContractIO.SecretsProvider;
 
 public interface ISecretsProvider
 {

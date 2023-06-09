@@ -1,7 +1,7 @@
-﻿using RPC.Core.Providers;
-using Nethereum.Web3.Accounts;
+﻿using Nethereum.Web3.Accounts;
+using EthSmartContractIO.Providers;
 
-namespace RPC.Core.Tests.Mocks;
+namespace EthSmartContractIO.Tests.Mocks;
 
 internal class MockAccountProvider : IAccountProvider
 {

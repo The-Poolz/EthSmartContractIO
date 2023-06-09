@@ -1,10 +1,10 @@
 ﻿using Nethereum.Util;
-using RPC.Core.Models;
 using FluentValidation;
-using RPC.Core.Validation;
 using Nethereum.RPC.Eth.DTOs;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Validation;
 
-namespace RPC.Core.Gas;
+namespace EthSmartContractIO.Gas;
 
 public class GasPriceChecker
 {

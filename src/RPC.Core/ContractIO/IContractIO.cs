@@ -1,4 +1,4 @@
-﻿namespace RPC.Core.ContractIO;
+﻿namespace EthSmartContractIO.ContractIO;
 
 public interface IContractIO
 {

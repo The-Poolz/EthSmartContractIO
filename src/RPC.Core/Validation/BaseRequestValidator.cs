@@ -1,9 +1,9 @@
 ﻿using Nethereum.Util;
-using RPC.Core.Models;
 using FluentValidation;
+using EthSmartContractIO.Models;
 using System.Text.RegularExpressions;
 
-namespace RPC.Core.Validation;
+namespace EthSmartContractIO.Validation;
 
 public class BaseRequestValidator : AbstractValidator<RpcRequest>
 {

@@ -1,7 +1,7 @@
 ﻿using SecretsManager;
 using EnvironmentManager;
 
-namespace SmartContractIO.SecretsProvider;
+namespace EthSmartContractIO.SecretsProvider;
 
 public class EnvironmentSecretProvider : ISecretsProvider
 {

@@ -1,8 +1,8 @@
-using RPC.Core.Gas;
+using EthSmartContractIO.Gas;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 
-namespace RPC.Core.Models;
+namespace EthSmartContractIO.Models;
 
 public class AssembledTransaction : TransactionInput
 {

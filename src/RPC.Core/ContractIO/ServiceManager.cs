@@ -1,12 +1,12 @@
-﻿using RPC.Core.Gas;
-using Nethereum.Web3;
-using RPC.Core.Models;
-using RPC.Core.Utility;
-using RPC.Core.Builders;
-using RPC.Core.Transaction;
+﻿using Nethereum.Web3;
+using EthSmartContractIO.Gas;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Utility;
+using EthSmartContractIO.Builders;
+using EthSmartContractIO.Transaction;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RPC.Core.ContractIO;
+namespace EthSmartContractIO.ContractIO;
 
 public class ServiceManager : Web3Base, IServiceProvider
 {

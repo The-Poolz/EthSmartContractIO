@@ -1,7 +1,7 @@
 ﻿using Nethereum.Web3;
-using RPC.Core.Utility;
+using EthSmartContractIO.Utility;
 
-namespace RPC.Core.Transaction;
+namespace EthSmartContractIO.Transaction;
 
 public class TransactionSender : Web3Base, ITransactionSender
 {
