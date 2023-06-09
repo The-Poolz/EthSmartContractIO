@@ -9,13 +9,13 @@ using RPC.Core.Tests.Mocks;
 using RPC.Core.Transaction;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RPC.Core.ContractIO.Tests;
 
 public class ContractRpcTests
 {
     private const string RpcUrl = "http://localhost:8545/";
-    private readonly ContractRpc contractRpc = new();
     private readonly RpcRequest readRequest = new (
         rpcUrl: RpcUrl,
         to: "0xA98b8386a806966c959C35c636b929FE7c5dD7dE",
@@ -46,7 +46,7 @@ public class ContractRpcTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
 
-        var result = contractRpc.ExecuteAction(readRequest);
+        var result = new ContractRpc().ExecuteAction(readRequest);
 
         Assert.NotNull(result);
         Assert.Equal(response["result"]?.ToString(), result);
@@ -64,13 +64,13 @@ public class ContractRpcTests
         var mockTransactionSender = new Mock<ITransactionSender>();
         mockTransactionSender.Setup(x => x.SendTransaction("signedTransaction"))
             .Returns("transactionHash");
-        contractRpc.ServiceProvider = new ServiceProviderBuilder()
+        var serviceProvider = new ServiceProviderBuilder()
             .AddGasPricer(mockGasPricer.Object)
             .AddTransactionSigner(mockTransactionSigner.Object)
             .AddTransactionSender(mockTransactionSender.Object)
             .Build();
 
-        var result = contractRpc.ExecuteAction(writeRequest);
+        var result = new ContractRpc(serviceProvider).ExecuteAction(writeRequest);
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
@@ -79,11 +79,11 @@ public class ContractRpcTests
     [Fact]
     internal void ExecuteAction_WriteWithMockWeb3_ExpectedTransactionHex()
     {
-        contractRpc.ServiceProvider = new ServiceProviderBuilder()
+        var serviceProvider = new ServiceProviderBuilder()
             .AddWeb3(MockWeb3.GetMock)
-            .Build();
+        .Build();
 
-        var result = contractRpc.ExecuteAction(writeRequest);
+        var result = new ContractRpc(serviceProvider).ExecuteAction(writeRequest);
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
