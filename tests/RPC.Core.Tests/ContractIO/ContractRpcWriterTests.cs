@@ -1,9 +1,10 @@
 ﻿using Xunit;
-using Nethereum.Web3;
 using RPC.Core.Models;
 using RPC.Core.Builders;
 using RPC.Core.Tests.Mocks;
 using Nethereum.Hex.HexTypes;
+using Microsoft.Extensions.DependencyInjection;
+using Nethereum.Web3;
 
 namespace RPC.Core.ContractIO.Tests;
 
@@ -26,12 +27,13 @@ public class ContractRpcWriterTests
     }
 
     [Fact]
-    internal void InitializeWeb3()
+    internal void ServiceManager_ExpectedServiceProvider()
     {
-        var contractRpcWriter = new ContractRpcWriter(request);
+        var expectedServiceManager = new ServiceManager(request, null);
 
-        var result = contractRpcWriter.InitializeWeb3();
+        var result = expectedServiceManager.GetService<IWeb3>();
 
+        Assert.NotNull(expectedServiceManager);
         Assert.NotNull(result);
         Assert.IsType<Web3>(result);
     }
