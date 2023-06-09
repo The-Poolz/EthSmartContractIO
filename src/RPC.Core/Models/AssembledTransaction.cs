@@ -4,9 +4,9 @@ using RPC.Core.Gas;
 
 namespace RPC.Core.Models;
 
-public class Transaction : TransactionInput
+public class AssembledTransaction : TransactionInput
 {
-    public Transaction(RpcRequest request, GasPricer gasPricer) 
+    public AssembledTransaction(RpcRequest request, IGasPricer gasPricer) 
         : base(request.Data, request.To, request.WriteRequest!.Value)
     {
         ChainId = new HexBigInteger(request.WriteRequest!.ChainId);

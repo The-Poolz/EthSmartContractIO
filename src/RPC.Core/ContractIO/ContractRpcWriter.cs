@@ -24,5 +24,5 @@ public class ContractRpcWriter : IContractIO
 
     public virtual string RunContractAction() =>
         TransactionSender.SendTransaction(
-            TransactionSigner.SignTransaction(new ReadyTransaction(request, GasPricer)));
+            TransactionSigner.SignTransaction(new AssembledTransaction(request, GasPricer)));
 }
