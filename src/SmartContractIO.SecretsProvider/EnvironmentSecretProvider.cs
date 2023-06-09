@@ -17,5 +17,5 @@ public class EnvironmentSecretProvider : ISecretsProvider
         this.secretManager = secretManager;
     }
 
-    public string Secret => secretManager.GetSecretValue(SecretId, SecretKey);
+    public virtual string Secret => secretManager.GetSecretValue(SecretId, SecretKey);
 }
