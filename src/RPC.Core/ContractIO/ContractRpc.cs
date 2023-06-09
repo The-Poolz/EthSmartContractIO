@@ -1,5 +1,4 @@
-﻿using RPC.Core.Types;
-using RPC.Core.Models;
+﻿using RPC.Core.Models;
 
 namespace RPC.Core.ContractIO;
 
@@ -11,7 +10,7 @@ public class ContractRpc
         GetContractIO(request).RunContractAction();
 
     private IContractIO GetContractIO(RpcRequest request) =>
-        request.ActionType == ActionType.Read ?
+        request.ActionIsRead ?
         new ContractRpcReader(request) :
         new ContractRpcWriter(
             request: request,
