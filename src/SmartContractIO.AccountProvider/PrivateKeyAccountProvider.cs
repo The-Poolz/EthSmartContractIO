@@ -6,7 +6,7 @@ namespace SmartContractIO.AccountProvider;
 
 public class PrivateKeyAccountProvider : IAccountProvider
 {
-    public Account Account { get; protected set; }
+    public Account Account { get; private set; }
 
     public PrivateKeyAccountProvider(string privateKey, uint chainId)
     {

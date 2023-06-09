@@ -7,7 +7,7 @@ namespace SmartContractIO.AccountProvider;
 
 public class MnemonicAccountProvider : IAccountProvider
 {
-    public Account Account { get; protected set; }
+    public Account Account { get; private set; }
 
     public MnemonicAccountProvider(string mnemonicWords, uint accountId, uint chainId, string seedPassword = "")
     {
