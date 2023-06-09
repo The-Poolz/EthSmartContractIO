@@ -4,5 +4,5 @@ namespace RPC.Core.Providers;
 
 public interface IAccountProvider
 {
-    Account? Account { get; }
+    Account Account { get; }
 }
