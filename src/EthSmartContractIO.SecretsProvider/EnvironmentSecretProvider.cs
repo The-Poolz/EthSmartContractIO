@@ -12,9 +12,9 @@ public class EnvironmentSecretProvider : ISecretsProvider
 
     private readonly SecretManager secretManager;
 
-    public EnvironmentSecretProvider(SecretManager secretManager)
+    public EnvironmentSecretProvider(SecretManager? secretManager = null)
     {
-        this.secretManager = secretManager;
+        this.secretManager = secretManager ?? new SecretManager();
     }
 
     public virtual string Secret => secretManager.GetSecretValue(SecretId, SecretKey);
