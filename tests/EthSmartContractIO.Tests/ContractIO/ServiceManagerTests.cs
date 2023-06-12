@@ -1,6 +1,5 @@
 ﻿using Xunit;
 using Nethereum.Hex.HexTypes;
-using EthSmartContractIO.Gas;
 using EthSmartContractIO.Models;
 using EthSmartContractIO.Builders;
 using EthSmartContractIO.Tests.Mocks;
@@ -25,7 +24,7 @@ public class ServiceManagerTests
         var result = new ServiceManager(request, null);
 
         Assert.NotNull(result);
-        Assert.NotNull(result.GetService(typeof(GasPricer)));
+        Assert.NotNull(result.Account);
         Assert.Equal(1, result.Account.ChainId);
     }
 

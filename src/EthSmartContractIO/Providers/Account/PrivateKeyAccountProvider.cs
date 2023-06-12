@@ -1,4 +1,6 @@
-﻿using Nethereum.Hex.HexTypes;
+﻿using FluentValidation;
+using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Providers.Account.Validation;
 
 namespace EthSmartContractIO.Providers.Account;
 
@@ -9,18 +11,10 @@ public class PrivateKeyAccountProvider : IAccountProvider
 
     public PrivateKeyAccountProvider(params object[] args)
     {
-        if (args.Length != 2)
-            throw new ArgumentException("Two arguments required: private key and chain id");
+        new PrivateKeyParamsValidator().ValidateAndThrow(args);
 
-        if (args[0] is string pk)
-            privateKey = pk;
-        else
-            throw new ArgumentException("The first argument must be a (string) private key", nameof(args));
-
-        if (args[1] is uint cid)
-            chainId = cid;
-        else
-            throw new ArgumentException("The second argument must be a (uint) chain ID", nameof(args));
+        privateKey = (string)args[0];
+        chainId = (uint)args[1];
     }
 
     public Nethereum.Web3.Accounts.Account GetAccount(params object[] args) =>

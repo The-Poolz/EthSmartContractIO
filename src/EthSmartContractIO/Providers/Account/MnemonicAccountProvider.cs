@@ -1,5 +1,7 @@
-﻿using Nethereum.HdWallet;
+﻿using FluentValidation;
+using Nethereum.HdWallet;
 using Nethereum.Hex.HexTypes;
+using EthSmartContractIO.Providers.Account.Validation;
 
 namespace EthSmartContractIO.Providers.Account;
 
@@ -12,23 +14,11 @@ public class MnemonicAccountProvider : IAccountProvider
 
     public MnemonicAccountProvider(params object[] args)
     {
-        if (args.Length < 3)
-            throw new ArgumentException("Three arguments required: mnemonic words, account ID and chain ID.", nameof(args));
+        new MnemonicParamsValidator().ValidateAndThrow(args);
 
-        if (args[0] is string mw)
-            mnemonicWords = mw;
-        else
-            throw new ArgumentException("The first argument must be a (string) mnemonic words.", nameof(args));
-
-        if (args[1] is uint aid)
-            accountId = aid;
-        else
-            throw new ArgumentException("The second argument must be a (uint) account ID.", nameof(args));
-
-        if (args[2] is uint cid)
-            chainId = cid;
-        else
-            throw new ArgumentException("The third argument must be a (uint) chain ID.", nameof(args));
+        mnemonicWords = (string)args[0];
+        accountId = (uint)args[1];
+        chainId = (uint)args[2];
 
         if (args.Length > 3 && args[3] is string sp)
             seedPassword = sp;
