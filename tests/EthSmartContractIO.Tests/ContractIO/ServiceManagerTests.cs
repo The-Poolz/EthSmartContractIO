@@ -40,7 +40,7 @@ public class ServiceManagerTests
             )
         );
         var serviceProvider = new ServiceProviderBuilder()
-            .AddAccountProvider(new MnemonicAccountProvider("over pull sibling only cage mean maid shrimp install travel reunion cabbage", (uint)1, (uint)1, "seed password"))
+            .AddAccountProvider(new MnemonicAccountProvider("over pull sibling only cage mean maid shrimp install travel reunion cabbage", (uint)1, (uint)1))
             .Build();
 
         var result = new ServiceManager(request, serviceProvider);
