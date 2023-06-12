@@ -12,4 +12,8 @@ public class PrivateKeyAccountProvider : IAccountProvider
     {
         Account = new Account(privateKey, new HexBigInteger(chainId));
     }
+
+    public PrivateKeyAccountProvider(ISecretsProvider secretsProvider, uint chainId)
+        : this(secretsProvider.Secret, chainId)
+    { }
 }

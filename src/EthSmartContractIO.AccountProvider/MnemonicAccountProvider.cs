@@ -14,4 +14,8 @@ public class MnemonicAccountProvider : IAccountProvider
         var wallet = new Wallet(words: mnemonicWords, seedPassword: seedPassword);
         Account = wallet.GetAccount((int)accountId, new HexBigInteger(chainId));
     }
+
+    public MnemonicAccountProvider(ISecretsProvider secretsProvider, uint accountId, uint chainId, string seedPassword = "")
+        : this(secretsProvider.Secret, accountId, chainId, seedPassword)
+    { }
 }
