@@ -12,7 +12,6 @@ namespace EthSmartContractIO.ContractIO;
 
 public class ServiceManager : IServiceProvider
 {
-    public IWeb3 Web3 { get; }
     public Account Account { get; }
     public IServiceProvider? PrimaryServiceProvider { get; }
     public IServiceProvider BackupServiceProvider { get; }
@@ -22,14 +21,14 @@ public class ServiceManager : IServiceProvider
         Account = serviceProvider?.GetService<IAccountProvider>()?.GetAccount(request.WriteRequest!.AccountParams) ??
             new PrivateKeyAccountProvider(request.WriteRequest!.AccountParams).GetAccount();
 
-        Web3 = serviceProvider?.GetService<IWeb3>()
+        var web3 = serviceProvider?.GetService<IWeb3>()
             ?? Web3Base.CreateWeb3(request.RpcUrl, Account);
 
         BackupServiceProvider = new ServiceProviderBuilder()
-            .AddGasPricer(new GasPricer(Web3))
-            .AddTransactionSigner(new TransactionSigner(Web3))
-            .AddTransactionSender(new TransactionSender(Web3))
-        .Build();
+            .AddGasPricer(new GasPricer(web3))
+            .AddTransactionSigner(new TransactionSigner(web3))
+            .AddTransactionSender(new TransactionSender(web3))
+            .Build();
     }
 
     public object? GetService(Type serviceType)

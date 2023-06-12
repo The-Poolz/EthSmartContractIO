@@ -30,11 +30,8 @@ public class MnemonicAccountProvider : IAccountProvider
         else
             throw new ArgumentException("The third argument must be a (uint) chain ID.", nameof(args));
 
-        if (args.Length > 3)
-        {
-            if (args[3] is string sp)
-                seedPassword = sp;
-        }
+        if (args.Length > 3 && args[3] is string sp)
+            seedPassword = sp;
     }
 
     public Nethereum.Web3.Accounts.Account GetAccount(params object[] args)
