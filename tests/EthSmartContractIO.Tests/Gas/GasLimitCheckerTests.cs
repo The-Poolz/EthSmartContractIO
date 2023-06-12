@@ -3,7 +3,7 @@ using FluentValidation;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Hex.HexTypes;
 using EthSmartContractIO.Models;
-using EthSmartContractIO.Validation;
+using EthSmartContractIO.Gas.Validation;
 
 namespace EthSmartContractIO.Gas.Tests;
 

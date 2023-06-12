@@ -1,9 +1,8 @@
 ﻿using Nethereum.Util;
 using FluentValidation;
-using EthSmartContractIO.Models;
 using System.Text.RegularExpressions;
 
-namespace EthSmartContractIO.Validation;
+namespace EthSmartContractIO.Models.Validation;
 
 public class BaseRequestValidator : AbstractValidator<RpcRequest>
 {
@@ -27,7 +26,7 @@ public class BaseRequestValidator : AbstractValidator<RpcRequest>
     }
 
     protected static bool IsValidEthereumAddress(string address) =>
-        AddressExtensions.IsValidEthereumAddressHexFormat(address);
+        address.IsValidEthereumAddressHexFormat();
 
     protected static bool IsValidEthereumData(string data) =>
         EthereumDataPattern.IsMatch(data);

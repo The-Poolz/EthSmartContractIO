@@ -2,7 +2,7 @@
 using FluentValidation;
 using Nethereum.RPC.Eth.DTOs;
 using EthSmartContractIO.Models;
-using EthSmartContractIO.Validation;
+using EthSmartContractIO.Gas.Validation;
 
 namespace EthSmartContractIO.Gas;
 

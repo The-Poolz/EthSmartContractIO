@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using EthSmartContractIO.Models;
 
-namespace EthSmartContractIO.Validation;
+namespace EthSmartContractIO.Models.Validation;
 
 public class GasSettingsValidator : AbstractValidator<GasSettings>
 {
