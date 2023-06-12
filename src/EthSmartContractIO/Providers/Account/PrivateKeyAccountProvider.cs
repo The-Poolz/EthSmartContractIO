@@ -12,13 +12,13 @@ public class PrivateKeyAccountProvider : IAccountProvider
         if (args.Length != 2)
             throw new ArgumentException("Two arguments required: private key and chain id");
 
-        if (args[0] is string privateKey)
-            this.privateKey = privateKey;
+        if (args[0] is string pk)
+            privateKey = pk;
         else
             throw new ArgumentException("The first argument must be a (string) private key", nameof(args));
 
-        if (args[1] is uint chainId)
-            this.chainId = chainId;
+        if (args[1] is uint cid)
+            chainId = cid;
         else
             throw new ArgumentException("The second argument must be a (uint) chain ID", nameof(args));
     }

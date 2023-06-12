@@ -2,7 +2,6 @@
 using Nethereum.Web3;
 using Nethereum.Hex.HexTypes;
 using EthSmartContractIO.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace EthSmartContractIO.ContractIO.Tests;
 
