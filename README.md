@@ -4,7 +4,7 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=The-Poolz_RPCToolkit&metric=alert_status&token=2eea303b94df298cfeda35ef2fb09e4d8583bdea)](https://sonarcloud.io/summary/new_code?id=The-Poolz_RPCToolkit)
 [![SonarScanner for .NET 6](https://github.com/The-Poolz/RPCToolkit/actions/workflows/dotnet.yml/badge.svg)](https://github.com/The-Poolz/RPCToolkit/actions/workflows/dotnet.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/the-poolz/rpctoolkit/badge?s=3c1a503d1a1a95c78bec0850d0814c40f3a2b20f)](https://www.codefactor.io/repository/github/the-poolz/rpctoolkit)
+[![CodeFactor](https://www.codefactor.io/repository/github/the-poolz/ethsmartcontractio/badge)](https://www.codefactor.io/repository/github/the-poolz/ethsmartcontractio)
 
 `SmartContractIO` is a .NET library aimed at simplifying the interaction with Ethereum smart contracts. It allows developers to execute actions on the Ethereum network by wrapping the complexity of Ethereum RPC calls into a more manageable, high-level API.
 
