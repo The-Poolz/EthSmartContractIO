@@ -29,7 +29,7 @@ public class PrivateKeyAccountProviderTests
             .Returns(privateKey);
         var chainId = 1u;
 
-        var account = new PrivateKeyAccountProvider(privateKey, chainId).Account;
+        var account = new PrivateKeyAccountProvider(mockSecretsProvider.Object, chainId).Account;
 
         Assert.NotNull(account);
         Assert.Equal(privateKey, account.PrivateKey);
