@@ -1,5 +1,4 @@
-﻿using EthSmartContractIO.Gas;
-using EthSmartContractIO.Models;
+﻿using EthSmartContractIO.Models;
 using EthSmartContractIO.Transaction;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,9 +7,7 @@ namespace EthSmartContractIO.ContractIO;
 public class ContractRpcWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IServiceProvider serviceProvider;
-    private IGasPricer GasPricer =>
-        serviceProvider.GetRequiredService<IGasPricer>();
+    private readonly ServiceManager serviceProvider;
     private ITransactionSigner TransactionSigner =>
         serviceProvider.GetRequiredService<ITransactionSigner>();
     private ITransactionSender TransactionSender =>
@@ -24,5 +21,5 @@ public class ContractRpcWriter : IContractIO
 
     public virtual string RunContractAction() =>
         TransactionSender.SendTransaction(
-            TransactionSigner.SignTransaction(new AssembledTransaction(request, GasPricer)));
+            TransactionSigner.SignTransaction(new AssembledTransaction(request, serviceProvider)));
 }

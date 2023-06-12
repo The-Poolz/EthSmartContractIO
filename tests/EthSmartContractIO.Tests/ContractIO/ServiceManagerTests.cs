@@ -2,7 +2,6 @@
 using Nethereum.Web3;
 using Nethereum.Hex.HexTypes;
 using EthSmartContractIO.Models;
-using EthSmartContractIO.Tests.Mocks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EthSmartContractIO.ContractIO.Tests;
@@ -18,13 +17,13 @@ public class ServiceManagerTests
             writeRequest: new WriteRpcRequest(
                 value: new HexBigInteger(10000000000000000),
                 gasSettings: new GasSettings(30000, 6),
-                accountProvider: new MockAccountProvider()
+                accountParams: new string[] { "0x4e3c79ee2f53da4e456cb13887f4a7d59488677e9e48b6fb6701832df828f7e9", "1" }
             )
         );
 
         var expectedServiceManager = new ServiceManager(request, null);
 
-        var result = expectedServiceManager.GetService<IWeb3>();
+        var result = expectedServiceManager.Web3;
 
         Assert.NotNull(expectedServiceManager);
         Assert.NotNull(result);

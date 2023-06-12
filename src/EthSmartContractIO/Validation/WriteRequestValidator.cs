@@ -10,9 +10,6 @@ public class WriteRequestValidator : BaseRequestValidator
             .NotNull()
             .DependentRules(() =>
             {
-                RuleFor(x => x.WriteRequest!.ChainId)
-                    .NotEqual(default(uint));
-
                 RuleFor(x => x.WriteRequest!.Value)
                     .NotNull();
 

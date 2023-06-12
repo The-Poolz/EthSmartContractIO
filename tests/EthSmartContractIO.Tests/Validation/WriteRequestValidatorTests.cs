@@ -24,7 +24,7 @@ public class WriteRequestValidatorTests
             writeRequest: new WriteRpcRequest(
                 value: validValue,
                 gasSettings: validGasSettings,
-                accountProvider: new MockAccountProvider()
+                accountParams: new string[] { "Some_Private_Key", "1" }
             )
         );
 
@@ -46,7 +46,7 @@ public class WriteRequestValidatorTests
             writeRequest: new WriteRpcRequest(
                 value: value,
                 gasSettings: gasSettings,
-                accountProvider: new MockAccountProvider()
+                accountParams: new string[] { "Some_Private_Key", "1" }
             )
         );
 

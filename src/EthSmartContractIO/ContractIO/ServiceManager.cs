@@ -5,24 +5,32 @@ using EthSmartContractIO.Utility;
 using EthSmartContractIO.Builders;
 using EthSmartContractIO.Transaction;
 using Microsoft.Extensions.DependencyInjection;
+using EthSmartContractIO.AccountProvider;
+using EthSmartContractIO.Providers;
+using Nethereum.Web3.Accounts;
 
 namespace EthSmartContractIO.ContractIO;
 
-public class ServiceManager : Web3Base, IServiceProvider
+public class ServiceManager : IServiceProvider
 {
-    public IServiceProvider? PrimaryServiceProvider  { get; }
-    public IServiceProvider BackupServiceProvider  { get; }
-    public ServiceManager(RpcRequest request, IServiceProvider? ServiceProvider) :
-        base(ServiceProvider?.GetService<IWeb3>()
-            ?? CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account))
+    public IWeb3 Web3 { get; }
+    public Account Account { get; }
+    public IServiceProvider? PrimaryServiceProvider { get; }
+    public IServiceProvider BackupServiceProvider { get; }
+    public ServiceManager(RpcRequest request, IServiceProvider? ServiceProvider)
     {
-        PrimaryServiceProvider  = ServiceProvider;
-        BackupServiceProvider  = new ServiceProviderBuilder()
-            .AddWeb3(web3)
-            .AddGasPricer(new GasPricer(web3))
-            .AddTransactionSigner(new TransactionSigner(web3))
-            .AddTransactionSender(new TransactionSender(web3))
-            .Build();
+        PrimaryServiceProvider = ServiceProvider;
+        Account = ServiceProvider?.GetService<IAccountProvider>()?.Account ??
+            new PrivateKeyAccountProvider(request.WriteRequest!.AccountParams).Account; 
+
+        Web3 = ServiceProvider?.GetService<IWeb3>()
+            ?? Web3Base.CreateWeb3(request.RpcUrl, Account);
+
+        BackupServiceProvider = new ServiceProviderBuilder()
+            .AddGasPricer(new GasPricer(Web3))
+            .AddTransactionSigner(new TransactionSigner(Web3))
+            .AddTransactionSender(new TransactionSender(Web3))
+        .Build();
     }
 
     public object? GetService(Type serviceType)
