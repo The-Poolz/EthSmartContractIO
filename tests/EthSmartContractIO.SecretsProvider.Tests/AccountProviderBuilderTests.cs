@@ -18,7 +18,7 @@ public class AccountProviderBuilderTests
 
         var accountProvider = accountProviderBuilder.BuildMnemonicAccountProvider(accountId, chainId);
 
-        Assert.Equal(chainId, accountProvider.Account.ChainId);
+        Assert.Equal(chainId, accountProvider.GetAccount().ChainId);
     }
 
     [Fact]
@@ -31,6 +31,6 @@ public class AccountProviderBuilderTests
 
         var accountProvider = accountProviderBuilder.BuildPrivateKeyAccountProvider(chainId);
 
-        Assert.Equal(chainId, accountProvider.Account.ChainId);
+        Assert.Equal(chainId, accountProvider.GetAccount().ChainId);
     }
 }

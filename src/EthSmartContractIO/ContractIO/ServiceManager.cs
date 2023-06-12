@@ -1,13 +1,12 @@
 ﻿using Nethereum.Web3;
 using EthSmartContractIO.Gas;
+using Nethereum.Web3.Accounts;
 using EthSmartContractIO.Models;
 using EthSmartContractIO.Utility;
 using EthSmartContractIO.Builders;
 using EthSmartContractIO.Transaction;
+using EthSmartContractIO.Providers.Account;
 using Microsoft.Extensions.DependencyInjection;
-using EthSmartContractIO.AccountProvider;
-using EthSmartContractIO.Providers;
-using Nethereum.Web3.Accounts;
 
 namespace EthSmartContractIO.ContractIO;
 
@@ -17,13 +16,13 @@ public class ServiceManager : IServiceProvider
     public Account Account { get; }
     public IServiceProvider? PrimaryServiceProvider { get; }
     public IServiceProvider BackupServiceProvider { get; }
-    public ServiceManager(RpcRequest request, IServiceProvider? ServiceProvider)
+    public ServiceManager(RpcRequest request, IServiceProvider? serviceProvider)
     {
-        PrimaryServiceProvider = ServiceProvider;
-        Account = ServiceProvider?.GetService<IAccountProvider>()?.Account ??
-            new PrivateKeyAccountProvider(request.WriteRequest!.AccountParams).Account; 
+        PrimaryServiceProvider = serviceProvider;
+        Account = serviceProvider?.GetService<IAccountProvider>()?.GetAccount(request.WriteRequest!.AccountParams) ??
+            new PrivateKeyAccountProvider(request.WriteRequest!.AccountParams).GetAccount();
 
-        Web3 = ServiceProvider?.GetService<IWeb3>()
+        Web3 = serviceProvider?.GetService<IWeb3>()
             ?? Web3Base.CreateWeb3(request.RpcUrl, Account);
 
         BackupServiceProvider = new ServiceProviderBuilder()

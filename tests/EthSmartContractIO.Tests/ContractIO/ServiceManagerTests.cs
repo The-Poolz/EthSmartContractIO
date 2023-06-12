@@ -17,7 +17,7 @@ public class ServiceManagerTests
             writeRequest: new WriteRpcRequest(
                 value: new HexBigInteger(10000000000000000),
                 gasSettings: new GasSettings(30000, 6),
-                accountParams: new string[] { "0x4e3c79ee2f53da4e456cb13887f4a7d59488677e9e48b6fb6701832df828f7e9", "1" }
+                accountParams: new object[] { "0x4e3c79ee2f53da4e456cb13887f4a7d59488677e9e48b6fb6701832df828f7e9", (uint)1 }
             )
         );
 

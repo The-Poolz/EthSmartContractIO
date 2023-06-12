@@ -22,8 +22,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\EthSmartContractIO.AccountProvider\EthSmartContractIO.AccountProvider.csproj" />
-  </ItemGroup>
-
 </Project>

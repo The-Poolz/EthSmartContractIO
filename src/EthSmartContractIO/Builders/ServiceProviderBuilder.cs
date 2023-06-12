@@ -1,7 +1,7 @@
 ﻿using Nethereum.Web3;
 using EthSmartContractIO.Gas;
-using EthSmartContractIO.Providers;
 using EthSmartContractIO.Transaction;
+using EthSmartContractIO.Providers.Account;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EthSmartContractIO.Builders;

@@ -9,15 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{350C8CAB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO", "src\EthSmartContractIO\EthSmartContractIO.csproj", "{1B3CEE6E-D82D-431B-9E5A-73421A7B9D86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.AccountProvider", "src\EthSmartContractIO.AccountProvider\EthSmartContractIO.AccountProvider.csproj", "{B7A697B4-5997-424B-A087-30C7F0777FBE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.SecretsProvider", "src\EthSmartContractIO.SecretsProvider\EthSmartContractIO.SecretsProvider.csproj", "{4D4FA44D-CEC7-4500-9575-2E20148E6250}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.Tests", "tests\EthSmartContractIO.Tests\EthSmartContractIO.Tests.csproj", "{F8BFEB0A-ED8A-49C6-AEF8-6AC6C1C852B9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.SecretsProvider.Tests", "tests\EthSmartContractIO.SecretsProvider.Tests\EthSmartContractIO.SecretsProvider.Tests.csproj", "{ED68706A-018E-451A-B79D-AD6EEB6D7176}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.AccountProvider.Tests", "tests\EthSmartContractIO.AccountProvider.Tests\EthSmartContractIO.AccountProvider.Tests.csproj", "{B1733887-0630-4980-87DF-0BB8AECF6E05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +25,6 @@ Global
 		{1B3CEE6E-D82D-431B-9E5A-73421A7B9D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B3CEE6E-D82D-431B-9E5A-73421A7B9D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B3CEE6E-D82D-431B-9E5A-73421A7B9D86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7A697B4-5997-424B-A087-30C7F0777FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7A697B4-5997-424B-A087-30C7F0777FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7A697B4-5997-424B-A087-30C7F0777FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7A697B4-5997-424B-A087-30C7F0777FBE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D4FA44D-CEC7-4500-9575-2E20148E6250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D4FA44D-CEC7-4500-9575-2E20148E6250}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D4FA44D-CEC7-4500-9575-2E20148E6250}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,21 +37,15 @@ Global
 		{ED68706A-018E-451A-B79D-AD6EEB6D7176}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED68706A-018E-451A-B79D-AD6EEB6D7176}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED68706A-018E-451A-B79D-AD6EEB6D7176}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1B3CEE6E-D82D-431B-9E5A-73421A7B9D86} = {12F04936-DD1B-43AF-B598-C621F4993297}
-		{B7A697B4-5997-424B-A087-30C7F0777FBE} = {12F04936-DD1B-43AF-B598-C621F4993297}
 		{4D4FA44D-CEC7-4500-9575-2E20148E6250} = {12F04936-DD1B-43AF-B598-C621F4993297}
 		{F8BFEB0A-ED8A-49C6-AEF8-6AC6C1C852B9} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
 		{ED68706A-018E-451A-B79D-AD6EEB6D7176} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
-		{B1733887-0630-4980-87DF-0BB8AECF6E05} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD146413-3E44-4442-A2A3-F9139D4C8ACD}

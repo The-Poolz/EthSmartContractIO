@@ -1,4 +1,4 @@
-﻿using EthSmartContractIO.AccountProvider;
+﻿using EthSmartContractIO.Providers.Account;
 
 namespace EthSmartContractIO.SecretsProvider;
 

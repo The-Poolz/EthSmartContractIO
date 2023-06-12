@@ -1,7 +1,7 @@
 ﻿using Nethereum.HdWallet;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3.Accounts;
-using EthSmartContractIO.Providers;
+using EthSmartContractIO.Providers.Account;
 
 namespace EthSmartContractIO.AccountProvider;
 
