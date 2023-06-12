@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using EthSmartContractIO.Validation;
+using EthSmartContractIO.Models.Validation;
 
 namespace EthSmartContractIO.Models;
 

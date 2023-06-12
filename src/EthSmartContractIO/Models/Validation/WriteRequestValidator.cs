@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EthSmartContractIO.Validation;
+namespace EthSmartContractIO.Models.Validation;
 
 public class WriteRequestValidator : BaseRequestValidator
 {

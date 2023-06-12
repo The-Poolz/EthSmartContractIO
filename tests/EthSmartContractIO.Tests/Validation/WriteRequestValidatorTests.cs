@@ -4,6 +4,7 @@ using Nethereum.Hex.HexTypes;
 using EthSmartContractIO.Models;
 using FluentValidation.TestHelper;
 using EthSmartContractIO.Tests.Mocks;
+using EthSmartContractIO.Models.Validation;
 
 namespace EthSmartContractIO.Validation.Tests;
 

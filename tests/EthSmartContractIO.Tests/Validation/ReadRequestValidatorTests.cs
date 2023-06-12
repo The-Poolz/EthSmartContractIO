@@ -2,6 +2,7 @@
 using FluentValidation;
 using EthSmartContractIO.Models;
 using FluentValidation.TestHelper;
+using EthSmartContractIO.Models.Validation;
 
 namespace EthSmartContractIO.Validation.Tests;
 

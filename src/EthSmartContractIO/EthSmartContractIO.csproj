@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>RPC.Core</RootNamespace>
-    <AssemblyName>RPC.Core</AssemblyName>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <PackageId>SmartContractIO</PackageId>
     <Title>A tool designed to read and write data in Smart-Contract.</Title>
     <Version>1.0.0</Version>
