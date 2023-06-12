@@ -14,7 +14,7 @@ public class EnvironmentSecretProviderTests
         var secretProvider = new EnvironmentSecretProvider(mockSecretManager.Object);
 
         Assert.NotNull(secretProvider);
-        Assert.Equal(mockSecretManager.Object, GetPrivateFieldValue<SecretManager>(secretProvider, "secretManager"));
+        Assert.Equal(mockSecretManager.Object, GetPrivateFieldValue<SecretManager>(secretProvider));
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class EnvironmentSecretProviderTests
         var secretProvider = new EnvironmentSecretProvider();
 
         Assert.NotNull(secretProvider);
-        Assert.IsType<SecretManager>(GetPrivateFieldValue<SecretManager>(secretProvider, "secretManager"));
+        Assert.IsType<SecretManager>(GetPrivateFieldValue<SecretManager>(secretProvider));
     }
 
     [Fact]
@@ -42,9 +42,9 @@ public class EnvironmentSecretProviderTests
         mockSecretManager.Verify(x => x.GetSecretValue("secretId", "secretKey"), Times.Once());
     }
 
-    private static T GetPrivateFieldValue<T>(object obj, string fieldName)
+    private static T GetPrivateFieldValue<T>(object obj)
     {
-        var fieldInfo = obj.GetType().GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        return (T)fieldInfo.GetValue(obj);
+        var fieldInfo = obj.GetType().GetField("secretManager", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        return (T)fieldInfo!.GetValue(obj)!;
     }
 }
