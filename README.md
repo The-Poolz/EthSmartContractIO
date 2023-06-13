@@ -32,14 +32,14 @@
 
 ## Navigation of [EthSmartContractIO.AccountProvider](#ethsmartcontractioaccountprovider)
 
-- [Getting Started](#getting-started)
+- [Getting Started](#getting-started-1)
 - [Account Providers](#account-providers)
     - [MnemonicAccountProvider](#mnemonicaccountprovider)
     - [PrivateKeyAccountProvider](#privatekeyaccountprovider)
 
 ## Navigation of [EthSmartContractIO.SecretsProvider](#ethsmartcontractiosecretsprovider)
 
-- [Getting Started](#getting-started)
+- [Getting Started](#getting-started-2)
 - [Secrets Providers](#secrets-providers)
     - [EnvironmentSecretProvider](#environmentsecretprovider)
 
