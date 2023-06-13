@@ -158,7 +158,7 @@ You can use it to execute actions (read or write) on the Ethereum network.
 var contractIO = new ContractIO();
 
 // Execute the action
-var result = contractRpc.ExecuteAction(myRpcRequest);
+var result = contractIO.ExecuteAction(myRpcRequest);
 
 // Handle the result
 Console.WriteLine(result);
@@ -182,7 +182,7 @@ var readRequest = new RpcRequest(
 var contractIO = new ContractIO();
 
 // Execute the action
-var result = contractRpc.ExecuteAction(readRequest);
+var result = contractIO.ExecuteAction(readRequest);
 
 // Handle the result
 Console.WriteLine(result);
@@ -211,7 +211,7 @@ var writeRequest = new RpcRequest(
 var contractIO = new ContractIO();
 
 // Execute the action
-var result = contractRpc.ExecuteAction(writeRequest);
+var result = contractIO.ExecuteAction(writeRequest);
 
 // Handle the result
 Console.WriteLine(result);
@@ -277,10 +277,7 @@ var serviceProvider = new ServiceProviderBuilder()
     .Build();
 
 // Create a ContractRpc instance and inject your custom implementations
-var contractRpc = new ContractRpc()
-{
-    ServiceProvider = serviceProvider
-};
+var contractRpc = new ContractRpc(serviceProvider)
 ```
 
 In the example above, `MyCustomGasPricer`, `MyCustomTransactionSigner`, and `MyCustomTransactionSender` are your custom implementations of the `IGasPricer`, `ITransactionSigner`, and `ITransactionSender` interfaces, respectively.
