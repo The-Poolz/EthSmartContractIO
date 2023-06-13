@@ -37,6 +37,12 @@
     - [MnemonicAccountProvider](#mnemonicaccountprovider)
     - [PrivateKeyAccountProvider](#privatekeyaccountprovider)
 
+## Navigation of [EthSmartContractIO.SecretsProvider](#ethsmartcontractiosecretsprovider)
+
+- [Getting Started](#getting-started)
+- [Secrets Providers](#secrets-providers)
+    - [EnvironmentSecretProvider](#environmentsecretprovider)
+
 ## Getting Started
 
 To use `EthSmartContractIO`, you will need to add it as a dependency to your project.
@@ -424,6 +430,65 @@ public class PrivateKeyAccountProvider : IAccountProvider
     { }
 }
 ```
+
+# EthSmartContractIO.SecretsProvider
+
+`EthSmartContractIO.SecretsProvider` is a NuGet package that provides a simple way to manage secrets in your Ethereum-based applications.
+It currently includes one secrets provider: `EnvironmentSecretProvider`.
+
+## Getting Started
+
+To use `EthSmartContractIO.SecretsProvider`, you will need to add it as a dependency to your project.
+You can do this by adding it as a NuGet package:
+
+.NET CLI
+```
+dotnet add package EthSmartContractIO.SecretsProvider
+```
+
+Package Manager
+```
+Install-Package EthSmartContractIO.SecretsProvider
+```
+
+## Secrets Providers
+
+The package provides a class for secret management.
+This class implements the `ISecretsProvider` interface, providing flexibility for different secret management mechanisms.
+
+### EnvironmentSecretProvider
+
+`EnvironmentSecretProvider` is a class that retrieves a secret (such as a private key or a mnemonic) from AWS Secrets Manager.
+
+Here is the code of `EnvironmentSecretProvider`:
+
+```csharp
+using SecretsManager;
+using EnvironmentManager;
+using EthSmartContractIO.Providers;
+
+namespace EthSmartContractIO.SecretsProvider;
+
+public class EnvironmentSecretProvider : ISecretsProvider
+{
+    private static string SecretId =>
+        EnvManager.GetEnvironmentValue<string>("SECRET_ID", raiseException: true);
+    private static string SecretKey =>
+        EnvManager.GetEnvironmentValue<string>("SECRET_KEY", raiseException: true);
+
+    private readonly SecretManager secretManager;
+
+    public EnvironmentSecretProvider(SecretManager? secretManager = null)
+    {
+        this.secretManager = secretManager ?? new SecretManager();
+    }
+
+    public virtual string Secret => secretManager.GetSecretValue(SecretId, SecretKey);
+}
+```
+
+The `EnvironmentSecretProvider` uses the `EnvManager` to retrieve the environment variables `SECRET_ID` and `SECRET_KEY`.
+These are used as identifiers to fetch the actual secret from the AWS Secrets Manager via `SecretManager`.
 
 ## Contribute
 
