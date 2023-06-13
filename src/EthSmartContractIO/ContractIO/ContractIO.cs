@@ -26,7 +26,6 @@ public class ContractIO
     public virtual string ExecuteAction(RpcRequest request) =>
         GetContractIO(request).RunContractAction();
 
-
     /// <summary>
     /// Gets the appropriate <see cref="IContractIO"/> instance for the given request.
     /// </summary>
