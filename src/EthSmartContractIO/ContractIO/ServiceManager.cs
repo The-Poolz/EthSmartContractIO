@@ -8,10 +8,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EthSmartContractIO.ContractIO;
 
+/// <summary>
+/// Class for managing services related to Ethereum smart contracts.
+/// </summary>
 public class ServiceManager : Web3Base, IServiceProvider
 {
     public IServiceProvider? PrimaryServiceProvider  { get; }
     public IServiceProvider BackupServiceProvider  { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ServiceManager"/> class.
+    /// </summary>
+    /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
+    /// <param name="serviceProvider">The service provider to use. If null, a new one will be created.</param>
     public ServiceManager(RpcRequest request, IServiceProvider? serviceProvider) :
         base(serviceProvider?.GetService<IWeb3>()
             ?? CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account))
@@ -25,6 +34,11 @@ public class ServiceManager : Web3Base, IServiceProvider
             .Build();
     }
 
+    /// <summary>
+    /// Gets the service of the specified type.
+    /// </summary>
+    /// <param name="serviceType">The type of the service to get.</param>
+    /// <returns>The service, or null if the service is not available.</returns>
     public object? GetService(Type serviceType)
     {
         return PrimaryServiceProvider?.GetService(serviceType)
