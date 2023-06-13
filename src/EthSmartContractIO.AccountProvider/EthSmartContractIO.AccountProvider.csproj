@@ -11,11 +11,24 @@
     <Product>EthSmartContractIO.AccountProvider</Product>
     <Title>A EthSmartContractIO module, offering account management features for Ethereum blockchains.</Title>
     <Description>A EthSmartContractIO module, offering account management features for Ethereum blockchains.</Description>
-    <RepositoryUrl>https://github.com/The-Poolz/RPCToolkit</RepositoryUrl>
+    <RepositoryUrl>https://github.com/The-Poolz/EthSmartContractIO</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://www.nuget.org/packages/EthSmartContractIO.AccountProvider</PackageProjectUrl>
     <PackageTags>Smart Contract, Ethereum, IO, Ethereum Account</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EthSmartContractIO\EthSmartContractIO.csproj" />
