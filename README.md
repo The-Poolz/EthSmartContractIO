@@ -1,4 +1,4 @@
-# SmartContractIO
+# EthSmartContractIO
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=The-Poolz_RPCToolkit)
 
