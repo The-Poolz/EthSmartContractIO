@@ -312,7 +312,7 @@ Assert.Equal("YourMockedResult", result);
 
 In this example, regardless of what `RpcRequest` you pass to `ExecuteAction`, it will always return the string `"YourMockedResult"`.
 
-### Creating an IWeb3 Moq Object
+### Creating an IWeb3 Moq Object for Write Requests
 
 Alternatively, you can mock the `IWeb3` object and pass it to `ContractIO` using the `ServiceProvider`.
 The `ServiceProviderBuilder` class provides an `AddWeb3` method for this purpose.
@@ -334,6 +334,35 @@ In this example, `ContractIO` will use your mocked `IWeb3` object, allowing you 
 
 By leveraging these strategies, you can create comprehensive unit tests for your code that interacts with the EthSmartContractIO library.
 This ensures the correct behavior of your Ethereum interactions.
+
+### Testing Read Requests using Flurl.Http.Testing
+
+When testing read requests, you might want to simulate the HTTP calls made by the application.
+For this purpose, you can use `Flurl.Http.Testing`, a library that provides testing utilities for HTTP calls made using `Flurl`.
+This library provides an `HttpTest` class that can be used to set up expectations for HTTP calls and provide predefined responses.
+
+Here's an example of how to use HttpTest for testing read requests:
+
+```csharp
+using Flurl.Http.Testing;
+
+// Setup expectations and response
+string rpcUrl = "http://your_rpc_url_here";
+string response = "{ your_json_rpc_response_here }";
+
+// Start an HttpTest
+using var httpTest = new HttpTest();
+httpTest
+    .ForCallsTo(RpcUrl)
+    .RespondWithJson(response);
+
+// Now when ContractIO executes a read request, it will receive your predefined response
+var contractIO = new ContractIO();
+var result = contractIO.ExecuteAction(readRequest);
+
+// You can assert the expected output based on your predefined response
+// This will vary based on the structure of your JSON RPC response
+```
 
 # EthSmartContractIO.AccountProvider
 
