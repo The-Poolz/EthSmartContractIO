@@ -30,7 +30,8 @@
     - [IServiceProvider](#iserviceprovider)
 - [Testing SmartContractIO](#testing-smartcontractio)
     - [Overriding ExecuteAction Method](#overriding-executeaction-method)
-    - [Creating an IWeb3 Moq Object](#creating-an-iweb3-moq-object)
+    - [Creating an IWeb3 Moq Object for Write Requests](#creating-an-iweb3-moq-object-for-write-requests)
+    - [Testing Read Requests using Flurl.Http.Testing](#testing-read-requests-using-flurlhttptesting)
 
 ## Navigation of [EthSmartContractIO.AccountProvider](#ethsmartcontractioaccountprovider)
 
