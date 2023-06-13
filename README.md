@@ -352,6 +352,9 @@ Install-Package EthSmartContractIO.AccountProvider
 
 ## Account Providers
 
+The package provides different classes for account management.
+These classes implement the `IAccountProvider` interface, providing flexibility and support for different Ethereum account types.
+
 ### MnemonicAccountProvider
 
 `MnemonicAccountProvider` is a class that generates an Ethereum account using a mnemonic (a list of words) that represents a wallet's private key.
