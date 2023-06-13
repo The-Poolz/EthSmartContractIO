@@ -263,7 +263,7 @@ public interface ITransactionSender
 
 ### IServiceProvider
 
-To use your custom implementations, you need to provide an `IServiceProvider` instance to the `ContractRpc` class that contains your implementations.
+To use your custom implementations, you need to provide an `IServiceProvider` instance to the `ContractIO` class that contains your implementations.
 You can use the `ServiceProviderBuilder` class from the `EthSmartContractIO.Builders` namespace to create an `IServiceProvider` object.
 
 Here is a sample usage of `ServiceProviderBuilder`:
@@ -277,7 +277,7 @@ var serviceProvider = new ServiceProviderBuilder()
     .Build();
 
 // Create a ContractRpc instance and inject your custom implementations
-var contractRpc = new ContractRpc(serviceProvider)
+var contractIO = new ContractIO(serviceProvider)
 ```
 
 In the example above, `MyCustomGasPricer`, `MyCustomTransactionSigner`, and `MyCustomTransactionSender` are your custom implementations of the `IGasPricer`, `ITransactionSigner`, and `ITransactionSender` interfaces, respectively.
