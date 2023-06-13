@@ -6,6 +6,8 @@
 [![SonarScanner for .NET 6](https://github.com/The-Poolz/RPCToolkit/actions/workflows/dotnet.yml/badge.svg)](https://github.com/The-Poolz/RPCToolkit/actions/workflows/dotnet.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/the-poolz/ethsmartcontractio/badge)](https://www.codefactor.io/repository/github/the-poolz/ethsmartcontractio)
 
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/The-Poolz/EthSmartContractIO/blob/master/LICENSE)
+
 `EthSmartContractIO` is a .NET library aimed at simplifying the interaction with Ethereum smart contracts. It allows developers to execute actions on the Ethereum network by wrapping the complexity of Ethereum RPC calls into a more manageable, high-level API.
 
 ## Navigation of [EthSmartContractIO](#ethsmartcontractio)
