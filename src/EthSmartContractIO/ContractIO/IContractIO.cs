@@ -2,5 +2,5 @@
 
 public interface IContractIO
 {
-    string RunContractAction();
+    public string RunContractAction();
 }
