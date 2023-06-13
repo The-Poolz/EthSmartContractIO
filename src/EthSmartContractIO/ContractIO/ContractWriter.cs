@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EthSmartContractIO.ContractIO;
 
-public class ContractRpcWriter : IContractIO
+public class ContractWriter : IContractIO
 {
     private readonly RpcRequest request;
     private readonly IServiceProvider serviceProvider;
@@ -16,7 +16,7 @@ public class ContractRpcWriter : IContractIO
     private ITransactionSender TransactionSender =>
         serviceProvider.GetRequiredService<ITransactionSender>();
 
-    public ContractRpcWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
+    public ContractWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
     {
         this.serviceProvider = new ServiceManager(request, serviceProvider);
         this.request = request;

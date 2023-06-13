@@ -44,7 +44,7 @@ public class ContractRpcTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
 
-        var result = new ContractRpc().ExecuteAction(readRequest);
+        var result = new ContractIO().ExecuteAction(readRequest);
 
         Assert.NotNull(result);
         Assert.Equal(response["result"]?.ToString(), result);
@@ -68,7 +68,7 @@ public class ContractRpcTests
             .AddTransactionSender(mockTransactionSender.Object)
             .Build();
 
-        var result = new ContractRpc(serviceProvider).ExecuteAction(writeRequest);
+        var result = new ContractIO(serviceProvider).ExecuteAction(writeRequest);
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
@@ -81,7 +81,7 @@ public class ContractRpcTests
             .AddWeb3(MockWeb3.GetMock)
         .Build();
 
-        var result = new ContractRpc(serviceProvider).ExecuteAction(writeRequest);
+        var result = new ContractIO(serviceProvider).ExecuteAction(writeRequest);
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);

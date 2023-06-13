@@ -4,11 +4,11 @@ using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO;
 
-public class ContractRpcReader : IContractIO
+public class ContractReader : IContractIO
 {
     private readonly RpcRequest request;
 
-    public ContractRpcReader(RpcRequest request)
+    public ContractReader(RpcRequest request)
     {
         this.request = request;
     }
