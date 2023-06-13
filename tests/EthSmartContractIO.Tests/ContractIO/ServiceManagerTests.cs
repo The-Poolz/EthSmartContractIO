@@ -22,11 +22,8 @@ public class ServiceManagerTests
             )
         );
 
-        var expectedServiceManager = new ServiceManager(request, null);
+        var result = new ServiceManager(request, null).GetService<IWeb3>();
 
-        var result = expectedServiceManager.GetService<IWeb3>();
-
-        Assert.NotNull(expectedServiceManager);
         Assert.NotNull(result);
         Assert.IsType<Web3>(result);
     }

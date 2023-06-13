@@ -4,5 +4,5 @@ namespace EthSmartContractIO.Providers;
 
 public interface IAccountProvider
 {
-    Account Account { get; }
+    public Account Account { get; }
 }

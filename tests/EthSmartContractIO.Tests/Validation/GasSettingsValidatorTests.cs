@@ -10,7 +10,7 @@ public class GasSettingsValidatorTests
     private readonly GasSettingsValidator validator = new();
 
     [Fact]
-    public void ShouldHaveError_WhenMaxGasLimitIsDefault()
+    internal void ShouldHaveError_WhenMaxGasLimitIsDefault()
     {
         var gasSettings = new GasSettings(default, 50);
 
@@ -20,7 +20,7 @@ public class GasSettingsValidatorTests
     }
 
     [Fact]
-    public void ShouldHaveError_WhenMaxGweiGasPriceIsDefault()
+    internal void ShouldHaveError_WhenMaxGweiGasPriceIsDefault()
     {
         var gasSettings = new GasSettings(21000, default);
 
@@ -30,7 +30,7 @@ public class GasSettingsValidatorTests
     }
 
     [Fact]
-    public void ShouldNotHaveError_WhenMaxGasLimitIsNotDefault()
+    internal void ShouldNotHaveError_WhenMaxGasLimitIsNotDefault()
     {
         var gasSettings = new GasSettings(21000, 50);
 
