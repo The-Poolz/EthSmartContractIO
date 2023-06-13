@@ -49,12 +49,12 @@ To use `EthSmartContractIO`, you will need to add it as a dependency to your pro
 You can do this by adding it as a NuGet package:
 
 .NET CLI
-```
+```powershell
 dotnet add package EthSmartContractIO
 ```
 
 Package Manager
-```
+```powershell
 Install-Package EthSmartContractIO
 ```
 
@@ -344,12 +344,12 @@ To use `EthSmartContractIO.AccountProvider`, you will need to add it as a depend
 You can do this by adding it as a NuGet package:
 
 .NET CLI
-```
+```powershell
 dotnet add package EthSmartContractIO.AccountProvider
 ```
 
 Package Manager
-```
+```powershell
 Install-Package EthSmartContractIO.AccountProvider
 ```
 
@@ -439,12 +439,12 @@ To use `EthSmartContractIO.SecretsProvider`, you will need to add it as a depend
 You can do this by adding it as a NuGet package:
 
 .NET CLI
-```
+```powershell
 dotnet add package EthSmartContractIO.SecretsProvider
 ```
 
 Package Manager
-```
+```powershell
 Install-Package EthSmartContractIO.SecretsProvider
 ```
 
