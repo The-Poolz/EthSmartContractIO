@@ -8,7 +8,7 @@
 
 `EthSmartContractIO` is a .NET library aimed at simplifying the interaction with Ethereum smart contracts. It allows developers to execute actions on the Ethereum network by wrapping the complexity of Ethereum RPC calls into a more manageable, high-level API.
 
-## Navigation
+## Navigation of [EthSmartContractIO](#ethsmartcontractio)
 
 - [Getting Started](#getting-started)
 - [Core Components](#core-components)
@@ -29,7 +29,13 @@
 - [Testing SmartContractIO](#testing-smartcontractio)
     - [Overriding ExecuteAction Method](#overriding-executeaction-method)
     - [Creating an IWeb3 Moq Object](#creating-an-iweb3-moq-object)
-- [More Information](#more-information)
+
+## Navigation of [EthSmartContractIO.AccountProvider](#ethsmartcontractioaccountprovider)
+
+- [Getting Started](#getting-started)
+- [Account Providers](#account-providers)
+    - [MnemonicAccountProvider](#mnemonicaccountprovider)
+    - [PrivateKeyAccountProvider](#privatekeyaccountprovider)
 
 ## Getting Started
 
