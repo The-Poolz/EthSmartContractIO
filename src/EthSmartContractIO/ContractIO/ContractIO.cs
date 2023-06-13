@@ -2,11 +2,11 @@
 
 namespace EthSmartContractIO.ContractIO;
 
-public class ContractRpc
+public class ContractIO
 {
     private readonly IServiceProvider? serviceProvider;
 
-    public ContractRpc(IServiceProvider? serviceProvider = null)
+    public ContractIO(IServiceProvider? serviceProvider = null)
     {
         this.serviceProvider = serviceProvider;
     }
@@ -16,8 +16,8 @@ public class ContractRpc
 
     private IContractIO GetContractIO(RpcRequest request) =>
         request.ActionIsRead ?
-        new ContractRpcReader(request) :
-        new ContractRpcWriter(
+        new ContractReader(request) :
+        new ContractWriter(
             request: request,
             serviceProvider: serviceProvider
         );

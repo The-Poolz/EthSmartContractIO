@@ -29,7 +29,7 @@ public class ContractRpcWriterTests
         var serviceProvider = new ServiceProviderBuilder()
             .AddWeb3(MockWeb3.GetMock)
             .Build();
-        var contractRpcWriter = new ContractRpcWriter(request, serviceProvider);
+        var contractRpcWriter = new ContractWriter(request, serviceProvider);
 
         var result = contractRpcWriter.RunContractAction();
 
