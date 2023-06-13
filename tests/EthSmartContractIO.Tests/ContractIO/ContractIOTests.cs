@@ -12,7 +12,7 @@ using EthSmartContractIO.Transaction;
 
 namespace EthSmartContractIO.ContractIO.Tests;
 
-public class ContractRpcTests
+public class ContractIOTests
 {
     private const string RpcUrl = "http://localhost:8545/";
     private readonly RpcRequest readRequest = new (
@@ -79,7 +79,7 @@ public class ContractRpcTests
     {
         var serviceProvider = new ServiceProviderBuilder()
             .AddWeb3(MockWeb3.GetMock)
-        .Build();
+            .Build();
 
         var result = new ContractIO(serviceProvider).ExecuteAction(writeRequest);
 

@@ -5,7 +5,7 @@ using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO.Tests;
 
-public class ContractRpcReaderTests
+public class ContractReaderTests
 {
     private const string RpcUrl = "http://localhost:8545/";
     private readonly JObject response = new()

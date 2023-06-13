@@ -13,7 +13,7 @@ public class GasLimitCheckerTests
     private readonly GasPriceCheckerValidator validator = new();
 
     [Fact]
-    public void GasPriceWithinLimit_NoValidationErrors()
+    internal void GasPriceWithinLimit_NoValidationErrors()
     {
         var gasSettings = new GasSettings(30000, 6);
         var transactionInput = new TransactionInput
@@ -30,7 +30,7 @@ public class GasLimitCheckerTests
     }
 
     [Fact]
-    public void GasPriceExceedsLimit_ValidationErrors()
+    internal void GasPriceExceedsLimit_ValidationErrors()
     {
         var gasSettings = new GasSettings(30000, 6);
         var transactionInput = new TransactionInput

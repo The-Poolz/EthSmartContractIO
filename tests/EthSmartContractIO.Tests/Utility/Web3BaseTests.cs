@@ -10,7 +10,7 @@ public class Web3BaseTests
     internal void CreateWeb3()
     {
         string rpcConnection = "http://localhost:8545/";
-        Account account = new("0x1");
+        Account account = new("0xprivateKey");
 
         var web3 = Web3Base.CreateWeb3(rpcConnection, account);
 

@@ -1,6 +1,6 @@
-﻿using Nethereum.Hex.HexTypes;
+﻿using System.Numerics;
+using Nethereum.Hex.HexTypes;
 using EthSmartContractIO.Providers;
-using System.Numerics;
 
 namespace EthSmartContractIO.Models;
 

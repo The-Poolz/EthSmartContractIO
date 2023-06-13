@@ -6,11 +6,11 @@ using EthSmartContractIO.Tests.Mocks;
 
 namespace EthSmartContractIO.ContractIO.Tests;
 
-public class ContractRpcWriterTests
+public class ContractWriterTests
 {
     private readonly RpcRequest request;
 
-    public ContractRpcWriterTests()
+    public ContractWriterTests()
     {
         request = new RpcRequest(
             rpcUrl: "http://localhost:8545/",
@@ -29,9 +29,8 @@ public class ContractRpcWriterTests
         var serviceProvider = new ServiceProviderBuilder()
             .AddWeb3(MockWeb3.GetMock)
             .Build();
-        var contractRpcWriter = new ContractWriter(request, serviceProvider);
 
-        var result = contractRpcWriter.RunContractAction();
+        var result = new ContractWriter(request, serviceProvider).RunContractAction();
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
