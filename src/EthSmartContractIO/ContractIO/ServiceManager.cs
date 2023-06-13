@@ -16,8 +16,8 @@ public class ServiceManager : Web3Base, IServiceProvider
         base(serviceProvider?.GetService<IWeb3>()
             ?? CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account))
     {
-        PrimaryServiceProvider  = serviceProvider;
-        BackupServiceProvider  = new ServiceProviderBuilder()
+        PrimaryServiceProvider = serviceProvider;
+        BackupServiceProvider = new ServiceProviderBuilder()
             .AddWeb3(web3)
             .AddGasPricer(new GasPricer(web3))
             .AddTransactionSigner(new TransactionSigner(web3))
