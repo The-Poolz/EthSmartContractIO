@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,7 +8,7 @@
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <PackageId>EthSmartContractIO</PackageId>
     <Title>A tool designed to read and write data in Smart-Contract.</Title>
-    <Version>0.9.0</Version>
+    <Version>1.0.0</Version>
     <Authors>Lomet, ArdenHide</Authors>
     <Company>The-Poolz</Company>
     <Product>EthSmartContractIO</Product>
