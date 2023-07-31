@@ -8,6 +8,8 @@
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/The-Poolz/EthSmartContractIO/blob/master/LICENSE)
 
+[**The Arcadia Group**](https://arcadia.agency) [security audit](https://docs.google.com/document/d/12RwLjyeWYaGbRJXcwcsyfAf7LxSl8yPXQ2FVYwFB8pk)
+
 `EthSmartContractIO` is a .NET library aimed at simplifying the interaction with Ethereum smart contracts. It allows developers to execute actions on the Ethereum network by wrapping the complexity of Ethereum RPC calls into a more manageable, high-level API.
 
 ## Navigation of [EthSmartContractIO](#ethsmartcontractio)
