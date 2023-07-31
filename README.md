@@ -6,6 +6,7 @@
 [![SonarScanner for .NET 6](https://github.com/The-Poolz/RPCToolkit/actions/workflows/dotnet.yml/badge.svg)](https://github.com/The-Poolz/RPCToolkit/actions/workflows/dotnet.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/the-poolz/ethsmartcontractio/badge)](https://www.codefactor.io/repository/github/the-poolz/ethsmartcontractio)
 
+[![NuGet version](https://badge.fury.io/nu/EthSmartContractIO.svg)](https://badge.fury.io/nu/EthSmartContractIO)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/The-Poolz/EthSmartContractIO/blob/master/LICENSE)
 
 [**The Arcadia Group**](https://arcadia.agency) [security audit](https://docs.google.com/document/d/12RwLjyeWYaGbRJXcwcsyfAf7LxSl8yPXQ2FVYwFB8pk)
