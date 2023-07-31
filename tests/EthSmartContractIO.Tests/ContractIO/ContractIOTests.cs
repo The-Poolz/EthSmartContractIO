@@ -86,4 +86,16 @@ public class ContractIOTests
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
     }
+
+    [Fact]
+    internal void GetMethodHash_TransferSignature_ExpectedHash()
+    {
+        const string methodSignature = "Transfer(address,address,uint256)";
+
+        const string transferSignature = "ddf252ad";
+
+        var actualValue = ContractIO.GetMethodHash(methodSignature);
+
+        Assert.Equal(transferSignature, actualValue);
+    }
 }
