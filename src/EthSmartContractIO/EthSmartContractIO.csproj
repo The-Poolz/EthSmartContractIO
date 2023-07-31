@@ -19,6 +19,10 @@
     <PackageTags>Smart Contract, Ethereum, IO</PackageTags>
     <PackageProjectUrl>https://www.nuget.org/packages/EthSmartContractIO</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes>- Security audit by company 'The Arcadia Group'
+- Updated 'Newtonsoft.Json' to 13.0.3
+- One constructor of 'RpcRequest' instead of two constructors
+- Added 'GetMethodHash' function in 'ContractIO' class</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
