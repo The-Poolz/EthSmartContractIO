@@ -9,8 +9,6 @@ using EthSmartContractIO.Models;
 using EthSmartContractIO.Builders;
 using EthSmartContractIO.Tests.Mocks;
 using EthSmartContractIO.Transaction;
-using Nethereum.Util;
-using NBitcoin;
 
 namespace EthSmartContractIO.ContractIO.Tests;
 
