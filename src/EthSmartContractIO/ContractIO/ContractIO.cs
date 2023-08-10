@@ -13,8 +13,15 @@ public class ContractIO
     /// <summary>
     /// Initializes a new instance of the <see cref="ContractIO"/> class.
     /// </summary>
+    public ContractIO()
+        : this(null)
+    { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContractIO"/> class.
+    /// </summary>
     /// <param name="serviceProvider">The service provider to use. If null, a new one will be created. Used only for write request.</param>
-    public ContractIO(IServiceProvider? serviceProvider = null)
+    public ContractIO(IServiceProvider? serviceProvider)
     {
         this.serviceProvider = serviceProvider;
     }
