@@ -15,7 +15,8 @@ public class ContractReader : IContractIO
     /// Initializes a new instance of the <see cref="ContractReader"/> class.
     /// </summary>
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
-    public ContractReader(RpcRequest request)
+    /// <param name="serviceProvider">not implemented</param>
+    public ContractReader(RpcRequest request, IServiceProvider? serviceProvider = null)
     {
         this.request = request;
     }

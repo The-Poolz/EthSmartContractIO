@@ -10,10 +10,7 @@ namespace EthSmartContractIO.Models;
 public class RpcRequest
 {
     public bool ActionIsRead => WriteRequest == null;
-    public IContractIO CreateContractIO(IServiceProvider? serviceProvider) =>
-        ActionIsRead ?
-        new ContractReader(this) :
-        new ContractWriter(this, serviceProvider);
+    public Type CreateContractIO => ActionIsRead ? typeof(ContractReader) : typeof(ContractWriter);
     public string RpcUrl { get; }
     public string To { get; }
     public string Data { get; }
