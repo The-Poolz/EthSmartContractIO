@@ -28,12 +28,14 @@ public class ContractReader : IContractIO
         PostRequest().TryGetValue(resultName, out var result)
             ? result.ToString()
             : throw new KeyNotFoundException("Response does not contain the key 'result'.");
+
     /// <summary>
     /// Creates the input for the read action.
     /// </summary>
     /// <returns>The created <see cref="ReadRpcRequest"/>.</returns>
     private ReadRpcRequest CreateActionInput =>
         new(request.To, request.Data);
+
     /// <summary>
     /// Sends the HTTP request to the Ethereum network.
     /// </summary>
