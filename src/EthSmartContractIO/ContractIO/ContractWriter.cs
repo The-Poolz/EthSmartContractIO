@@ -25,8 +25,8 @@ public class ContractWriter : IContractIO
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     public ContractWriter(RpcRequest request) 
     {
-        this.request = request;
         serviceManager = new ServiceManager(request);
+        this.request = request;
     }
 
     public ContractWriter SetServiceProvider(IServiceProvider? serviceProvider)
