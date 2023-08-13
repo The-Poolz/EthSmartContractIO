@@ -45,8 +45,5 @@ public class ContractIO
     private IContractIO GetContractIO(RpcRequest request) =>
         request.ActionIsRead ?
         new ContractReader(request) :
-        new ContractWriter(
-            request: request,
-            serviceProvider: serviceProvider
-        );
+        new ContractWriter(request).SetServiceProvider(serviceProvider);
 }

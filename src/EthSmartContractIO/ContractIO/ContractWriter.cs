@@ -11,7 +11,7 @@ namespace EthSmartContractIO.ContractIO;
 public class ContractWriter : IContractIO
 {
     private readonly RpcRequest request;
-    private readonly IServiceProvider serviceProvider;
+    private IServiceProvider serviceProvider;
     private IGasPricer GasPricer =>
         serviceProvider.GetRequiredService<IGasPricer>();
     private ITransactionSigner TransactionSigner =>
@@ -24,10 +24,17 @@ public class ContractWriter : IContractIO
     /// </summary>
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     /// <param name="serviceProvider">The service provider to use. If null, a new one will be created.</param>
-    public ContractWriter(RpcRequest request, IServiceProvider? serviceProvider = null) 
+    public ContractWriter(RpcRequest request) 
     {
-        this.serviceProvider = new ServiceManager(request, serviceProvider);
+        serviceProvider = new ServiceManager(request, null);
         this.request = request;
+    }
+
+    public ContractWriter SetServiceProvider(IServiceProvider? serviceProvider)
+    {
+        if (serviceProvider != null)
+            this.serviceProvider = new ServiceManager(request, serviceProvider);
+        return this;
     }
 
     /// <summary>

@@ -30,7 +30,7 @@ public class ContractWriterTests
             .AddWeb3(MockWeb3.GetMock)
             .Build();
 
-        var result = new ContractWriter(request, serviceProvider).RunContractAction();
+        var result = new ContractWriter(request).SetServiceProvider(serviceProvider).RunContractAction();
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
