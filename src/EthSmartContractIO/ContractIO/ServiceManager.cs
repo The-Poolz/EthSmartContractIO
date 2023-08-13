@@ -13,8 +13,8 @@ namespace EthSmartContractIO.ContractIO;
 /// </summary>
 public class ServiceManager : Web3Base, IServiceProvider
 {
-    private IServiceProvider? primaryServiceProvider;
-    private IServiceProvider backupServiceProvider => new ServiceProviderBuilder()
+    private readonly IServiceProvider? primaryServiceProvider;
+    private IServiceProvider BackupServiceProvider => new ServiceProviderBuilder()
             .AddWeb3(web3)
             .AddGasPricer(new GasPricer(web3))
             .AddTransactionSigner(new TransactionSigner(web3))
@@ -44,5 +44,5 @@ public class ServiceManager : Web3Base, IServiceProvider
     /// <returns>The service, or null if the service is not available.</returns>
     public object? GetService(Type serviceType) =>
          primaryServiceProvider?.GetService(serviceType)
-            ?? backupServiceProvider.GetRequiredService(serviceType);
+            ?? BackupServiceProvider.GetRequiredService(serviceType);
 }
