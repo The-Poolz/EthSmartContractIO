@@ -27,6 +27,6 @@ public class ContractIO
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     /// <returns>The result of the action.</returns>
     public virtual string ExecuteAction(RpcRequest request) =>
-         ((IContractIO)Activator.CreateInstance(request.CreateContractIO, request, serviceProvider))
+         (Activator.CreateInstance(request.CreateContractIO, request, serviceProvider) as IContractIO)!
         .RunContractAction();
 }
