@@ -17,11 +17,11 @@ public class ContractReader : IContractIO
     /// Initializes a new instance of the <see cref="ContractReader"/> class.
     /// </summary>
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
-    /// <param name="objects">not implemented</param>
     public ContractReader(RpcRequest request)
     {
         this.request = request;
     }
+
     /// <summary>
     /// Executes a read action on the Ethereum network.
     /// </summary>
