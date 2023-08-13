@@ -51,7 +51,7 @@ public class ContractReaderTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(errorResponse);
 
-        Action testCode = () => new ContractReader(request).RunContractAction();
+        void testCode() => new ContractReader(request).RunContractAction();
 
         var exception = Assert.Throws<KeyNotFoundException>(testCode);
         Assert.Equal("Response does not contain the key 'result'.", exception.Message);

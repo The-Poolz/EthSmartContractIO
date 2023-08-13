@@ -16,7 +16,9 @@ public class ContractReader : IContractIO
     /// </summary>
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     /// <param name="serviceProvider">not implemented</param>
+#pragma warning disable IDE0060 // Remove unused parameter
     public ContractReader(RpcRequest request, IServiceProvider? serviceProvider = null)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         this.request = request;
     }
