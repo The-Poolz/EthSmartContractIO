@@ -11,7 +11,7 @@ public class ContractReader : IContractIO
 {
     private readonly RpcRequest request;
 #pragma warning disable IDE0060 // Remove unused parameter
-    public ContractReader(RpcRequest request, IServiceProvider? serviceProvider = null) : this(request) { }
+    public ContractReader(RpcRequest request, IServiceProvider? serviceProvider) : this(request) { }
 #pragma warning restore IDE0060 // Remove unused parameter
     /// <summary>
     /// Initializes a new instance of the <see cref="ContractReader"/> class.
