@@ -33,4 +33,7 @@ public abstract class Web3Base
         var client = new RpcClient(new Uri(rpcConnection));
         return new Web3(account, client);
     }
+
+    public static IWeb3 CreateWeb3(Models.RpcRequest request) =>
+        CreateWeb3(request.RpcUrl, request.WriteRequest!.AccountProvider.Account);
 }
