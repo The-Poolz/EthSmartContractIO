@@ -29,7 +29,7 @@ public class ContractWriter : IContractIO
         this.request = request;
     }
 
-    public ContractWriter SetServiceProvider(IServiceProvider? serviceProvider)
+    public ContractWriter SetServiceProvider(IServiceProvider serviceProvider)
     {
         serviceManager = new ServiceManager(request, serviceProvider);
         return this;

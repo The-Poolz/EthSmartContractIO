@@ -35,7 +35,7 @@ public class ServiceManager : Web3Base, IServiceProvider
     /// </summary>
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     /// <param name="serviceProvider">The service provider to use. If null, a new one will be created.</param>
-    public ServiceManager(RpcRequest request, IServiceProvider? serviceProvider) :
+    public ServiceManager(RpcRequest request, IServiceProvider serviceProvider) :
         base(serviceProvider?.GetService<IWeb3>() ?? CreateWeb3(request)) =>
         primaryServiceProvider = serviceProvider;
 
