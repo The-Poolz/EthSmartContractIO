@@ -14,13 +14,15 @@ namespace EthSmartContractIO.ContractIO;
 public class ServiceManager : Web3Base, IServiceProvider
 {
     private readonly IServiceProvider? primaryServiceProvider;
-    private IServiceProvider BackupServiceProvider => new ServiceProviderBuilder()
-            .AddWeb3(web3)
-            .AddGasPricer(new GasPricer(web3))
-            .AddTransactionSigner(new TransactionSigner(web3))
-            .AddTransactionSender(new TransactionSender(web3))
-            .Build();
-
+    private IServiceProvider? _backupServiceProvider;
+    private IServiceProvider BackupServiceProvider =>
+             _backupServiceProvider ??= new ServiceProviderBuilder()
+                    .AddWeb3(web3)
+                    .AddGasPricer(new GasPricer(web3))
+                    .AddTransactionSigner(new TransactionSigner(web3))
+                    .AddTransactionSender(new TransactionSender(web3))
+                    .Build();
+   
     /// <summary>
     /// Initializes a new instance of the <see cref="ServiceManager"/> class. with default ServiceProvider
     /// </summary>
