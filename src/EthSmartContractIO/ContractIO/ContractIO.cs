@@ -1,4 +1,5 @@
-﻿using EthSmartContractIO.Models;
+﻿
+using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO;
 
@@ -27,7 +28,5 @@ public class ContractIO
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     /// <returns>The result of the action.</returns>
     public virtual string ExecuteAction(RpcRequest request) =>
-    (request.ActionIsRead ?
-        (IContractIO)new ContractReader(request) :
-        new ContractWriter(request, serviceProvider)).RunContractAction();
+        request.CreateContractIO(serviceProvider).RunContractAction();
 }

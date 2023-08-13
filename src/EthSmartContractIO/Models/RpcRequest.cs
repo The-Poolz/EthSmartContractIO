@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using EthSmartContractIO.Models.Validation;
+using EthSmartContractIO.ContractIO;
 
 namespace EthSmartContractIO.Models;
 
@@ -9,6 +10,10 @@ namespace EthSmartContractIO.Models;
 public class RpcRequest
 {
     public bool ActionIsRead => WriteRequest == null;
+    public IContractIO CreateContractIO(IServiceProvider? serviceProvider) =>
+        ActionIsRead ?
+        new ContractReader(this) :
+        new ContractWriter(this, serviceProvider);
     public string RpcUrl { get; }
     public string To { get; }
     public string Data { get; }
