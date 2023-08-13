@@ -9,6 +9,7 @@ namespace EthSmartContractIO.ContractIO;
 /// </summary>
 public class ContractReader : IContractIO
 {
+    private const string resultName = "result";
     private readonly RpcRequest request;
 
     /// <summary>
@@ -23,7 +24,10 @@ public class ContractReader : IContractIO
     /// <returns>The result of the action.</returns>
     /// <exception cref="FlurlHttpException">Thrown when the HTTP request fails.</exception>
     /// <exception cref="KeyNotFoundException">Thrown when the response does not contain the key 'result'.</exception>
-    public virtual string RunContractAction() => ExtractResultFromResponse(Task.Run(() => PostRequestAsync()).Result);
+    public virtual string RunContractAction() =>
+        PostRequest().TryGetValue(resultName, out var result)
+            ? result.ToString()
+            : throw new KeyNotFoundException("Response does not contain the key 'result'.");
     /// <summary>
     /// Creates the input for the read action.
     /// </summary>
@@ -34,14 +38,6 @@ public class ContractReader : IContractIO
     /// Sends the HTTP request to the Ethereum network.
     /// </summary>
     /// <returns></returns>
-    private async Task<JObject> PostRequestAsync() =>
-         await request.RpcUrl.PostJsonAsync(CreateActionInput).ReceiveJson<JObject>();
-    /// <summary>
-    /// Parses the response from the Ethereum network.
-    /// </summary>
-    /// <param name="response">The response to parse.</param>
-    /// <returns>The parsed response.</returns>
-    /// <exception cref="KeyNotFoundException">Thrown when the response does not contain the key 'result'.</exception>
-    private static string ExtractResultFromResponse(JObject response) =>
-        response["result"]?.ToString() ?? throw new KeyNotFoundException("Response does not contain the key 'result'.");
+    private JObject PostRequest() =>
+        Task.Run(() => request.RpcUrl.PostJsonAsync(CreateActionInput).ReceiveJson<JObject>()).Result;
 }
