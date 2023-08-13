@@ -10,19 +10,18 @@ namespace EthSmartContractIO.ContractIO;
 public class ContractReader : IContractIO
 {
     private readonly RpcRequest request;
-
+#pragma warning disable IDE0060 // Remove unused parameter
+    public ContractReader(RpcRequest request, IServiceProvider? serviceProvider = null) : this(request) { }
+#pragma warning restore IDE0060 // Remove unused parameter
     /// <summary>
     /// Initializes a new instance of the <see cref="ContractReader"/> class.
     /// </summary>
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
-    /// <param name="serviceProvider">not implemented</param>
-#pragma warning disable IDE0060 // Remove unused parameter
-    public ContractReader(RpcRequest request, IServiceProvider? serviceProvider = null)
-#pragma warning restore IDE0060 // Remove unused parameter
+    /// <param name="objects">not implemented</param>
+    public ContractReader(RpcRequest request)
     {
         this.request = request;
     }
-
     /// <summary>
     /// Executes a read action on the Ethereum network.
     /// </summary>
