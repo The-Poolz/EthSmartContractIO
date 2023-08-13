@@ -1,5 +1,4 @@
-﻿using Nethereum.Util;
-using EthSmartContractIO.Models;
+﻿using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO;
 
@@ -13,18 +12,14 @@ public class ContractIO
     /// <summary>
     /// Initializes a new instance of the <see cref="ContractIO"/> class.
     /// </summary>
-    public ContractIO()
-        : this(null)
-    { }
+    public ContractIO() : this(null) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ContractIO"/> class.
     /// </summary>
     /// <param name="serviceProvider">The service provider to use. If null, a new one will be created. Used only for write request.</param>
-    public ContractIO(IServiceProvider? serviceProvider)
-    {
+    public ContractIO(IServiceProvider? serviceProvider) =>
         this.serviceProvider = serviceProvider;
-    }
 
     /// <summary>
     /// Executes an action on the Ethereum network.
@@ -32,21 +27,7 @@ public class ContractIO
     /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
     /// <returns>The result of the action.</returns>
     public virtual string ExecuteAction(RpcRequest request) =>
-        GetContractIO(request).RunContractAction();
-
-    public static string GetMethodHash(string methodSignature) =>
-        Sha3Keccack.Current.CalculateHash(methodSignature)[..8];
-
-    /// <summary>
-    /// Gets the appropriate <see cref="IContractIO"/> instance for the given request.
-    /// </summary>
-    /// <param name="request">The <see cref="RpcRequest"/> to execute.</param>
-    /// <returns>An <see cref="IContractIO"/> instance.</returns>
-    private IContractIO GetContractIO(RpcRequest request) =>
-        request.ActionIsRead ?
-        new ContractReader(request) :
-        new ContractWriter(
-            request: request,
-            serviceProvider: serviceProvider
-        );
+    (request.ActionIsRead ?
+        (IContractIO)new ContractReader(request) :
+        new ContractWriter(request, serviceProvider)).RunContractAction();
 }
