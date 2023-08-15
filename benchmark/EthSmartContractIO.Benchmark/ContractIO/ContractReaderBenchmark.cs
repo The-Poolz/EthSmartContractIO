@@ -4,7 +4,10 @@ using EthSmartContractIO.Models;
 using BenchmarkDotNet.Attributes;
 
 namespace EthSmartContractIO.Benchmark.ContractIO;
+
 [Config(typeof(MyConfig))]
+[MemoryDiagnoser]
+[RankColumn]
 public class ContractReaderBenchmark
 {
     private const string RpcUrl = "http://localhost:8545/";
