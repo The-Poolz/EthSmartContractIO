@@ -4,7 +4,7 @@ using EthSmartContractIO.Models;
 using BenchmarkDotNet.Attributes;
 
 namespace EthSmartContractIO.Benchmark.ContractIO;
-
+[Config(typeof(MyConfig))]
 public class ContractReaderBenchmark
 {
     private const string RpcUrl = "http://localhost:8545/";
@@ -17,17 +17,6 @@ public class ContractReaderBenchmark
     };
 
     [Benchmark]
-    public string NewContractReader()
-    {
-        using var httpTest = new HttpTest();
-        httpTest
-            .ForCallsTo(RpcUrl)
-            .RespondWithJson(response);
-
-        return new NewContractReader(request).RunContractAction();
-    }
-
-    [Benchmark]
     public string OldContractReader()
     {
         using var httpTest = new HttpTest();
@@ -37,4 +26,15 @@ public class ContractReaderBenchmark
 
         return new OldContractReader(request).RunContractAction();
     }
-}
+
+    [Benchmark]
+    public string NewContractReader()
+    {
+        using var httpTest = new HttpTest();
+        httpTest
+            .ForCallsTo(RpcUrl)
+            .RespondWithJson(response);
+
+        return new NewContractReader(request).RunContractAction();
+    }
+ }

@@ -26,9 +26,9 @@ public class NewContractReader : IContractIO
     /// <exception cref="FlurlHttpException">Thrown when the HTTP request fails.</exception>
     /// <exception cref="KeyNotFoundException">Thrown when the response does not contain the key 'result'.</exception>
     public virtual string RunContractAction() =>
-        PostRequest().TryGetValue(resultName, out var result)
-            ? result.ToString()
-            : throw new KeyNotFoundException("Response does not contain the key 'result'.");
+        (PostRequest[resultName] ??
+        throw new KeyNotFoundException("Response does not contain the key 'result'.")).ToString();
+
 
     /// <summary>
     /// Creates the input for the read action.
@@ -41,6 +41,6 @@ public class NewContractReader : IContractIO
     /// Sends the HTTP request to the Ethereum network.
     /// </summary>
     /// <returns></returns>
-    private JObject PostRequest() =>
-        Task.Run(() => request.RpcUrl.PostJsonAsync(CreateActionInput).ReceiveJson<JObject>()).Result;
+    private JObject PostRequest =>  request.RpcUrl.PostJsonAsync(CreateActionInput)
+        .ReceiveJson<JObject>().GetAwaiter().GetResult();
 }
