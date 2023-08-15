@@ -19,7 +19,7 @@ public class ContractReaderBenchmark
     [Benchmark]
     public string NewContractReader()
     {
-        var httpTest = new HttpTest();
+        using var httpTest = new HttpTest();
         httpTest
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
@@ -30,7 +30,7 @@ public class ContractReaderBenchmark
     [Benchmark]
     public string OldContractReader()
     {
-        var httpTest = new HttpTest();
+        using var httpTest = new HttpTest();
         httpTest
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
