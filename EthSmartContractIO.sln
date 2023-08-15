@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.SecretsP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthSmartContractIO.AccountProvider.Tests", "tests\EthSmartContractIO.AccountProvider.Tests\EthSmartContractIO.AccountProvider.Tests.csproj", "{B1733887-0630-4980-87DF-0BB8AECF6E05}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmark", "benchmark", "{D817E6AA-52DD-4D71-A01E-2343041AD467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthSmartContractIO.Benchmark", "benchmark\EthSmartContractIO.Benchmark\EthSmartContractIO.Benchmark.csproj", "{5C5D8C8D-DE55-45D1-B160-69E911559D79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1733887-0630-4980-87DF-0BB8AECF6E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C5D8C8D-DE55-45D1-B160-69E911559D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C5D8C8D-DE55-45D1-B160-69E911559D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C5D8C8D-DE55-45D1-B160-69E911559D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5D8C8D-DE55-45D1-B160-69E911559D79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{F8BFEB0A-ED8A-49C6-AEF8-6AC6C1C852B9} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
 		{ED68706A-018E-451A-B79D-AD6EEB6D7176} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
 		{B1733887-0630-4980-87DF-0BB8AECF6E05} = {350C8CAB-6839-4D9A-ADB1-5A34C0618C50}
+		{5C5D8C8D-DE55-45D1-B160-69E911559D79} = {D817E6AA-52DD-4D71-A01E-2343041AD467}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD146413-3E44-4442-A2A3-F9139D4C8ACD}
