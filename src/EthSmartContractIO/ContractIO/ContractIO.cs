@@ -1,5 +1,11 @@
-﻿using Nethereum.Util;
+﻿using System.Numerics;
+using Nethereum.Util;
 using EthSmartContractIO.Models;
+using Nethereum.Contracts;
+using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Web3;
+using Nethereum.Contracts.ContractHandlers;
+using Nethereum.ABI.FunctionEncoding.Attributes;
 
 namespace EthSmartContractIO.ContractIO;
 
@@ -24,6 +30,22 @@ public class ContractIO
     public ContractIO(IServiceProvider? serviceProvider)
     {
         this.serviceProvider = serviceProvider;
+    }
+
+    public virtual TReturn ExecuteAction<TFunctionMessage, TReturn>(IWeb3 web3, string to, TFunctionMessage functionMessage)
+        where TFunctionMessage : FunctionMessage, new()
+    {
+        return web3.Eth.GetContractHandler(to)
+            .QueryAsync<TFunctionMessage, TReturn>(functionMessage)
+            .GetAwaiter()
+            .GetResult();
+    }
+
+    public virtual TReturn ExecuteAction<TFunctionMessage, TReturn>(string rpcUrl, string to, TFunctionMessage functionMessage)
+        where TFunctionMessage : FunctionMessage, new()
+
+    {
+        return ExecuteAction<TFunctionMessage, TReturn>(new Web3(rpcUrl), to, functionMessage);
     }
 
     /// <summary>
