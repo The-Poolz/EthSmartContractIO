@@ -1,11 +1,6 @@
-﻿using System.Numerics;
-using Nethereum.Util;
-using EthSmartContractIO.Models;
+﻿using Nethereum.Web3;
 using Nethereum.Contracts;
-using Nethereum.RPC.Eth.DTOs;
-using Nethereum.Web3;
-using Nethereum.Contracts.ContractHandlers;
-using Nethereum.ABI.FunctionEncoding.Attributes;
+using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO;
 
