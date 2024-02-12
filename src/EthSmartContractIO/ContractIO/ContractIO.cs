@@ -1,5 +1,4 @@
-﻿using Nethereum.Util;
-using EthSmartContractIO.Models;
+﻿using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO;
 
