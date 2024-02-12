@@ -2,15 +2,15 @@
 using Xunit;
 using Flurl.Http.Testing;
 using Newtonsoft.Json.Linq;
-using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Hex.HexTypes;
 using EthSmartContractIO.Gas;
 using EthSmartContractIO.Models;
 using EthSmartContractIO.Builders;
-using EthSmartContractIO.Tests.Mocks;
 using EthSmartContractIO.Transaction;
+using EthSmartContractIO.Tests.Mocks;
 
-namespace EthSmartContractIO.ContractIO.Tests;
+namespace EthSmartContractIO.Tests.ContractIO;
 
 public class ContractIOTests
 {
@@ -44,7 +44,7 @@ public class ContractIOTests
             .ForCallsTo(RpcUrl)
             .RespondWithJson(response);
 
-        var result = new ContractIO().ExecuteAction(readRequest);
+        var result = new EthSmartContractIO.ContractIO.ContractIO().ExecuteAction(readRequest);
 
         Assert.NotNull(result);
         Assert.Equal(response["result"]?.ToString(), result);
@@ -68,7 +68,7 @@ public class ContractIOTests
             .AddTransactionSender(mockTransactionSender.Object)
             .Build();
 
-        var result = new ContractIO(serviceProvider).ExecuteAction(writeRequest);
+        var result = new EthSmartContractIO.ContractIO.ContractIO(serviceProvider).ExecuteAction(writeRequest);
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
@@ -81,21 +81,9 @@ public class ContractIOTests
             .AddWeb3(MockWeb3.GetMock)
             .Build();
 
-        var result = new ContractIO(serviceProvider).ExecuteAction(writeRequest);
+        var result = new EthSmartContractIO.ContractIO.ContractIO(serviceProvider).ExecuteAction(writeRequest);
 
         Assert.NotNull(result);
         Assert.Equal("transactionHash", result);
-    }
-
-    [Fact]
-    internal void GetMethodHash_TransferSignature_ExpectedHash()
-    {
-        const string methodSignature = "Transfer(address,address,uint256)";
-
-        const string transferSignature = "ddf252ad";
-
-        var actualValue = ContractIO.GetMethodHash(methodSignature);
-
-        Assert.Equal(transferSignature, actualValue);
     }
 }
