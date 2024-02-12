@@ -1,4 +1,9 @@
-﻿using EthSmartContractIO.Models;
+﻿using Nethereum.Web3;
+using Nethereum.Contracts;
+using EthSmartContractIO.Models;
+using EthSmartContractIO.Builders;
+using EthSmartContractIO.Gas;
+using EthSmartContractIO.Transaction;
 
 namespace EthSmartContractIO.ContractIO;
 
@@ -23,6 +28,25 @@ public class ContractIO
     public ContractIO(IServiceProvider? serviceProvider)
     {
         this.serviceProvider = serviceProvider;
+    }
+
+    /// <summary>
+    /// Executes a block-chain action by sending a function message to a smart contract using a specified RPC URL to connect to the Ethereum network.
+    /// </summary>
+    /// <typeparam name="TFunctionMessage">The type of the function message to send to the smart contract. This type must inherit from <see cref="FunctionMessage"/>.</typeparam>
+    /// <typeparam name="TReturn">The return type expected from the smart contract function. This type will be deserialized from the return value of the contract function.</typeparam>
+    /// <param name="rpcUrl">The URL of the Ethereum RPC endpoint to use for network interaction.</param>
+    /// <param name="to">The Ethereum address of the smart contract with which the action will be executed.</param>
+    /// <param name="functionMessage">An instance of <typeparamref name="TFunctionMessage"/> containing the details of the function call to be sent to the smart contract.</param>
+    /// <returns>Returns an instance of <typeparamref name="TReturn"/> that contains the result of the smart contract function execution.</returns>
+    public virtual TReturn ExecuteAction<TFunctionMessage, TReturn>(string rpcUrl, string to, TFunctionMessage functionMessage)
+        where TFunctionMessage : FunctionMessage, new()
+    {
+        var web3 = (IWeb3?)serviceProvider?.GetService(typeof(IWeb3)) ?? new Web3(rpcUrl);
+        return web3.Eth.GetContractHandler(to)
+            .QueryAsync<TFunctionMessage, TReturn>(functionMessage)
+            .GetAwaiter()
+            .GetResult();
     }
 
     /// <summary>
