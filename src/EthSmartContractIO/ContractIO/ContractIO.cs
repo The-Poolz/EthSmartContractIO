@@ -1,5 +1,4 @@
-﻿using Nethereum.Util;
-using EthSmartContractIO.Models;
+﻿using EthSmartContractIO.Models;
 
 namespace EthSmartContractIO.ContractIO;
 
@@ -33,9 +32,6 @@ public class ContractIO
     /// <returns>The result of the action.</returns>
     public virtual string ExecuteAction(RpcRequest request) =>
         GetContractIO(request).RunContractAction();
-
-    public static string GetMethodHash(string methodSignature) =>
-        Sha3Keccack.Current.CalculateHash(methodSignature)[..8];
 
     /// <summary>
     /// Gets the appropriate <see cref="IContractIO"/> instance for the given request.
