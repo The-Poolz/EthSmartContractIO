@@ -43,7 +43,6 @@ public class ContractIO
 
     public virtual TReturn ExecuteAction<TFunctionMessage, TReturn>(string rpcUrl, string to, TFunctionMessage functionMessage)
         where TFunctionMessage : FunctionMessage, new()
-
     {
         return ExecuteAction<TFunctionMessage, TReturn>(new Web3(rpcUrl), to, functionMessage);
     }
