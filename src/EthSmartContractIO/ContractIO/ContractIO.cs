@@ -27,6 +27,15 @@ public class ContractIO
         this.serviceProvider = serviceProvider;
     }
 
+    /// <summary>
+    /// Executes a block-chain action by sending a function message to a smart contract using an Ethereum Web3 client.
+    /// </summary>
+    /// <typeparam name="TFunctionMessage">The type of the function message to send to the smart contract. This type must inherit from <see cref="FunctionMessage"/>.</typeparam>
+    /// <typeparam name="TReturn">The return type expected from the smart contract function. This type will be deserialized from the return value of the contract function.</typeparam>
+    /// <param name="web3">An instance of <see cref="IWeb3"/> used to interact with the Ethereum network.</param>
+    /// <param name="to">The Ethereum address of the smart contract with which the action will be executed.</param>
+    /// <param name="functionMessage">An instance of <typeparamref name="TFunctionMessage"/> containing the details of the function call to be sent to the smart contract.</param>
+    /// <returns>Returns an instance of <typeparamref name="TReturn"/> that contains the result of the smart contract function execution.</returns>
     public virtual TReturn ExecuteAction<TFunctionMessage, TReturn>(IWeb3 web3, string to, TFunctionMessage functionMessage)
         where TFunctionMessage : FunctionMessage, new()
     {
@@ -36,6 +45,15 @@ public class ContractIO
             .GetResult();
     }
 
+    /// <summary>
+    /// Executes a block-chain action by sending a function message to a smart contract using a specified RPC URL to connect to the Ethereum network.
+    /// </summary>
+    /// <typeparam name="TFunctionMessage">The type of the function message to send to the smart contract. This type must inherit from <see cref="FunctionMessage"/>.</typeparam>
+    /// <typeparam name="TReturn">The return type expected from the smart contract function. This type will be deserialized from the return value of the contract function.</typeparam>
+    /// <param name="rpcUrl">The URL of the Ethereum RPC endpoint to use for network interaction.</param>
+    /// <param name="to">The Ethereum address of the smart contract with which the action will be executed.</param>
+    /// <param name="functionMessage">An instance of <typeparamref name="TFunctionMessage"/> containing the details of the function call to be sent to the smart contract.</param>
+    /// <returns>Returns an instance of <typeparamref name="TReturn"/> that contains the result of the smart contract function execution.</returns>
     public virtual TReturn ExecuteAction<TFunctionMessage, TReturn>(string rpcUrl, string to, TFunctionMessage functionMessage)
         where TFunctionMessage : FunctionMessage, new()
     {
