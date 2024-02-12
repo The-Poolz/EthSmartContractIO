@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
-using EthSmartContractIO.Extensions;
-using Net.Web3.EthereumWallet;
 using Nethereum.Hex.HexTypes;
+using Net.Web3.EthereumWallet;
+using EthSmartContractIO.Extensions;
 
 namespace EthSmartContractIO.Builders;
 
@@ -9,9 +9,9 @@ public class DataBuilder
 {
     private string data;
 
-    public DataBuilder(string method)
+    public DataBuilder(string functionName)
     {
-        data = method.ToMethodSignature();
+        data = functionName.ToMethodSignature();
     }
 
     public DataBuilder WithBigInteger(BigInteger parameter)
