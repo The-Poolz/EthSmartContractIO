@@ -34,9 +34,6 @@ public class ContractIO
     public virtual string ExecuteAction(RpcRequest request) =>
         GetContractIO(request).RunContractAction();
 
-    public static string GetMethodHash(string methodSignature) =>
-        Sha3Keccack.Current.CalculateHash(methodSignature)[..8];
-
     /// <summary>
     /// Gets the appropriate <see cref="IContractIO"/> instance for the given request.
     /// </summary>
